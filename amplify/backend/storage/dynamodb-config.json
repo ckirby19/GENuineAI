@@ -1,0 +1,21 @@
+{
+  "tableName": "game-state-table",
+  "partitionKey": {
+    "name": "gameId",
+    "type": "S"
+  },
+  "sortKey": {
+    "name": "playerId",
+    "type": "S"
+  },
+  "gsi": [
+    {
+      "name": "ConnectionIndex",
+      "partitionKey": {
+        "name": "connectionId",
+        "type": "S"
+      }
+    }
+  ],
+  "triggerFunctions": []
+}

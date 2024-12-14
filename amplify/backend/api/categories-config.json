@@ -1,0 +1,32 @@
+{
+  "api": {
+    "gameapi": {
+      "service": "API Gateway",
+      "serviceName": "API Gateway",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "gameHandler",
+          "attributes": ["Name", "Arn"]
+        },
+        {
+          "category": "auth",
+          "resourceName": "gameappauth",
+          "attributes": ["UserPoolId"]
+        }
+      ],
+      "paths": {
+        "/game": {
+          "name": "/game",
+          "lambdaFunction": "gameHandler",
+          "auth": {
+            "type": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authgameappauth"
+            }
+          }
+        }
+      }
+    }
+  }
+}
