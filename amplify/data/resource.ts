@@ -1,5 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-
+import { ROUND_STATUSES, LOBBY_STATUSES } from "../../app/model";
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
 adding a new "isDone" field as a boolean. The authorization rule below
@@ -7,12 +7,56 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  Lobby: a
     .model({
-      content: a.string(),
+      code: a.string(),
+      hostId: a.string(),
+      status: a.enum(Object.values(LOBBY_STATUSES)),
+      currentRound: a.integer().default(0),
+      participants: a.hasMany('Participant', 'lobbyId'),
+      rounds: a.hasMany('Round', 'lobbyId')
     })
-    // .authorization((allow) => [allow.publicApiKey()]),
-    .authorization((allow) => [allow.owner()])
+    .authorization((allow) => [allow.publicApiKey()]),
+  Participant: a
+    .model({
+      userId: a.string(),
+      username: a.string(),
+      lobbyId: a.string(),
+      lobby: a.belongsTo('Lobby', 'lobbyId'),
+      isHost: a.boolean(),
+      score: a.integer().default(0),
+      answers: a.hasMany('Answer', 'participantId')
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Prompt: a
+    .model({
+      text: a.string(),
+      round: a.hasOne('Round', 'promptId'),
+      isActive: a.boolean().default(true)
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Round: a
+    .model({
+      lobbyId: a.string(),
+      lobby: a.belongsTo('Lobby', 'lobbyId'),
+      promptId: a.string(),
+      prompt: a.belongsTo('Prompt', 'promptId'),
+      roundNumber: a.integer(),
+      status: a.enum(Object.values(ROUND_STATUSES)),
+      answers: a.hasMany('Answer', 'roundId')
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Answer: a
+    .model({
+      roundId: a.string(),
+      round: a.belongsTo('Round', 'roundId'),
+      participantId: a.string(),
+      participant: a.belongsTo('Participant', 'participantId'),
+      text: a.string(),
+      votes: a.integer().default(0)
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -20,8 +64,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    // defaultAuthorizationMode: "apiKey",
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: "apiKey",
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
