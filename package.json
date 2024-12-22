@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "seed": "node --loader ts-node/esm scripts/seed-prompts.mts",
-    "postdeploy": "npm run seed"
+    "lint": "next lint"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.5.5",
