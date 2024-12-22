@@ -5,13 +5,6 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import "./../app/app.css";
 import { GAME_STATUSES, numberOfRounds, ROUND_STATUSES, samplePrompts } from "./model";
-import { HomePage } from "./components/HomePage";
-import { LobbyCreation } from "./components/LobbyCreation";
-import { WaitingRoom } from "./components/WaitingRoom";
-import { ScoresInfo } from "./components/ScoresInfo";
-import { AnswerEntryPage } from "./components/AnswerEntryPage";
-import { VotingPage } from "./components/VotingPage";
-import { GameEnd } from "./components/GameEnd";
 import { MainPage } from "./components/MainPage";
 
 const client = generateClient<Schema>();
@@ -214,88 +207,4 @@ export default function App() {
       leaveLobby={leaveLobby}
     />
   )
-
-  // if (!isNameEntered) {
-  //   return (
-  //     <HomePage 
-  //       username={username}
-  //       setUsername={setUsername}
-  //       isNameEntered={isNameEntered}
-  //       setIsNameEntered={setIsNameEntered}  
-  //     />
-  //   )
-  // } 
-  // if (!currentLobby) {
-  //   return (
-  //     <LobbyCreation
-  //       username={username}
-  //       setIsNameEntered={setIsNameEntered}
-  //       lobbyCode={lobbyCode}
-  //       setLobbyCode={setLobbyCode}
-  //       currentLobby={currentLobby}
-  //       setCurrentLobby={setCurrentLobby}
-  //     />
-  //   );
-  // }
-
-  // // Lobby has been created, now waiting for for host to start game
-  // if (currentLobby.status === GAME_STATUSES.WAITING){
-  //   console.log("Waiting for host to start game", participants)
-  //   return (
-  //     <WaitingRoom 
-  //       username={username}
-  //       participants={participants}
-  //       currentLobby={currentLobby}
-  //       isHost={isHost}
-  //       startGame={startGame}
-  //     />
-  //   )
-  // }
-
-  // // The host has started the game, we now begin the game
-  // if (currentLobby.status === GAME_STATUSES.STARTED){
-  //   return (
-  //     <main className="mobile-friendly">
-  //       <div className="game-interface">
-  //         <ScoresInfo participants={participants} />
-  //         <div className="round-info">
-  //           <h2>Round {currentLobby.currentRound} of {numberOfRounds}</h2>
-  //           {currentPrompt && <h3>{currentPrompt.text}</h3>}
-  //         </div>
-  //         {(answers.length != participants.length) ? 
-  //           <AnswerEntryPage
-  //             username={username}
-  //             userAnswer={userAnswer}
-  //             setUserAnswer={setUserAnswer}
-  //             participants={participants}
-  //             answers={answers}
-  //             currentRound={currentRound}
-  //             setCurrentRound={setCurrentRound}
-  //             setCurrentPrompt={setCurrentPrompt}
-  //           /> : 
-  //           <VotingPage
-  //             username={username}
-  //             participants={participants}
-  //             answers={answers}
-  //             currentRound={currentRound}
-  //             currentLobby={currentLobby}
-  //             setCurrentPrompt={setCurrentPrompt}
-  //             setCurrentRound={setCurrentRound}
-  //             setAnswers={setAnswers}
-  //             setCurrentLobby={setCurrentLobby}
-  //           />
-  //         }
-  //       </div>
-  //     </main>
-  //   )
-  // };
-
-  // if (currentLobby.status === GAME_STATUSES.COMPLETED){
-  //   return (
-  //     <GameEnd
-  //       participants={participants}
-  //       leaveLobby={leaveLobby} 
-  //     />
-  //   )
-  // }
 }
