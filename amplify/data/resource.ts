@@ -1,12 +1,11 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { ROUND_STATUSES, GAME_STATUSES } from "../../app/model";
 
 const schema = a.schema({
   Lobby: a
     .model({
       code: a.string(),
       hostId: a.string(),
-      status: a.enum(Object.values(GAME_STATUSES)),
+      status: a.enum(['WAITING', 'STARTED', 'COMPLETED']),
       currentRound: a.integer().default(0),
       participants: a.hasMany('Participant', 'lobbyId'),
       rounds: a.hasMany('Round', 'lobbyId')
@@ -37,7 +36,7 @@ const schema = a.schema({
       promptId: a.string(),
       prompt: a.belongsTo('Prompt', 'promptId'),
       roundNumber: a.integer(),
-      status: a.enum(Object.values(ROUND_STATUSES)),
+      status: a.enum(['ANSWERING', 'VOTING', 'SCORING']),
       answers: a.hasMany('Answer', 'roundId')
     })
     .authorization((allow) => [allow.publicApiKey()]),
