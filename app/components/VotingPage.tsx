@@ -18,7 +18,55 @@ interface Props {
 export const VotingPage = (props: Props) => {
     const client = generateClient<Schema>();
 
+    async function transitionToNextRound() {
+      // Move to next round or end game
+      if (props.currentLobby?.currentRound && props.currentLobby.currentRound < numberOfRounds) {
+        const storedPrompts = JSON.parse(localStorage.getItem(`gamePrompts_${props.currentLobby.id}`) || "[]");
+        const nextPromptText = storedPrompts[props.currentLobby.currentRound];
+
+        // Create next prompt
+        const nextPrompt = await client.models.Prompt.create({
+          text: nextPromptText
+        });
+
+        if (!nextPrompt.data?.id) {
+          console.error("Failed to create next prompt");
+          return;
+        }
+
+        const nextRound = await client.models.Round.create({
+          lobbyId: props.currentLobby.id,
+          promptId: nextPrompt.data.id,
+          roundNumber: props.currentLobby.currentRound + 1,
+          status: ROUND_STATUSES.ANSWERING
+        });
+
+        if (!nextRound.data?.id) {
+          console.error("Failed to create next round");
+          return;
+        }
+
+        // Update lobby and reset state
+        const updatedLobby = await client.models.Lobby.update({
+          id: props.currentLobby?.id ?? "",
+          currentRound: props.currentLobby.currentRound + 1
+        });
+
+        props.setCurrentPrompt(nextPrompt.data);
+        props.setCurrentRound(nextRound.data);
+        props.setAnswers([]);
+        props.setCurrentLobby(updatedLobby.data);
+      } else {
+        // End game
+        await client.models.Lobby.update({
+          id: props.currentLobby?.id ?? "",
+          status: GAME_STATUSES.COMPLETED
+        });
+      }
+    }
+
     async function submitVote(answerId: string) {
+      console.log("SUBMITTING", props.username, props.currentRound)
         if (props.currentRound) {
           // Increment votes for the answer
           const answer = props.answers.find(a => a.id === answerId);
@@ -30,6 +78,7 @@ export const VotingPage = (props: Props) => {
     
             // Check if all votes are in (one per participant except answer author)
             const totalVotes = props.answers.reduce((sum, a) => sum + (a.votes || 0), 0);
+            console.log("Check total votes", props.username, totalVotes)
             if (totalVotes === props.participants.length - 1) {
               // Find winning answer
               const winningAnswer = props.answers.reduce((prev, curr) => 
@@ -44,56 +93,12 @@ export const VotingPage = (props: Props) => {
                   score: (winner.score || 0) + 1
                 });
               }
-    
-              // Move to next round or end game
-              if (props.currentLobby?.currentRound && props.currentLobby.currentRound < numberOfRounds) {
-                const storedPrompts = JSON.parse(localStorage.getItem(`gamePrompts_${props.currentLobby.id}`) || "[]");
-                const nextPromptText = storedPrompts[props.currentLobby.currentRound];
-    
-                // Create next prompt
-                const nextPrompt = await client.models.Prompt.create({
-                  text: nextPromptText
-                });
-    
-                if (!nextPrompt.data?.id) {
-                  console.error("Failed to create next prompt");
-                  return;
-                }
-    
-                const nextRound = await client.models.Round.create({
-                  lobbyId: props.currentLobby.id,
-                  promptId: nextPrompt.data.id,
-                  roundNumber: props.currentLobby.currentRound + 1,
-                  status: ROUND_STATUSES.ANSWERING
-                });
-    
-                if (!nextRound.data?.id) {
-                  console.error("Failed to create next round");
-                  return;
-                }
-    
-                // Update lobby and reset state
-                const updatedLobby = await client.models.Lobby.update({
-                  id: props.currentLobby?.id ?? "",
-                  currentRound: props.currentLobby.currentRound + 1
-                });
-    
-                props.setCurrentPrompt(nextPrompt.data);
-                props.setCurrentRound(nextRound.data);
-                props.setAnswers([]);
-                props.setCurrentLobby(updatedLobby.data);
-              } else {
-                // End game
-                await client.models.Lobby.update({
-                  id: props.currentLobby?.id ?? "",
-                  status: GAME_STATUSES.COMPLETED
-                });
-              }
+              
+              transitionToNextRound()
             }
           }
         }
       }
-
 
     return (
         <div className="voting-phase">
@@ -105,7 +110,6 @@ export const VotingPage = (props: Props) => {
                     {!isOwnAnswer && (
                         <button 
                         onClick={() => submitVote(answer.id)}
-                        disabled={props.answers.reduce((sum, a) => sum + (a.votes || 0), 0) >= props.participants.length - 1}
                         >
                         Vote for this answer
                         </button>

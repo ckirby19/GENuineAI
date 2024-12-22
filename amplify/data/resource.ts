@@ -77,7 +77,11 @@ cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/
 
 "use client"
+import { Amplify } from "aws-amplify";
+import outputs from "../../amplify_outputs.json";
 import { generateClient } from "aws-amplify/data";
+
+Amplify.configure(outputs);
 
 const client = generateClient<Schema>() // use this Data client for CRUDL requests
 

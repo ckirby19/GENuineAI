@@ -12,6 +12,7 @@ import { ScoresInfo } from "./components/ScoresInfo";
 import { AnswerEntryPage } from "./components/AnswerEntryPage";
 import { VotingPage } from "./components/VotingPage";
 import { GameEnd } from "./components/GameEnd";
+import { MainPage } from "./components/MainPage";
 
 const client = generateClient<Schema>();
 
@@ -31,34 +32,36 @@ export default function App() {
   // Subscribe to participants updates when in a lobby
   useEffect(() => {
     if (currentLobby) {
-      // Subscribe to participants
+      console.log("Subscribing to participants for lobby", currentLobby.id);
       const participantsSub = client.models.Participant.observeQuery({
         filter: { lobbyId: { eq: currentLobby.id } }
       }).subscribe({
         next: (data) => setParticipants([...data.items]),
       });
 
-      // Subscribe to lobby updates
-      const lobbySub = client.models.Lobby.observeQuery({
+      const lobbyStatusSub = client.models.Lobby.observeQuery({
         filter: { id: { eq: currentLobby.id } }
       }).subscribe({
         next: (data) => {
           if (data.items.length > 0) {
-            setCurrentLobby(data.items[0]);
+            const updatedLobby = data.items[0];
+            setCurrentLobby(updatedLobby);
+            console.log("Lobby status updated", updatedLobby);
           }
         },
       });
 
       return () => {
         participantsSub.unsubscribe();
-        lobbySub.unsubscribe();
-      };
+        lobbyStatusSub.unsubscribe();
+      }
     }
-  }, [currentLobby, participants]);
+  }, [currentLobby?.id]);
 
   // Subscribe to current round and its prompt
   useEffect(() => {
     if (currentLobby?.id && currentLobby.status === GAME_STATUSES.STARTED && currentLobby.currentRound) {
+      console.log("Check current lobby", currentLobby)
       const roundSubscription = client.models.Round.observeQuery({
         filter: { 
           and: [
@@ -69,6 +72,7 @@ export default function App() {
       }).subscribe({
         next: async (data) => {
           if (data.items.length > 0) {
+            console.log("Round sub, check data:", data)
             const round = data.items[0];
             setCurrentRound(round);
             console.log("Set current round", currentRound)
@@ -87,7 +91,7 @@ export default function App() {
         roundSubscription.unsubscribe();
       };
     }
-  }, [currentLobby, currentRound]);
+  }, [currentLobby?.status, currentLobby?.currentRound]);
 
   // Subscribe to answers for current round and manage answer state
   useEffect(() => {
@@ -109,7 +113,6 @@ export default function App() {
           if (updatedRound.data){
             setCurrentRound(updatedRound.data);
           }
-          console.log("Check current round status", currentRound?.status)
         }
       },
     });
@@ -117,7 +120,7 @@ export default function App() {
     return () => {
       answerSub.unsubscribe();
     };
-  }, [currentRound, participants])
+  }, [currentRound?.answers])
 
   async function startGame() {
     if (currentLobby) {
@@ -130,7 +133,7 @@ export default function App() {
       }
 
       // Randomly select prompts
-      const shuffledPrompts = [...samplePrompts].sort(() => Math.random() - 0.5).slice(0, numberOfRounds);
+      const shuffledPrompts = [...samplePrompts].sort(() => Math.random() - 0.5).slice(0, numberOfRounds + 1);
       // Create first prompt and round
       const firstPrompt = await client.models.Prompt.create({
         text: shuffledPrompts[0]
@@ -187,85 +190,112 @@ export default function App() {
     }
   }
 
-  if (!isNameEntered) {
-    return (
-      <HomePage 
-        username={username}
-        setUsername={setUsername}
-        isNameEntered={isNameEntered}
-        setIsNameEntered={setIsNameEntered}  
-      />
-    )
-  } 
+  return (
+    <MainPage
+      username={username}
+      setUsername={setUsername}
+      isNameEntered={isNameEntered}
+      setIsNameEntered={setIsNameEntered}
+      lobbyCode={lobbyCode}
+      setLobbyCode={setLobbyCode}
+      currentLobby={currentLobby}
+      setCurrentLobby={setCurrentLobby}
+      participants={participants}
+      isHost={isHost}
+      startGame={startGame}
+      userAnswer={userAnswer}
+      setUserAnswer={setUserAnswer}
+      answers={answers}
+      currentRound={currentRound}
+      setCurrentRound={setCurrentRound}
+      setCurrentPrompt={setCurrentPrompt}
+      setAnswers={setAnswers}
+      currentPrompt={currentPrompt}
+      leaveLobby={leaveLobby}
+    />
+  )
 
-  if (!currentLobby) {
-    return (
-      <LobbyCreation
-        username={username}
-        setIsNameEntered={setIsNameEntered}
-        lobbyCode={lobbyCode}
-        setLobbyCode={setLobbyCode}
-        currentLobby={currentLobby}
-        setCurrentLobby={setCurrentLobby}
-      />
-    );
-  }
+  // if (!isNameEntered) {
+  //   return (
+  //     <HomePage 
+  //       username={username}
+  //       setUsername={setUsername}
+  //       isNameEntered={isNameEntered}
+  //       setIsNameEntered={setIsNameEntered}  
+  //     />
+  //   )
+  // } 
+  // if (!currentLobby) {
+  //   return (
+  //     <LobbyCreation
+  //       username={username}
+  //       setIsNameEntered={setIsNameEntered}
+  //       lobbyCode={lobbyCode}
+  //       setLobbyCode={setLobbyCode}
+  //       currentLobby={currentLobby}
+  //       setCurrentLobby={setCurrentLobby}
+  //     />
+  //   );
+  // }
 
-  // Lobby has been created, now waiting for for host to start game
-  if (currentLobby.status === GAME_STATUSES.WAITING){
-    return (
-      <WaitingRoom 
-        username={username}
-        participants={participants}
-        currentLobby={currentLobby}
-        isHost={isHost}
-        startGame={startGame}
-      />
-    )
-  }
+  // // Lobby has been created, now waiting for for host to start game
+  // if (currentLobby.status === GAME_STATUSES.WAITING){
+  //   console.log("Waiting for host to start game", participants)
+  //   return (
+  //     <WaitingRoom 
+  //       username={username}
+  //       participants={participants}
+  //       currentLobby={currentLobby}
+  //       isHost={isHost}
+  //       startGame={startGame}
+  //     />
+  //   )
+  // }
 
-  // The host has started the game, we now begin the game
-  if (currentLobby.status === GAME_STATUSES.STARTED){
-    return (
-      <main className="mobile-friendly">
-        <div className="game-interface">
-          <ScoresInfo participants={participants} />
-          <div className="round-info">
-            <h2>Round {currentLobby.currentRound} of {numberOfRounds}</h2>
-            {currentPrompt && <h3>{currentPrompt.text}</h3>}
-          </div>
-          {currentRound?.status === ROUND_STATUSES.ANSWERING ? 
-            <AnswerEntryPage
-              username={username}
-              userAnswer={userAnswer}
-              setUserAnswer={setUserAnswer}
-              participants={participants}
-              answers={answers}
-              currentRound={currentRound}
-            /> : 
-            <VotingPage
-              username={username}
-              participants={participants}
-              answers={answers}
-              currentRound={currentRound}
-              currentLobby={currentLobby}
-              setCurrentPrompt={setCurrentPrompt}
-              setCurrentRound={setCurrentRound}
-              setAnswers={setAnswers}
-              setCurrentLobby={setCurrentLobby}
-            />
-          }
-        </div>
-      </main>
-    )
-  };
+  // // The host has started the game, we now begin the game
+  // if (currentLobby.status === GAME_STATUSES.STARTED){
+  //   return (
+  //     <main className="mobile-friendly">
+  //       <div className="game-interface">
+  //         <ScoresInfo participants={participants} />
+  //         <div className="round-info">
+  //           <h2>Round {currentLobby.currentRound} of {numberOfRounds}</h2>
+  //           {currentPrompt && <h3>{currentPrompt.text}</h3>}
+  //         </div>
+  //         {(answers.length != participants.length) ? 
+  //           <AnswerEntryPage
+  //             username={username}
+  //             userAnswer={userAnswer}
+  //             setUserAnswer={setUserAnswer}
+  //             participants={participants}
+  //             answers={answers}
+  //             currentRound={currentRound}
+  //             setCurrentRound={setCurrentRound}
+  //             setCurrentPrompt={setCurrentPrompt}
+  //           /> : 
+  //           <VotingPage
+  //             username={username}
+  //             participants={participants}
+  //             answers={answers}
+  //             currentRound={currentRound}
+  //             currentLobby={currentLobby}
+  //             setCurrentPrompt={setCurrentPrompt}
+  //             setCurrentRound={setCurrentRound}
+  //             setAnswers={setAnswers}
+  //             setCurrentLobby={setCurrentLobby}
+  //           />
+  //         }
+  //       </div>
+  //     </main>
+  //   )
+  // };
 
-  if (currentLobby.status === GAME_STATUSES.COMPLETED){
-    return (
-      <GameEnd
-        participants={participants}
-        leaveLobby={leaveLobby} 
-      />
-    )
-  }
+  // if (currentLobby.status === GAME_STATUSES.COMPLETED){
+  //   return (
+  //     <GameEnd
+  //       participants={participants}
+  //       leaveLobby={leaveLobby} 
+  //     />
+  //   )
+  // }
 }
