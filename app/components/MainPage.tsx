@@ -11,24 +11,23 @@ import { GameEnd } from "./GameEnd";
 
 interface Props {
     username: string;
-    setUsername: React.Dispatch<React.SetStateAction<string>>;
+    setUsername: Dispatch<SetStateAction<string>>;
     isNameEntered: boolean;
-    setIsNameEntered: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsNameEntered: Dispatch<SetStateAction<boolean>>;
     lobbyCode: string;
-    setLobbyCode: React.Dispatch<React.SetStateAction<string>>;
+    setLobbyCode: Dispatch<SetStateAction<string>>;
     currentLobby: Schema["Lobby"]["type"] | null
-    setCurrentLobby: React.Dispatch<React.SetStateAction<Schema["Lobby"]["type"] | null>>;
+    setCurrentLobby: Dispatch<SetStateAction<Schema["Lobby"]["type"] | null>>;
     participants: Schema["Participant"]["type"][];
     isHost: boolean | null | undefined
-    startGame: () => void;
     userAnswer: string;
     setUserAnswer: Dispatch<SetStateAction<string>>;
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
     setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
-    setCurrentPrompt: Dispatch<SetStateAction<Schema["Prompt"]["type"] | null>>;
-    setAnswers: Dispatch<SetStateAction<Schema["Answer"]["type"][]>>;
     currentPrompt: Schema["Prompt"]["type"] | null;
+    currentVotes: Schema["Vote"]["type"][];
+    startGame: () => void;
     leaveLobby: () => void;
 }
 
@@ -74,7 +73,9 @@ export const MainPage = (props: Props) => {
         return (
         <main className="mobile-friendly">
             <div className="game-interface">
-            <ScoresInfo participants={props.participants} />
+            <ScoresInfo 
+              participants={props.participants} 
+            />
             <div className="round-info">
                 <h2>Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
                 {props.currentPrompt && <h3>{props.currentPrompt.text}</h3>}
@@ -88,18 +89,13 @@ export const MainPage = (props: Props) => {
                     answers={props.answers}
                     currentRound={props.currentRound}
                     setCurrentRound={props.setCurrentRound}
-                    setCurrentPrompt={props.setCurrentPrompt}
                 /> : 
                 <VotingPage
                     username={props.username}
                     participants={props.participants}
                     answers={props.answers}
                     currentRound={props.currentRound}
-                    currentLobby={props.currentLobby}
-                    setCurrentPrompt={props.setCurrentPrompt}
-                    setCurrentRound={props.setCurrentRound}
-                    setAnswers={props.setAnswers}
-                    setCurrentLobby={props.setCurrentLobby}
+                    currentVotes={props.currentVotes}
                 />
             }
             </div>

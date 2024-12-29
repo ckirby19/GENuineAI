@@ -1,7 +1,6 @@
 import { Schema } from "@/amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Dispatch, SetStateAction } from "react";
-import { ROUND_STATUSES } from "../model";
 
 interface Props {
     username: string;
@@ -11,7 +10,6 @@ interface Props {
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
     setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
-    setCurrentPrompt: Dispatch<SetStateAction<Schema["Prompt"]["type"] | null>>;
 }
 
 export const AnswerEntryPage = (props: Props) => {
@@ -27,20 +25,6 @@ export const AnswerEntryPage = (props: Props) => {
               participantId: currentParticipant.id,
               text: props.userAnswer
             });
-            
-            // Check if this was the last answer needed
-            // const newAnswerCount = props.answers.length + 1;
-            // if (newAnswerCount === props.participants.length) {
-            //   // Update round status to voting
-            //   const updatedRound = await client.models.Round.update({
-            //     id: props.currentRound.id,
-            //     status: ROUND_STATUSES.VOTING
-            //   });
-            //   // Update local state to trigger re-render
-            //   if (updatedRound.data) {
-            //     props.setCurrentRound(updatedRound.data);
-            //   }
-            // }
           }
         }
       }
@@ -61,7 +45,9 @@ export const AnswerEntryPage = (props: Props) => {
         ) : (
           <div>Waiting for other players to answer...</div>
         )}
-        <div>Answers submitted: {props.answers.length} / {props.participants.length}</div>
+        <div>Human Answers submitted: {props.answers.filter(x => !x.isAiAnswer).length} / {props.participants.filter(x => !x.isAiParticipant).length}
+        </div>
+        <div>GenAI Answer submitted? {props.answers.find(x => x.isAiAnswer == true) != null ? "Yes" : "No"}</div>
       </div>
       );
 }

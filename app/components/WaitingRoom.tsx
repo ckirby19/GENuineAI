@@ -16,7 +16,7 @@ export const WaitingRoom = (props: Props) => {
             <div className="participants-list">
             <h2>Participants:</h2>
             <ul>
-              {props.participants.map((participant) => (
+              {props.participants.filter(p => !p.isAiParticipant).map((participant) => (
                 <li key={participant.id}>
                   {participant.username} {participant.isHost ? '(Host)' : ''}
                 </li>

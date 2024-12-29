@@ -16,12 +16,14 @@ export const LobbyCreation = (props: Props) => {
 
     async function createLobby() {
         const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+
         const lobby = await client.models.Lobby.create({
           code,
           hostId: props.username,
           status: GAME_STATUSES.WAITING
         });
-    
+        
+        // Create host participant
         await client.models.Participant.create({
           userId: props.username,
           username: props.username,
@@ -29,6 +31,15 @@ export const LobbyCreation = (props: Props) => {
           isHost: true
         });
         
+        // Create AI participant
+        await client.models.Participant.create({
+          userId: "AI",
+          username: "AI",
+          lobbyId: lobby.data?.id,
+          isHost: false,
+          isAiParticipant: true
+        });
+
         props.setCurrentLobby(lobby.data);
     }
     

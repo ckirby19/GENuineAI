@@ -1,4 +1,21 @@
-import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import {
+  type ClientSchema,
+  a,
+  defineData,
+  defineFunction,
+} from "@aws-amplify/backend";
+
+export const TEXT_MODEL_ID = "amazon.titan-text-lite-v1"; // amazon.titan-text-express-v1
+export const IMAGE_MODEL_ID = "amazon.titan-image-generator-v1" // amazon.titan-image-generator-v2:0
+
+export const generateTextResponse = defineFunction({
+  entry: "./handler.ts",
+  environment: {
+    MODEL_ID: TEXT_MODEL_ID,
+  },
+  timeoutSeconds: 30,
+  memoryMB: 1024
+});
 
 const schema = a.schema({
   Lobby: a
@@ -15,11 +32,13 @@ const schema = a.schema({
     .model({
       userId: a.string(),
       username: a.string(),
-      lobbyId: a.string(),
-      lobby: a.belongsTo('Lobby', 'lobbyId'),
-      isHost: a.boolean(),
+      lobbyId: a.id(),
+      isHost: a.boolean().default(false),
+      isAiParticipant: a.boolean().default(false),
       score: a.integer().default(0),
-      answers: a.hasMany('Answer', 'participantId')
+      lobby: a.belongsTo('Lobby', 'lobbyId'),
+      answers: a.hasMany('Answer', 'participantId'),
+      votes: a.hasMany('Vote', 'participantId')
     })
     .authorization((allow) => [allow.publicApiKey()]),
   Prompt: a
@@ -31,26 +50,43 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()]),
   Round: a
     .model({
-      lobbyId: a.string(),
-      lobby: a.belongsTo('Lobby', 'lobbyId'),
-      promptId: a.string(),
-      prompt: a.belongsTo('Prompt', 'promptId'),
+      lobbyId: a.id(),
+      promptId: a.id(),
       roundNumber: a.integer(),
       status: a.enum(['ANSWERING', 'VOTING', 'SCORING']),
-      answers: a.hasMany('Answer', 'roundId')
+      lobby: a.belongsTo('Lobby', 'lobbyId'),
+      prompt: a.belongsTo('Prompt', 'promptId'), //This relationship should be reversed
+      answers: a.hasMany('Answer', 'roundId'),
+      votes: a.hasMany('Vote', 'roundId')
     })
     .authorization((allow) => [allow.publicApiKey()]),
   Answer: a
     .model({
-      roundId: a.string(),
-      round: a.belongsTo('Round', 'roundId'),
-      participantId: a.string(),
-      participant: a.belongsTo('Participant', 'participantId'),
+      roundId: a.id(),
+      participantId: a.id(),
+      isAiAnswer: a.boolean().default(false),
       text: a.string(),
-      votes: a.integer().default(0)
+      round: a.belongsTo('Round', 'roundId'),
+      participant: a.belongsTo('Participant', 'participantId'),
+      votes: a.hasMany('Vote', 'answerId')
     })
     .authorization((allow) => [allow.publicApiKey()]),
-
+  Vote: a
+    .model({
+      roundId: a.id(),
+      participantId: a.id(), 
+      answerId: a.id(),
+      round: a.belongsTo('Round', 'roundId'),
+      participant: a.belongsTo('Participant', 'participantId'), // The Id of the person who voted
+      answer: a.belongsTo('Answer', 'answerId') // The Id of the answer
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  GenerateTextResponse: a
+    .query()
+    .arguments({ prompt: a.string().required() })
+    .returns(a.string())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(generateTextResponse)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -64,16 +100,6 @@ export const data = defineData({
     },
   },
 });
-
-/*== STEP 2 ===============================================================
-Go to your frontend source code. From your client-side code, generate a
-Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
-WORK IN THE FRONTEND CODE FILE.)
-
-Using JavaScript or Next.js React Server Components, Middleware, Server 
-Actions or Pages Router? Review how to generate Data clients for those use
-cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
-=========================================================================*/
 
 // "use client"
 // import { Amplify } from "aws-amplify";
@@ -107,15 +133,3 @@ cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 //     text: prompt,
 //   })
 // })
-
-
-/*== STEP 3 ===============================================================
-Fetch records from the database and use them in your frontend component.
-(THIS SNIPPET WILL ONLY WORK IN THE FRONTEND CODE FILE.)
-=========================================================================*/
-
-/* For example, in a React component, you can use this snippet in your
-  function's RETURN statement */
-// const { data: todos } = await client.models.Todo.list()
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>

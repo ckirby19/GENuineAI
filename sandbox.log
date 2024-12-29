@@ -1,0 +1,90 @@
+[handler] 17:35:21 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 17:35:21 START RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b Version: $LATEST
+[handler] 17:35:21 2024-12-28T17:35:21.649Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Text Prompt Handler started - received prompt: The worst thing to say during a job interview is _____
+[handler] 17:35:21 2024-12-28T17:35:21.653Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Sending command to Bedrock: InvokeModelCommand {
+  middlewareStack: {
+    add: [Function: add],
+    addRelativeTo: [Function: addRelativeTo],
+    clone: [Function: clone],
+    use: [Function: use],
+    remove: [Function: remove],
+    removeByTag: [Function: removeByTag],
+    concat: [Function: concat],
+    applyToStack: [Function: cloneTo],
+    identify: [Function: identify],
+    identifyOnResolve: [Function: identifyOnResolve],
+    resolve: [Function: resolve]
+  },
+  serialize: [AsyncFunction: se_InvokeModelCommand],
+  deserialize: [AsyncFunction: de_InvokeModelCommand],
+  input: {
+    contentType: 'application/json',
+    body: '{"inputText":"Provide a one/two word phrase to fill in the blank in the following sentence, making it funny or interesting: The worst thing to say during a job interview is _____","textGenerationConfig":{"maxTokenCount":512,"stopSequences":[],"temperature":0.7,"topP":0.9}}',
+    modelId: 'amazon.titan-text-lite-v1'
+  }
+}
+[handler] 17:35:23 2024-12-28T17:35:23.099Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Received response from Bedrock
+[handler] 17:35:23 2024-12-28T17:35:23.100Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Processed Output {
+  inputTextTokenCount: 35,
+  results: [
+    {
+      tokenCount: 26,
+      outputText: '\n' +
+        `The worst thing to say during a job interview is "Sorry, I don't have any experience in this field."`,
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 17:35:23 2024-12-28T17:35:23.100Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	WARN	AI model did not correctly finish generating response
+[handler] 17:35:23 END RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b
+[handler] 17:35:23 REPORT RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b	Duration: 1454.40 ms	Billed Duration: 1455 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 218.99 ms
+[handler] 18:02:16 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 18:02:17 START RequestId: c619e751-989d-4522-8909-b843712cb853 Version: $LATEST
+[handler] 18:02:17 2024-12-28T18:02:17.158Z	c619e751-989d-4522-8909-b843712cb853	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 18:02:18 2024-12-28T18:02:18.034Z	c619e751-989d-4522-8909-b843712cb853	INFO	Received response from Bedrock {
+  inputTextTokenCount: 89,
+  results: [
+    {
+      tokenCount: 11,
+      outputText: '\nNever bring a girlfriend to a pillow fight!',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 18:02:18 END RequestId: c619e751-989d-4522-8909-b843712cb853
+[handler] 18:02:18 REPORT RequestId: c619e751-989d-4522-8909-b843712cb853	Duration: 880.01 ms	Billed Duration: 881 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 249.24 ms
+[handler] 19:35:22 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 19:35:23 START RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471 Version: $LATEST
+[handler] 19:35:23 2024-12-28T19:35:23.189Z	0f4ab544-4fbe-48b4-993b-d06ae66f4471	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 19:35:24 2024-12-28T19:35:24.225Z	0f4ab544-4fbe-48b4-993b-d06ae66f4471	INFO	Received response from Bedrock {
+  inputTextTokenCount: 119,
+  results: [
+    {
+      tokenCount: 19,
+      outputText: 'I knew it was true love when she dislocated her elbow to get my favorite pillow.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 19:35:24 END RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471
+[handler] 19:35:24 REPORT RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471	Duration: 1039.76 ms	Billed Duration: 1040 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 222.52 ms
+[handler] 12:51:24 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 12:51:24 START RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf Version: $LATEST
+[handler] 12:51:24 2024-12-29T12:51:24.285Z	9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 12:51:25 2024-12-29T12:51:25.297Z	9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	INFO	Received response from Bedrock {
+  inputTextTokenCount: 121,
+  results: [
+    {
+      tokenCount: 15,
+      outputText: 'I knew it was true love when they deleted their social media accounts.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 12:51:25 END RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf
+[handler] 12:51:25 REPORT RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	Duration: 1016.59 ms	Billed Duration: 1017 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 281.28 ms
+[handler] 13:28:24 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 13:28:24 START RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586 Version: $LATEST
+[handler] 13:28:24 2024-12-29T13:28:24.976Z	f3b3ebd7-1965-43cf-b50b-e9065fdff586	WARN	This model is not enabled. Please enable it in the environment variables.
+[handler] 13:28:24 END RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586
+[handler] 13:28:24 REPORT RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586	Duration: 3.33 ms	Billed Duration: 4 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 281.64 ms
