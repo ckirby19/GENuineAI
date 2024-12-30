@@ -1,8 +1,7 @@
 import { Schema } from "@/amplify/data/resource";
 
 interface Props {
-    participants: Schema["Participant"]["type"][];
-
+  participants: Schema["Participant"]["type"][];
 }
 
 export const ScoresInfo = (props: Props) => {

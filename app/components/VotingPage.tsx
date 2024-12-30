@@ -9,6 +9,8 @@ interface Props {
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
     currentVotes: Schema["Vote"]["type"][];
+    currentLobby: Schema["Lobby"]["type"];
+    transitionToScoring: () => void;    
 }
 
 export const VotingPage = (props: Props) => {
@@ -27,11 +29,33 @@ export const VotingPage = (props: Props) => {
                 participantId: currentParticipant.id,
                 answerId: answer.id
               });
+
               if (!vote.data?.id) {
                 console.error("Failed to create vote:", vote.errors);
                 return;
               }
-              console.log("Vote created:", vote.data);
+
+              const round = await client.models.Round.update({
+                id: props.currentRound.id
+              })
+              
+              await client.models.Participant.update({
+                id: currentParticipant.id
+              })
+
+              await client.models.Answer.update({
+                id: answer.id
+              })
+
+              await client.models.Lobby.update({
+                id: props.currentLobby.id
+              })
+
+              const votes = (await round.data!.votes()).data;
+              if (votes.length === props.participants.filter(x => !x.isAiParticipant).length){
+                console.log("All votes submitted, moving to scoring phase");
+                props.transitionToScoring();
+              }
             }
         }
       }

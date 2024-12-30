@@ -24,11 +24,14 @@ interface Props {
     setUserAnswer: Dispatch<SetStateAction<string>>;
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
-    setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
     currentPrompt: Schema["Prompt"]["type"] | null;
     currentVotes: Schema["Vote"]["type"][];
     startGame: () => void;
+    createLobby: () => void;
+    joinLobby: () => void;
     leaveLobby: () => void;
+    transitionToScoring: () => void;
+    transitionToVoting: () => void;
 }
 
 export const MainPage = (props: Props) => {
@@ -47,17 +50,15 @@ export const MainPage = (props: Props) => {
         return (
           <LobbyCreation
             username={props.username}
-            setIsNameEntered={props.setIsNameEntered}
             lobbyCode={props.lobbyCode}
             setLobbyCode={props.setLobbyCode}
-            currentLobby={props.currentLobby}
-            setCurrentLobby={props.setCurrentLobby}
+            createLobby={props.createLobby}
+            joinLobby={props.joinLobby}
           />
         );
     }
-    // Lobby has been created, now waiting for host to start game
+    // Lobby has been created, waiting for users to join it
     if (props.currentLobby.status === GAME_STATUSES.WAITING){
-        console.log("Waiting for host to start game", props.participants)
         return (
         <WaitingRoom 
             username={props.username}
@@ -88,7 +89,8 @@ export const MainPage = (props: Props) => {
                     participants={props.participants}
                     answers={props.answers}
                     currentRound={props.currentRound}
-                    setCurrentRound={props.setCurrentRound}
+                    currentLobby={props.currentLobby}
+                    transitionToVoting={props.transitionToVoting}
                 /> : 
                 <VotingPage
                     username={props.username}
@@ -96,6 +98,8 @@ export const MainPage = (props: Props) => {
                     answers={props.answers}
                     currentRound={props.currentRound}
                     currentVotes={props.currentVotes}
+                    currentLobby={props.currentLobby}
+                    transitionToScoring={props.transitionToScoring}
                 />
             }
             </div>

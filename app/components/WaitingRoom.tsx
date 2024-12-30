@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const WaitingRoom = (props: Props) => {
-
     return (
         <main className="mobile-friendly">
             <h1>Lobby: {props.currentLobby.code}</h1>
