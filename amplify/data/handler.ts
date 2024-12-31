@@ -13,11 +13,6 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
 
     const client = new BedrockRuntimeClient({
         region: AWS_REGION
-        // credentials: {
-        //     accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-        //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-        //     sessionToken: process.env.AWS_SESSION_TOKEN || "",
-        // },
     });
 
     const TEXT_MODEL_ID = process.env.MODEL_ID;
@@ -28,17 +23,19 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     
     // User prompt
     const prompt = event.arguments.prompt;
-    // "inputText": `User: ${prompt}\nBot:`,
 
-    const promptWithContext = `Task: Generate a funny response for a party game where players try to guess which answer is AI generated
+    const promptWithContext = 
+    `Task: Generate a funny response for a party game where players try to guess which answer is AI generated
         Context: This is for entertainment purposes. Be creative and humorous.
-        Format: Provide only the missing word(s) to complete the sentence. Do not change the full sentence, just provide your answer to fill in ____
-        Tone: Playful and imaginative, 
+        Format: Provide only the missing word(s) to fill in ____ and complete the sentence.
+        Tone: Playful and imaginative.
         Rules: 
         - Don't explain or apologize
         - Keep it brief (1-3 words)
         - Be creative
         - Make it funny
+        - DO NOT change the original sentence prompt
+        - DO NOT include the original sentence in your response
 
         Complete this sentence: ${prompt}
     `
@@ -47,7 +44,7 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     const payload = {
         "inputText": `${promptWithContext}`,
         "textGenerationConfig": {
-            "maxTokenCount": 512,
+            "maxTokenCount": 15,
             "stopSequences": [],
             "temperature": 0.9,
             "topP": 1.0
@@ -69,5 +66,6 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     if (data.results[0].completionReason != "FINISH"){
         console.warn("AI model did not correctly finish generating response")
     }
+
     return data.results[0].outputText;
 };

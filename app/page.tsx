@@ -33,11 +33,6 @@ useEffect(() => {
         if (data.items.length > 0) {
           setCurrentLobby(data.items[0]);
         }
-        else {
-          console.log("Lobby no longer exists");
-          // Optional: Handle lobby deletion
-          setCurrentLobby(null);
-        }
       },
       error: (error) => {
         console.error("Error in lobby subscription:", error);
@@ -127,14 +122,10 @@ useEffect(() => {
 }, [currentRound?.id]);
 
   async function startGame() {
-        // const allPrompts = await client.models.Prompt.list({
-    //   filter: { isActive: { eq: true } }
-    // });
     if (!currentLobby) {
       console.log("Cannot start game when not in a lobby")
       return;
     }
-    console.log("Starting game")
 
     if (samplePrompts.length < numberOfRounds) {
       alert("Not enough prompts available. Please contact administrator.");
@@ -234,8 +225,6 @@ useEffect(() => {
           await client.models.Lobby.delete({ id: currentLobby.id });
         }
       }
-      // setCurrentLobby(null);
-      // setParticipants([]);
     }
   }
 
@@ -271,22 +260,19 @@ useEffect(() => {
         return;
       }
 
-      console.log(`Generating AI answer for round ${round} to prompt: ${nextPromptText}`)
-      const response = `Generic AI Answer for round ${round}`;
-      const errors = null
+      const { data, errors } = await client.queries.GenerateTextResponse({
+        prompt: nextPrompt.data.text!
+      });
 
-      // const { response, errors } = await client.queries.GenerateTextResponse({
-      //   prompt: prompt.data.text!
-      // });
-
-      if (!errors && response) {
+      if (!errors && data) {
         const AiParticipant = participants.find(x => x.isAiParticipant);
-        console.log("Has ai parti", AiParticipant)
         if (AiParticipant) {
+          const extractedAnswer = extractAnswer(nextPrompt.data.text!, data);
+
           await client.models.Answer.create({
             roundId: nextRound.data.id,
             participantId: AiParticipant.id,
-            text: response,
+            text: extractedAnswer,
             isAiAnswer: true
           });
         }
@@ -313,6 +299,24 @@ useEffect(() => {
       finishGame()
     }
   }
+
+  function extractAnswer(prompt: string, response: string): string {
+    // Remove the blank placeholder from the prompt
+    const promptWithoutBlanks = prompt.replace(" _____", "");
+    
+    // Remove the prompt text from the response
+    let extractedText = response.replace(promptWithoutBlanks, "");
+    
+    // Remove trailing period if it exists
+    if (extractedText.endsWith(".")) {
+        extractedText = extractedText.substring(0, extractedText.length - 1);
+    }
+    
+    // Trim any whitespace
+    extractedText = extractedText.trim();
+    
+    return extractedText || "generic AI answer, can't defeat AI";
+}
 
   async function finishGame() {
     await client.models.Lobby.update({
@@ -357,13 +361,11 @@ useEffect(() => {
 
     for (const vote of votes){
       const answerVotedFor = (await vote.answer()).data;
-      console.log("Got a vote for answer", vote, answerVotedFor);
       if (answerVotedFor){
         if (answerVotedFor.isAiAnswer){
           // Award voter
           const voter = updatedParticipants.find(p => p.id === vote.participantId);
           if (voter){
-            console.log("Updating scores for voter", voter)
             voter.score = (voter.score ?? 0) + scoreIncrementVoter
           }
           else{
@@ -373,7 +375,6 @@ useEffect(() => {
         else{
             // Award AI
             if (aiParticipant){
-              console.log("Updating scores for AI", aiParticipant)
               aiParticipant.score = (aiParticipant.score ?? 0) + scoreIncrementAI
             }
             else{
@@ -383,7 +384,6 @@ useEffect(() => {
             // Award Answer Creator
             const answerCreator = updatedParticipants.find(p => p.id === answerVotedFor.participantId);
             if (answerCreator){
-              console.log("Updating scores for answer creator", answerCreator)
               answerCreator.score = (answerCreator.score ?? 0) + scoreIncrementAnswerCreator
             }
             else{
@@ -396,16 +396,12 @@ useEffect(() => {
       }
     }
 
-    console.log("Check updated scores for participants", updatedParticipants)
-
     await Promise.all(updatedParticipants.map(participant => 
       client.models.Participant.update({
           id: participant.id,
           score: participant.score,
       })
     ));
-
-    console.log("Finished updating scores, transitioning...")
 
     transitionToRound(currentLobby?.currentRound! + 1)
   }
@@ -426,7 +422,6 @@ useEffect(() => {
       setUsername={setUsername}
       setIsNameEntered={setIsNameEntered}
       setLobbyCode={setLobbyCode}
-      setCurrentLobby={setCurrentLobby}
       setUserAnswer={setUserAnswer}
       // Custom Methods
       startGame={startGame}

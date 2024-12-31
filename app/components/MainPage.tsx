@@ -17,7 +17,6 @@ interface Props {
     lobbyCode: string;
     setLobbyCode: Dispatch<SetStateAction<string>>;
     currentLobby: Schema["Lobby"]["type"] | null
-    setCurrentLobby: Dispatch<SetStateAction<Schema["Lobby"]["type"] | null>>;
     participants: Schema["Participant"]["type"][];
     isHost: boolean | null | undefined
     userAnswer: string;
@@ -43,7 +42,7 @@ export const MainPage = (props: Props) => {
             isNameEntered={props.isNameEntered}
             setIsNameEntered={props.setIsNameEntered}  
           />
-        )
+        ) 
     } 
 
     if (!props.currentLobby) {
@@ -69,7 +68,7 @@ export const MainPage = (props: Props) => {
         />
         )
     }
-    // The host has started the game, we now begin the game
+    // The host has started the game
     if (props.currentLobby.status === GAME_STATUSES.STARTED){
         return (
         <main className="mobile-friendly">

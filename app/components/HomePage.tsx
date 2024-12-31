@@ -27,7 +27,6 @@ export const HomePage = (props: Props) => {
                 />
                 <button type="submit">Submit</button>
             </form>
-
         </main>
       );
 }

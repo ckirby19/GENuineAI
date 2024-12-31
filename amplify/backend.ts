@@ -13,7 +13,6 @@ backend.generateTextResponse.resources.lambda.addToRolePolicy(
     effect: Effect.ALLOW,
     actions: ["bedrock:InvokeModel"],
     resources: [
-      // `arn:aws:bedrock:*::foundation-model/${TEXT_MODEL_ID}`,
       `arn:aws:bedrock:eu-west-2::foundation-model/${TEXT_MODEL_ID}`,
     ],
   })
