@@ -9,14 +9,13 @@ interface Props {
 }
 
 export const WaitingRoom = (props: Props) => {
-
     return (
         <main className="mobile-friendly">
             <h1>Lobby: {props.currentLobby.code}</h1>
             <div className="participants-list">
             <h2>Participants:</h2>
             <ul>
-              {props.participants.map((participant) => (
+              {props.participants.filter(p => !p.isAiParticipant).map((participant) => (
                 <li key={participant.id}>
                   {participant.username} {participant.isHost ? '(Host)' : ''}
                 </li>

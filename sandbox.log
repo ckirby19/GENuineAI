@@ -1,0 +1,214 @@
+[handler] 17:35:21 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 17:35:21 START RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b Version: $LATEST
+[handler] 17:35:21 2024-12-28T17:35:21.649Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Text Prompt Handler started - received prompt: The worst thing to say during a job interview is _____
+[handler] 17:35:21 2024-12-28T17:35:21.653Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Sending command to Bedrock: InvokeModelCommand {
+  middlewareStack: {
+    add: [Function: add],
+    addRelativeTo: [Function: addRelativeTo],
+    clone: [Function: clone],
+    use: [Function: use],
+    remove: [Function: remove],
+    removeByTag: [Function: removeByTag],
+    concat: [Function: concat],
+    applyToStack: [Function: cloneTo],
+    identify: [Function: identify],
+    identifyOnResolve: [Function: identifyOnResolve],
+    resolve: [Function: resolve]
+  },
+  serialize: [AsyncFunction: se_InvokeModelCommand],
+  deserialize: [AsyncFunction: de_InvokeModelCommand],
+  input: {
+    contentType: 'application/json',
+    body: '{"inputText":"Provide a one/two word phrase to fill in the blank in the following sentence, making it funny or interesting: The worst thing to say during a job interview is _____","textGenerationConfig":{"maxTokenCount":512,"stopSequences":[],"temperature":0.7,"topP":0.9}}',
+    modelId: 'amazon.titan-text-lite-v1'
+  }
+}
+[handler] 17:35:23 2024-12-28T17:35:23.099Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Received response from Bedrock
+[handler] 17:35:23 2024-12-28T17:35:23.100Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	INFO	Processed Output {
+  inputTextTokenCount: 35,
+  results: [
+    {
+      tokenCount: 26,
+      outputText: '\n' +
+        `The worst thing to say during a job interview is "Sorry, I don't have any experience in this field."`,
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 17:35:23 2024-12-28T17:35:23.100Z	bc43f02d-7703-4dc7-97aa-f3d60a39051b	WARN	AI model did not correctly finish generating response
+[handler] 17:35:23 END RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b
+[handler] 17:35:23 REPORT RequestId: bc43f02d-7703-4dc7-97aa-f3d60a39051b	Duration: 1454.40 ms	Billed Duration: 1455 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 218.99 ms
+[handler] 18:02:16 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 18:02:17 START RequestId: c619e751-989d-4522-8909-b843712cb853 Version: $LATEST
+[handler] 18:02:17 2024-12-28T18:02:17.158Z	c619e751-989d-4522-8909-b843712cb853	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 18:02:18 2024-12-28T18:02:18.034Z	c619e751-989d-4522-8909-b843712cb853	INFO	Received response from Bedrock {
+  inputTextTokenCount: 89,
+  results: [
+    {
+      tokenCount: 11,
+      outputText: '\nNever bring a girlfriend to a pillow fight!',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 18:02:18 END RequestId: c619e751-989d-4522-8909-b843712cb853
+[handler] 18:02:18 REPORT RequestId: c619e751-989d-4522-8909-b843712cb853	Duration: 880.01 ms	Billed Duration: 881 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 249.24 ms
+[handler] 19:35:22 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 19:35:23 START RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471 Version: $LATEST
+[handler] 19:35:23 2024-12-28T19:35:23.189Z	0f4ab544-4fbe-48b4-993b-d06ae66f4471	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 19:35:24 2024-12-28T19:35:24.225Z	0f4ab544-4fbe-48b4-993b-d06ae66f4471	INFO	Received response from Bedrock {
+  inputTextTokenCount: 119,
+  results: [
+    {
+      tokenCount: 19,
+      outputText: 'I knew it was true love when she dislocated her elbow to get my favorite pillow.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 19:35:24 END RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471
+[handler] 19:35:24 REPORT RequestId: 0f4ab544-4fbe-48b4-993b-d06ae66f4471	Duration: 1039.76 ms	Billed Duration: 1040 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 222.52 ms
+[handler] 12:51:24 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 12:51:24 START RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf Version: $LATEST
+[handler] 12:51:24 2024-12-29T12:51:24.285Z	9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 12:51:25 2024-12-29T12:51:25.297Z	9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	INFO	Received response from Bedrock {
+  inputTextTokenCount: 121,
+  results: [
+    {
+      tokenCount: 15,
+      outputText: 'I knew it was true love when they deleted their social media accounts.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 12:51:25 END RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf
+[handler] 12:51:25 REPORT RequestId: 9d238c8a-1ccf-4c78-bd22-8ac3cdbf1caf	Duration: 1016.59 ms	Billed Duration: 1017 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 281.28 ms
+[handler] 13:28:24 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 13:28:24 START RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586 Version: $LATEST
+[handler] 13:28:24 2024-12-29T13:28:24.976Z	f3b3ebd7-1965-43cf-b50b-e9065fdff586	WARN	This model is not enabled. Please enable it in the environment variables.
+[handler] 13:28:24 END RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586
+[handler] 13:28:24 REPORT RequestId: f3b3ebd7-1965-43cf-b50b-e9065fdff586	Duration: 3.33 ms	Billed Duration: 4 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 281.64 ms
+[handler] 09:45:17 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 09:45:18 START RequestId: 9a2acef1-b884-40ce-b922-9edfeb987f12 Version: $LATEST
+[handler] 09:45:18 2024-12-31T09:45:18.147Z	9a2acef1-b884-40ce-b922-9edfeb987f12	INFO	Text Prompt Handler started - received prompt: If I were president, my first action would be to _____
+[handler] 09:45:20 2024-12-31T09:45:20.333Z	9a2acef1-b884-40ce-b922-9edfeb987f12	INFO	Received response from Bedrock {
+  inputTextTokenCount: 124,
+  results: [
+    {
+      tokenCount: 65,
+      outputText: '\n' +
+        'If I were president, my first action would be to offer free ice cream to every citizen and then immediately resign due to the obvious tyranny of such power. By the time my successor takes office, the freezer would no longer be stocked with ice cream, and I would no longer be eligible for reelection.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 09:45:20 END RequestId: 9a2acef1-b884-40ce-b922-9edfeb987f12
+[handler] 09:45:20 REPORT RequestId: 9a2acef1-b884-40ce-b922-9edfeb987f12	Duration: 2190.53 ms	Billed Duration: 2191 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 287.64 ms
+[handler] 10:53:14 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 10:53:14 START RequestId: 8fcf411f-de77-4cc2-9576-80331c615f95 Version: $LATEST
+[handler] 10:53:14 2024-12-31T10:53:14.304Z	8fcf411f-de77-4cc2-9576-80331c615f95	INFO	Text Prompt Handler started - received prompt: If aliens visited Earth, the first thing they'd do is _____
+[handler] 10:53:15 2024-12-31T10:53:15.506Z	8fcf411f-de77-4cc2-9576-80331c615f95	INFO	Received response from Bedrock {
+  inputTextTokenCount: 133,
+  results: [
+    {
+      tokenCount: 23,
+      outputText: '\n' +
+        "If aliens visited Earth, the first thing they'd do is politely ask someone to pull up their pants.",
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 10:53:15 END RequestId: 8fcf411f-de77-4cc2-9576-80331c615f95
+[handler] 10:53:15 REPORT RequestId: 8fcf411f-de77-4cc2-9576-80331c615f95	Duration: 1206.83 ms	Billed Duration: 1207 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 284.64 ms
+[handler] 10:56:59 START RequestId: 2379a92e-7941-47f0-beac-507397e1aaaf Version: $LATEST
+[handler] 10:56:59 2024-12-31T10:56:59.767Z	2379a92e-7941-47f0-beac-507397e1aaaf	INFO	Text Prompt Handler started - received prompt: If I were president, my first action would be to _____
+[handler] 10:57:00 2024-12-31T10:57:00.860Z	2379a92e-7941-47f0-beac-507397e1aaaf	INFO	Received response from Bedrock {
+  inputTextTokenCount: 132,
+  results: [
+    {
+      tokenCount: 25,
+      outputText: '\n' +
+        'If I were president, my first action would be to ask Google or Siri about the current state of our economy.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 10:57:00 END RequestId: 2379a92e-7941-47f0-beac-507397e1aaaf
+[handler] 10:57:00 REPORT RequestId: 2379a92e-7941-47f0-beac-507397e1aaaf	Duration: 1115.28 ms	Billed Duration: 1116 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[handler] 11:02:58 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 11:02:58 START RequestId: 198c2737-534a-49ba-b0fd-c008ce137c22 Version: $LATEST
+[handler] 11:02:58 2024-12-31T11:02:58.491Z	198c2737-534a-49ba-b0fd-c008ce137c22	INFO	Text Prompt Handler started - received prompt: The worst thing to say during a job interview is _____
+[handler] 11:02:59 2024-12-31T11:02:59.326Z	198c2737-534a-49ba-b0fd-c008ce137c22	INFO	Received response from Bedrock {
+  inputTextTokenCount: 146,
+  results: [
+    {
+      tokenCount: 12,
+      outputText: 'Sorry, this model is unable to complete the prompt.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 11:02:59 END RequestId: 198c2737-534a-49ba-b0fd-c008ce137c22
+[handler] 11:02:59 REPORT RequestId: 198c2737-534a-49ba-b0fd-c008ce137c22	Duration: 839.93 ms	Billed Duration: 840 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 277.47 ms
+[handler] 11:04:31 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 11:04:31 START RequestId: af8b0c77-d435-4c91-873c-f5074ed3aac9 Version: $LATEST
+[handler] 11:04:31 2024-12-31T11:04:31.505Z	af8b0c77-d435-4c91-873c-f5074ed3aac9	INFO	Text Prompt Handler started - received prompt: The most surprising thing you'd find in a time capsule from 2024 would be _____
+[handler] 11:04:33 2024-12-31T11:04:33.134Z	af8b0c77-d435-4c91-873c-f5074ed3aac9	INFO	Received response from Bedrock {
+  inputTextTokenCount: 141,
+  results: [
+    {
+      tokenCount: 28,
+      outputText: '\n' +
+        "The most surprising thing you'd find in a time capsule from 2024 would be a ghost living in the past.",
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 11:04:33 END RequestId: af8b0c77-d435-4c91-873c-f5074ed3aac9
+[handler] 11:04:33 REPORT RequestId: af8b0c77-d435-4c91-873c-f5074ed3aac9	Duration: 1633.86 ms	Billed Duration: 1634 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 275.04 ms
+[handler] 11:09:28 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 11:09:28 START RequestId: 8ea165ef-34eb-44a8-8971-55dc9d49411a Version: $LATEST
+[handler] 11:09:28 2024-12-31T11:09:28.851Z	8ea165ef-34eb-44a8-8971-55dc9d49411a	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 11:09:29 2024-12-31T11:09:29.696Z	8ea165ef-34eb-44a8-8971-55dc9d49411a	INFO	Received response from Bedrock {
+  inputTextTokenCount: 129,
+  results: [
+    {
+      tokenCount: 11,
+      outputText: '\nNever bring a ____ to a pillow fight',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[handler] 11:09:29 END RequestId: 8ea165ef-34eb-44a8-8971-55dc9d49411a
+[handler] 11:09:29 REPORT RequestId: 8ea165ef-34eb-44a8-8971-55dc9d49411a	Duration: 850.19 ms	Billed Duration: 851 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 292.30 ms
+[handler] 11:19:26 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 11:19:26 START RequestId: 17892350-ebdd-4df4-b8ab-14ac92bbe371 Version: $LATEST
+[handler] 11:19:26 2024-12-31T11:19:26.504Z	17892350-ebdd-4df4-b8ab-14ac92bbe371	INFO	Text Prompt Handler started - received prompt: The most useless superpower would be _____
+[handler] 11:19:27 2024-12-31T11:19:27.568Z	17892350-ebdd-4df4-b8ab-14ac92bbe371	INFO	Received response from Bedrock {
+  inputTextTokenCount: 129,
+  results: [
+    {
+      tokenCount: 15,
+      outputText: "The most useless superpower would be the ability to guess another person's thoughts",
+      completionReason: 'LENGTH'
+    }
+  ]
+}
+[handler] 11:19:27 2024-12-31T11:19:27.570Z	17892350-ebdd-4df4-b8ab-14ac92bbe371	WARN	AI model did not correctly finish generating response
+[handler] 11:19:27 END RequestId: 17892350-ebdd-4df4-b8ab-14ac92bbe371
+[handler] 11:19:27 REPORT RequestId: 17892350-ebdd-4df4-b8ab-14ac92bbe371	Duration: 1069.19 ms	Billed Duration: 1070 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 228.70 ms
+[handler] 11:20:30 START RequestId: da14f92a-eac4-4089-a133-9a7f93a27bdd Version: $LATEST
+[handler] 11:20:30 2024-12-31T11:20:30.766Z	da14f92a-eac4-4089-a133-9a7f93a27bdd	INFO	Text Prompt Handler started - received prompt: The best way to survive a zombie apocalypse is to _____
+[handler] 11:20:31 2024-12-31T11:20:31.741Z	da14f92a-eac4-4089-a133-9a7f93a27bdd	INFO	Received response from Bedrock {
+  inputTextTokenCount: 133,
+  results: [
+    {
+      tokenCount: 15,
+      outputText: '\nThe best way to survive a zombie apocalypse is to have a large',
+      completionReason: 'LENGTH'
+    }
+  ]
+}
+[handler] 11:20:31 2024-12-31T11:20:31.742Z	da14f92a-eac4-4089-a133-9a7f93a27bdd	WARN	AI model did not correctly finish generating response
+[handler] 11:20:31 END RequestId: da14f92a-eac4-4089-a133-9a7f93a27bdd
+[handler] 11:20:31 REPORT RequestId: da14f92a-eac4-4089-a133-9a7f93a27bdd	Duration: 977.93 ms	Billed Duration: 978 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB

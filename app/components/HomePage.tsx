@@ -16,7 +16,7 @@ export const HomePage = (props: Props) => {
     return (
         <main className="mobile-friendly">
             <h1>GENuineAI</h1>
-            <h2>The game where friends come together to trick each other into thinking they aren't human</h2>
+            <h2>Can you tell friend from (Generative AI) foe?</h2>
             <form onSubmit={handleNameSubmit} className="name-form">
                 <input
                 type="text"
@@ -27,7 +27,6 @@ export const HomePage = (props: Props) => {
                 />
                 <button type="submit">Submit</button>
             </form>
-
         </main>
       );
 }

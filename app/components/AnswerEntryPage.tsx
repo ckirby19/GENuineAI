@@ -1,7 +1,6 @@
 import { Schema } from "@/amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import { Dispatch, SetStateAction } from "react";
-import { ROUND_STATUSES } from "../model";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
     username: string;
@@ -10,38 +9,50 @@ interface Props {
     participants: Schema["Participant"]["type"][];
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
-    setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
-    setCurrentPrompt: Dispatch<SetStateAction<Schema["Prompt"]["type"] | null>>;
+    currentLobby: Schema["Lobby"]["type"];
+    transitionToVoting: () => void;
 }
 
 export const AnswerEntryPage = (props: Props) => {
     const client = generateClient<Schema>();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function submitAnswer(e: React.FormEvent) {
         e.preventDefault();
-        if (props.currentRound && props.userAnswer.trim()) {
-          const currentParticipant = props.participants.find(p => p.userId === props.username);
-          if (currentParticipant) {
-            await client.models.Answer.create({
-              roundId: props.currentRound.id,
-              participantId: currentParticipant.id,
-              text: props.userAnswer
-            });
-            
-            // Check if this was the last answer needed
-            // const newAnswerCount = props.answers.length + 1;
-            // if (newAnswerCount === props.participants.length) {
-            //   // Update round status to voting
-            //   const updatedRound = await client.models.Round.update({
-            //     id: props.currentRound.id,
-            //     status: ROUND_STATUSES.VOTING
-            //   });
-            //   // Update local state to trigger re-render
-            //   if (updatedRound.data) {
-            //     props.setCurrentRound(updatedRound.data);
-            //   }
-            // }
-          }
+        if (isSubmitting) return;
+        setIsSubmitting(true);
+        try {
+          if (props.currentRound && props.userAnswer.trim()) {
+            const currentParticipant = props.participants.find(p => p.userId === props.username);
+            if (currentParticipant) {
+  
+              await client.models.Answer.create({
+                roundId: props.currentRound.id,
+                participantId: currentParticipant.id,
+                text: props.userAnswer
+              });
+
+              await client.models.Lobby.update({
+                id: props.currentLobby.id
+              })
+  
+              const round = await client.models.Round.get({
+                id: props.currentRound.id
+              })
+  
+              const answers = (await round.data!.answers()).data;
+  
+              if (answers.length === props.participants.length) {
+                console.log("All answers submitted, moving to voting phase");
+                props.transitionToVoting();
+              }
+            }
+          }        
+        } catch (error) {
+          console.error("Error submitting answer:", error);
+        } finally {
+          props.setUserAnswer("");
+          setIsSubmitting(false);
         }
       }
 
@@ -61,7 +72,9 @@ export const AnswerEntryPage = (props: Props) => {
         ) : (
           <div>Waiting for other players to answer...</div>
         )}
-        <div>Answers submitted: {props.answers.length} / {props.participants.length}</div>
+        <div>Human Answers submitted: {props.answers.filter(x => !x.isAiAnswer).length} / {props.participants.filter(x => !x.isAiParticipant).length}
+        </div>
+        <div>GenAI Answer submitted? {props.answers.find(x => x.isAiAnswer == true) != null ? "Yes" : "No"}</div>
       </div>
       );
 }

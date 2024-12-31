@@ -1,123 +1,101 @@
 import { Schema } from "@/amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import { GAME_STATUSES, numberOfRounds, ROUND_STATUSES } from "../model";
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
+import './VotingPage.css';
 
 interface Props {
     username: string;
     participants: Schema["Participant"]["type"][];
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
-    currentLobby: Schema["Lobby"]["type"] | null;
-    setCurrentPrompt: Dispatch<SetStateAction<Schema["Prompt"]["type"] | null>>;
-    setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
-    setAnswers: Dispatch<SetStateAction<Schema["Answer"]["type"][]>>;
-    setCurrentLobby: Dispatch<SetStateAction<Schema["Lobby"]["type"] | null>>;
+    currentVotes: Schema["Vote"]["type"][];
+    currentLobby: Schema["Lobby"]["type"];
+    transitionToScoring: () => void;    
 }
 
 export const VotingPage = (props: Props) => {
     const client = generateClient<Schema>();
+    const [votedAnswerId, setVotedAnswerId] = useState<string | null>(null);
+    const currentParticipant = props.participants.find(p => p.userId === props.username)
 
-    async function transitionToNextRound() {
-      // Move to next round or end game
-      if (props.currentLobby?.currentRound && props.currentLobby.currentRound < numberOfRounds) {
-        const storedPrompts = JSON.parse(localStorage.getItem(`gamePrompts_${props.currentLobby.id}`) || "[]");
-        const nextPromptText = storedPrompts[props.currentLobby.currentRound];
+    async function submitVote(answerId: string) { // For now we will not allow user to update votes, just submit
+        if (props.currentRound) {
+          const answer = props.answers.find(a => a.id === answerId);
+          if (answer) {
+            setVotedAnswerId(answerId)
+            if (currentParticipant){
+              const vote = await client.models.Vote.create({
+                roundId: props.currentRound.id,
+                participantId: currentParticipant.id,
+                answerId: answer.id
+              });
 
-        // Create next prompt
-        const nextPrompt = await client.models.Prompt.create({
-          text: nextPromptText
-        });
+              if (!vote.data?.id) {
+                console.error("Failed to create vote:", vote.errors);
+                return;
+              }
 
-        if (!nextPrompt.data?.id) {
-          console.error("Failed to create next prompt");
-          return;
+              const round = await client.models.Round.update({
+                id: props.currentRound.id
+              })
+              
+              await client.models.Participant.update({
+                id: currentParticipant.id
+              })
+
+              await client.models.Answer.update({
+                id: answer.id
+              })
+
+              await client.models.Lobby.update({
+                id: props.currentLobby.id
+              })
+
+              const votes = (await round.data!.votes()).data;
+              if (votes.length === props.participants.filter(x => !x.isAiParticipant).length){
+                console.log("All votes submitted, moving to scoring phase");
+                props.transitionToScoring();
+              }
+            }
         }
-
-        const nextRound = await client.models.Round.create({
-          lobbyId: props.currentLobby.id,
-          promptId: nextPrompt.data.id,
-          roundNumber: props.currentLobby.currentRound + 1,
-          status: ROUND_STATUSES.ANSWERING
-        });
-
-        if (!nextRound.data?.id) {
-          console.error("Failed to create next round");
-          return;
-        }
-
-        // Update lobby and reset state
-        const updatedLobby = await client.models.Lobby.update({
-          id: props.currentLobby?.id ?? "",
-          currentRound: props.currentLobby.currentRound + 1
-        });
-
-        props.setCurrentPrompt(nextPrompt.data);
-        props.setCurrentRound(nextRound.data);
-        props.setAnswers([]);
-        props.setCurrentLobby(updatedLobby.data);
-      } else {
-        // End game
-        await client.models.Lobby.update({
-          id: props.currentLobby?.id ?? "",
-          status: GAME_STATUSES.COMPLETED
-        });
       }
     }
 
-    async function submitVote(answerId: string) {
-      console.log("SUBMITTING", props.username, props.currentRound)
-        if (props.currentRound) {
-          // Increment votes for the answer
-          const answer = props.answers.find(a => a.id === answerId);
-          if (answer) {
-            await client.models.Answer.update({
-              id: answerId,
-              votes: (answer.votes || 0) + 1
-            });
-    
-            // Check if all votes are in (one per participant except answer author)
-            const totalVotes = props.answers.reduce((sum, a) => sum + (a.votes || 0), 0);
-            console.log("Check total votes", props.username, totalVotes)
-            if (totalVotes === props.participants.length - 1) {
-              // Find winning answer
-              const winningAnswer = props.answers.reduce((prev, curr) => 
-                (curr.votes || 0) > (prev.votes || 0) ? curr : prev
-              );
-    
-              // Update winner's score
-              const winner = props.participants.find(p => p.id === winningAnswer.participantId);
-              if (winner) {
-                await client.models.Participant.update({
-                  id: winner.id,
-                  score: (winner.score || 0) + 1
-                });
-              }
-              
-              transitionToNextRound()
-            }
-          }
-        }
-      }
-
-    return (
+      return (
         <div className="voting-phase">
-            {props.answers.map((answer) => {
-                const isOwnAnswer = answer.participantId === props.participants.find(p => p.userId === props.username)?.id;
-                return (
-                    <div key={answer.id} className="answer-card">
-                    <p>{answer.text}</p>
-                    {!isOwnAnswer && (
-                        <button 
-                        onClick={() => submitVote(answer.id)}
-                        >
-                        Vote for this answer
-                        </button>
-                    )}
-                    <span>Votes: {answer.votes || 0}</span>
-                    </div>
-                );
-            })}
+            <h2>Vote for the answer you think was generated by a Generative AI model</h2>
+            <div>Votes submitted: {props.currentVotes.length} / {props.participants.filter(x => !x.isAiParticipant).length}</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Answer</th>
+                  <th>Vote</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.answers 
+                  .filter(answer => answer.participantId != currentParticipant?.id) // Filter out users own answer
+                  .map((answer) => {
+                  const hasVoted = votedAnswerId !== null;
+                  const isVotedAnswer = answer.id === votedAnswerId;
+                  return (
+                    <tr key={answer.id}>
+                      <td>{answer.text}</td>
+                      <td>
+                          <button 
+                            onClick={() => submitVote(answer.id)}
+                            disabled={hasVoted}
+                            className={`vote-button ${isVotedAnswer ? 'voted' : ''} ${hasVoted && !isVotedAnswer ? 'disabled' : ''}`}
+                            >
+                            {isVotedAnswer ? '✓ Voted' : 'Vote'}
+                          </button>
+                        
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
         </div>
-      );
+    );
 }

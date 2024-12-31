@@ -11,25 +11,26 @@ import { GameEnd } from "./GameEnd";
 
 interface Props {
     username: string;
-    setUsername: React.Dispatch<React.SetStateAction<string>>;
+    setUsername: Dispatch<SetStateAction<string>>;
     isNameEntered: boolean;
-    setIsNameEntered: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsNameEntered: Dispatch<SetStateAction<boolean>>;
     lobbyCode: string;
-    setLobbyCode: React.Dispatch<React.SetStateAction<string>>;
+    setLobbyCode: Dispatch<SetStateAction<string>>;
     currentLobby: Schema["Lobby"]["type"] | null
-    setCurrentLobby: React.Dispatch<React.SetStateAction<Schema["Lobby"]["type"] | null>>;
     participants: Schema["Participant"]["type"][];
     isHost: boolean | null | undefined
-    startGame: () => void;
     userAnswer: string;
     setUserAnswer: Dispatch<SetStateAction<string>>;
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
-    setCurrentRound: Dispatch<SetStateAction<Schema["Round"]["type"] | null>>;
-    setCurrentPrompt: Dispatch<SetStateAction<Schema["Prompt"]["type"] | null>>;
-    setAnswers: Dispatch<SetStateAction<Schema["Answer"]["type"][]>>;
     currentPrompt: Schema["Prompt"]["type"] | null;
+    currentVotes: Schema["Vote"]["type"][];
+    startGame: () => void;
+    createLobby: () => void;
+    joinLobby: () => void;
     leaveLobby: () => void;
+    transitionToScoring: () => void;
+    transitionToVoting: () => void;
 }
 
 export const MainPage = (props: Props) => {
@@ -41,24 +42,22 @@ export const MainPage = (props: Props) => {
             isNameEntered={props.isNameEntered}
             setIsNameEntered={props.setIsNameEntered}  
           />
-        )
+        ) 
     } 
 
     if (!props.currentLobby) {
         return (
           <LobbyCreation
             username={props.username}
-            setIsNameEntered={props.setIsNameEntered}
             lobbyCode={props.lobbyCode}
             setLobbyCode={props.setLobbyCode}
-            currentLobby={props.currentLobby}
-            setCurrentLobby={props.setCurrentLobby}
+            createLobby={props.createLobby}
+            joinLobby={props.joinLobby}
           />
         );
     }
-    // Lobby has been created, now waiting for host to start game
+    // Lobby has been created, waiting for users to join it
     if (props.currentLobby.status === GAME_STATUSES.WAITING){
-        console.log("Waiting for host to start game", props.participants)
         return (
         <WaitingRoom 
             username={props.username}
@@ -69,12 +68,14 @@ export const MainPage = (props: Props) => {
         />
         )
     }
-    // The host has started the game, we now begin the game
+    // The host has started the game
     if (props.currentLobby.status === GAME_STATUSES.STARTED){
         return (
         <main className="mobile-friendly">
             <div className="game-interface">
-            <ScoresInfo participants={props.participants} />
+            <ScoresInfo 
+              participants={props.participants} 
+            />
             <div className="round-info">
                 <h2>Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
                 {props.currentPrompt && <h3>{props.currentPrompt.text}</h3>}
@@ -87,19 +88,17 @@ export const MainPage = (props: Props) => {
                     participants={props.participants}
                     answers={props.answers}
                     currentRound={props.currentRound}
-                    setCurrentRound={props.setCurrentRound}
-                    setCurrentPrompt={props.setCurrentPrompt}
+                    currentLobby={props.currentLobby}
+                    transitionToVoting={props.transitionToVoting}
                 /> : 
                 <VotingPage
                     username={props.username}
                     participants={props.participants}
                     answers={props.answers}
                     currentRound={props.currentRound}
+                    currentVotes={props.currentVotes}
                     currentLobby={props.currentLobby}
-                    setCurrentPrompt={props.setCurrentPrompt}
-                    setCurrentRound={props.setCurrentRound}
-                    setAnswers={props.setAnswers}
-                    setCurrentLobby={props.setCurrentLobby}
+                    transitionToScoring={props.transitionToScoring}
                 />
             }
             </div>
