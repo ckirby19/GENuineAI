@@ -15,7 +15,7 @@ export const ROUND_STATUSES = {
   
 export type RoundStatus = typeof ROUND_STATUSES[keyof typeof ROUND_STATUSES];
 
-export const numberOfRounds = 8;
+export const numberOfRounds = 2;
 
 export const samplePrompts = [
   "Never bring a _____ to a pillow fight",

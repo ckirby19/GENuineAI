@@ -23,61 +23,108 @@ export default function App() {
 
   const isHost = participants.find(p => p.userId === username)?.isHost;
   
-  // Subscribe to lobby updates
-  useEffect(() => {
-    if (currentLobby) {
-      console.log("User has joined lobby");
-      const lobbyStatusSub = client.models.Lobby.observeQuery({
-        filter: { id: { eq: currentLobby.id } }
-      }).subscribe({
-        next: async (data) => {
-          if (data.items.length > 0) {
-            const updatedLobby = data.items[0];
-
-            console.log("Lobby status updated", updatedLobby);
-            setCurrentLobby(updatedLobby);
-
-            // Participants
-            const updatedPartis = (await updatedLobby.participants()).data;
-            setParticipants([...updatedPartis]);
-            console.log("Partis", updatedPartis);
-
-            // Round
-            const currentRoundNumber = (await updatedLobby.currentRound);
-            if (currentRoundNumber == null || currentRoundNumber == 0) {
-              return;
-            }
-            console.log("Current round number", currentRoundNumber);
-
-            const rounds = (await updatedLobby.rounds()).data;
-            console.log("Rounds", rounds);
-            const updatedRound = rounds[currentRoundNumber - 1];
-            setCurrentRound(updatedRound)
-            console.log("Current round", updatedRound);
-
-            // Prompt
-            const prompt = (await updatedRound.prompt()).data
-            setCurrentPrompt(prompt)
-            console.log("Current prompt", prompt);
-
-            // Answers
-            const answers = (await updatedRound.answers()).data
-            setCurrentAnswers([...answers]);
-            console.log("Current answers", answers);
-
-            // Votes
-            const votes = (await updatedRound.votes()).data
-            setCurrentVotes([...votes]);
-            console.log("Current votes", votes);
-          }
-        },
-      });
-
-      return () => {
-        lobbyStatusSub.unsubscribe();
+// Lobby subscription
+useEffect(() => {
+  if (currentLobby?.id) {
+    const sub = client.models.Lobby.observeQuery({
+      filter: { id: { eq: currentLobby.id } }
+    }).subscribe({
+      next: (data) => {
+        if (data.items.length > 0) {
+          setCurrentLobby(data.items[0]);
+        }
+        else {
+          console.log("Lobby no longer exists");
+          // Optional: Handle lobby deletion
+          setCurrentLobby(null);
+        }
+      },
+      error: (error) => {
+        console.error("Error in lobby subscription:", error);
       }
-    }
-  }, [currentLobby?.id]);
+    });
+    return () => sub.unsubscribe();
+  }
+}, [currentLobby?.id]);
+
+// Participants subscription
+useEffect(() => {
+  if (currentLobby?.id) {
+    const sub = client.models.Participant.observeQuery({
+      filter: { lobbyId: { eq: currentLobby.id } }
+    }).subscribe({
+      next: (data) => {
+        setParticipants([...data.items]);
+      },
+      error: (error) => {
+        console.error("Error in participants subscription:", error);
+      }
+    });
+    return () => sub.unsubscribe();
+  }
+}, [currentLobby?.id]);
+
+// Round subscription
+useEffect(() => {
+  if (currentLobby?.id) {
+      const sub = client.models.Round.observeQuery({
+        filter: { 
+          and: [
+            { lobbyId: { eq: currentLobby.id } },
+            { roundNumber: { eq: currentLobby.currentRound! } }
+          ]
+        }
+      }).subscribe({
+      next: async (data) => {
+        if (data.items.length > 0) {
+          setCurrentRound(data.items[0]);
+
+          // Also fetch and set the prompt when round updates
+          const prompt = (await data.items[0].prompt()).data;
+          setCurrentPrompt(prompt);
+        }
+      },
+      error: (error) => {
+        console.error("Error in round subscription:", error);
+      }
+    });
+    return () => sub.unsubscribe();
+  }
+}, [currentLobby?.id, currentLobby?.currentRound]);
+
+// Answers subscription
+useEffect(() => {
+  if (currentRound?.id) {
+    const sub = client.models.Answer.observeQuery({
+      filter: { roundId: { eq: currentRound.id } }
+    }).subscribe({
+      next: (data) => {
+        setCurrentAnswers([...data.items]);
+      },
+      error: (error) => {
+        console.error("Error in answers subscription:", error);
+      }
+    });
+    return () => sub.unsubscribe();
+  }
+}, [currentRound?.id]);
+
+// Votes subscription
+useEffect(() => {
+  if (currentRound?.id) {
+    const sub = client.models.Vote.observeQuery({
+      filter: { roundId: { eq: currentRound.id } }
+    }).subscribe({
+      next: (data) => {
+        setCurrentVotes([...data.items]);
+      },
+      error: (error) => {
+        console.error("Error in votes subscription:", error);
+      }
+    });
+    return () => sub.unsubscribe();
+  }
+}, [currentRound?.id]);
 
   async function startGame() {
         // const allPrompts = await client.models.Prompt.list({
@@ -127,11 +174,12 @@ export default function App() {
       isAiParticipant: true
     });
 
+    setCurrentLobby(lobby.data); // This will start the lobby sub
+    
+    // Trigger initial update to notify other subs
     await client.models.Lobby.update({
       id: lobby.data?.id!
     });
-
-    setCurrentLobby(lobby.data); // This will start the lobby sub
   }
 
   async function joinLobby() {
@@ -169,12 +217,13 @@ export default function App() {
         isHost: false
       });
 
-      const updatedLobby = await client.models.Lobby.update({
+      setCurrentLobby(lobby); // This will start the lobby subscription
+    
+      // Trigger update to notify other clients
+      await client.models.Lobby.update({
         id: lobby.id,
       })
-
-      setCurrentLobby(updatedLobby.data);
-  }
+  } 
 
   async function leaveLobby() {
     if (currentLobby) {
@@ -196,7 +245,7 @@ export default function App() {
       return;
     }
 
-    if (round < numberOfRounds) {
+    if (round <= numberOfRounds) {
 
       const storedPrompts = JSON.parse(localStorage.getItem(`gamePrompts_${currentLobby.id}`) || "[]");
       const nextPromptText = storedPrompts[round - 1];
@@ -291,43 +340,70 @@ export default function App() {
   }
 
   async function transitionToScoring(){
-    const aiParticipant = participants.find(x => x.isAiParticipant);
-    
-    currentVotes.forEach(async vote => {
-      const answerVotedFor = (await vote.answer()).data;
-      if (answerVotedFor){
-        if (!answerVotedFor.isAiAnswer){
-          // Award AI
-          if (aiParticipant){
-            console.log("Updating scores for AI", aiParticipant)
-            aiParticipant.score = (aiParticipant.score ?? 0) + scoreIncrementAI
-          }
+    const updatedParticipants = [...participants]; // Create a new array to track score updates
+    const aiParticipant = updatedParticipants.find(x => x.isAiParticipant);
 
-          // Award Answer Creator
-          const answerCreator = participants.find(p => p.id === answerVotedFor.participantId);
-          if (answerCreator){
-            console.log("Updating scores for answer creator", answerCreator)
-            answerCreator.score = (answerCreator.score ?? 0) + scoreIncrementAnswerCreator
-          }
-        }
-        else{
+    if (currentRound == null){
+      console.log("Cannot transition to scoring if not in a round")
+      return;
+    }
+
+    const votes = (await currentRound.votes()).data;
+
+    if (votes == null){
+      console.log("No votes found for round", currentRound?.id!)
+      return;
+    }
+
+    for (const vote of votes){
+      const answerVotedFor = (await vote.answer()).data;
+      console.log("Got a vote for answer", vote, answerVotedFor);
+      if (answerVotedFor){
+        if (answerVotedFor.isAiAnswer){
           // Award voter
-          const voter = participants.find(p => p.id === vote.participantId);
+          const voter = updatedParticipants.find(p => p.id === vote.participantId);
           if (voter){
             console.log("Updating scores for voter", voter)
             voter.score = (voter.score ?? 0) + scoreIncrementVoter
           }
+          else{
+            console.log("No voter found for vote", vote)
+          }
+        }
+        else{
+            // Award AI
+            if (aiParticipant){
+              console.log("Updating scores for AI", aiParticipant)
+              aiParticipant.score = (aiParticipant.score ?? 0) + scoreIncrementAI
+            }
+            else{
+              console.log("No AI participant found")
+            }
+
+            // Award Answer Creator
+            const answerCreator = updatedParticipants.find(p => p.id === answerVotedFor.participantId);
+            if (answerCreator){
+              console.log("Updating scores for answer creator", answerCreator)
+              answerCreator.score = (answerCreator.score ?? 0) + scoreIncrementAnswerCreator
+            }
+            else{
+              console.log("No answer creator found for answer", answerVotedFor)
+            }
         }
       }
-    })
+      else{
+        console.log("No answer found for vote", vote)
+      }
+    }
 
-    console.log("Check updated scores for participants", participants)
-    participants.forEach(async p => {
-      await client.models.Participant.update({
-        id: p.id,
-        score: p.score
+    console.log("Check updated scores for participants", updatedParticipants)
+
+    await Promise.all(updatedParticipants.map(participant => 
+      client.models.Participant.update({
+          id: participant.id,
+          score: participant.score,
       })
-    })
+    ));
 
     console.log("Finished updating scores, transitioning...")
 
