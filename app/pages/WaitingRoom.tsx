@@ -11,7 +11,7 @@ interface Props {
 
 export const WaitingRoom = (props: Props) => {
     return (
-        <main className="mobile-friendly">
+        <div className="mobile-friendly">
           <h1>Lobby: {props.currentLobby.code}</h1>
           <div className="participants-list">
             <h2>Participants:</h2>
@@ -38,6 +38,6 @@ export const WaitingRoom = (props: Props) => {
           <button className="leave-lobby" onClick={props.leaveLobby}>
             Leave Lobby
           </button>
-        </main>
+        </div>
       );
 }

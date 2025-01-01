@@ -72,7 +72,7 @@ export const MainPage = (props: Props) => {
     // The host has started the game
     if (props.currentLobby.status === GAME_STATUSES.STARTED){
         return (
-        <main className="mobile-friendly">
+        <div className="mobile-friendly">
             <div className="game-interface">
             <ScoresInfo 
               participants={props.participants} 
@@ -103,7 +103,7 @@ export const MainPage = (props: Props) => {
                 />
             }
             </div>
-        </main>
+        </div>
         )
     };
 

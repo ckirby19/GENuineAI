@@ -3,9 +3,9 @@
 import { useState, useEffect, FormEvent } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
-import "./../app/app.css";
+import "./app.css";
 import { GAME_STATUSES, numberOfRounds, ROUND_STATUSES, samplePrompts, scoreIncrementAI, scoreIncrementAnswerCreator, scoreIncrementVoter } from "./model";
-import { MainPage } from "./components/MainPage";
+import { MainPage } from "./pages/MainPage";
 
 const client = generateClient<Schema>();
 
@@ -306,46 +306,46 @@ useEffect(() => {
     }
   }
 
-/**
- * Extracts and formats the missing word(s) from an AI response.
- * @param aiResponse The AI's full response.
- * @param originalPrompt The original prompt with the blank (_____).
- * @returns The cleaned missing word(s) with capitalization and no trailing full stops.
- */
-function extractAnswer(aiResponse: string, originalPrompt: string): string {
-  // Normalize AI response and remove leading/trailing whitespace
-  const normalizedResponse = aiResponse.trim();
+  /**
+   * Extracts and formats the missing word(s) from an AI response.
+   * @param aiResponse The AI's full response.
+   * @param originalPrompt The original prompt with the blank (_____).
+   * @returns The cleaned missing word(s) with capitalization and no trailing full stops.
+   */
+  function extractAnswer(aiResponse: string, originalPrompt: string): string {
+    // Normalize AI response and remove leading/trailing whitespace
+    const normalizedResponse = aiResponse.trim();
 
-  // Find the position of "____" in the original prompt
-  const blankString = "_____"
-  const blankIndex = originalPrompt.indexOf(blankString);
-  if (blankIndex === -1) {
-      throw new Error("Original prompt does not contain a blank (_____).");
+    // Find the position of "____" in the original prompt
+    const blankString = "_____"
+    const blankIndex = originalPrompt.indexOf(blankString);
+    if (blankIndex === -1) {
+        throw new Error("Original prompt does not contain a blank (_____).");
+    }
+
+    // Split the prompt into parts before and after the blank
+    const beforeBlank = originalPrompt.slice(0, blankIndex).trim();
+    const afterBlank = originalPrompt.slice(blankIndex + blankString.length).trim();
+
+    // Remove "beforeBlank" from the start of the response
+    let extracted = normalizedResponse;
+    if (beforeBlank && normalizedResponse.toLowerCase().startsWith(beforeBlank.toLowerCase())) {
+        extracted = extracted.slice(beforeBlank.length).trim();
+    }
+
+    // Remove "afterBlank" from the end of the response
+    if (afterBlank && extracted.toLowerCase().endsWith(afterBlank.toLowerCase())) {
+        extracted = extracted.slice(0, -afterBlank.length).trim();
+    }
+
+    // Capitalize the first letter of the extracted phrase
+    extracted = extracted.charAt(0).toUpperCase() + extracted.slice(1);
+
+    // Remove any trailing full stops
+    extracted = extracted.replace(/\.$/, "");
+
+    return extracted;
   }
-
-  // Split the prompt into parts before and after the blank
-  const beforeBlank = originalPrompt.slice(0, blankIndex).trim();
-  const afterBlank = originalPrompt.slice(blankIndex + blankString.length).trim();
-
-  // Remove "beforeBlank" from the start of the response
-  let extracted = normalizedResponse;
-  if (beforeBlank && normalizedResponse.toLowerCase().startsWith(beforeBlank.toLowerCase())) {
-      extracted = extracted.slice(beforeBlank.length).trim();
-  }
-
-  // Remove "afterBlank" from the end of the response
-  if (afterBlank && extracted.toLowerCase().endsWith(afterBlank.toLowerCase())) {
-      extracted = extracted.slice(0, -afterBlank.length).trim();
-  }
-
-  // Capitalize the first letter of the extracted phrase
-  extracted = extracted.charAt(0).toUpperCase() + extracted.slice(1);
-
-  // Remove any trailing full stops
-  extracted = extracted.replace(/\.$/, "");
-
-  return extracted;
-}
 
   async function finishGame() {
     await client.models.Lobby.update({

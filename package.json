@@ -11,10 +11,16 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^6.5.5",
     "@aws-sdk/client-bedrock-runtime": "^3.716.0",
+    "@radix-ui/react-slot": "^1.1.1",
     "aws-amplify": "^6.6.6",
-    "next": "14.2.10",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "next": "^14.2.22",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.1",
@@ -22,10 +28,13 @@
     "@types/node": "^20.17.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
     "aws-cdk": "^2",
     "aws-cdk-lib": "^2",
     "constructs": "^10.3.0",
     "esbuild": "^0.23.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.0",
     "typescript": "^5.7.2"

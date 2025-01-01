@@ -7,7 +7,7 @@ interface Props {
 
 export const GameEnd = (props: Props) => {
     return (
-        <main>
+        <div>
         <div className="game-over">
           <h2>Game Over!</h2>
           <div className="final-scores">
@@ -27,6 +27,6 @@ export const GameEnd = (props: Props) => {
         <button className="leave-lobby" onClick={props.leaveLobby}>
           Leave Lobby
         </button>
-      </main>
+      </div>
       );
 }
