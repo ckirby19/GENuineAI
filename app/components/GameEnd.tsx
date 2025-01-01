@@ -6,7 +6,6 @@ interface Props {
 }
 
 export const GameEnd = (props: Props) => {
-
     return (
         <main>
         <div className="game-over">

@@ -5,7 +5,7 @@ import {
   defineFunction,
 } from "@aws-amplify/backend";
 
-export const TEXT_MODEL_ID = "amazon.titan-text-lite-v1"; // amazon.titan-text-express-v1
+export const TEXT_MODEL_ID = "mistral.mistral-7b-instruct-v0:2"; // meta.llama3-70b-instruct-v1
 export const IMAGE_MODEL_ID = "amazon.titan-image-generator-v1" // amazon.titan-image-generator-v2:0
 
 export const generateTextResponse = defineFunction({

@@ -6,13 +6,14 @@ interface Props {
     currentLobby: Schema["Lobby"]["type"]
     isHost: boolean | null | undefined
     startGame: () => void;
+    leaveLobby: () => void;
 }
 
 export const WaitingRoom = (props: Props) => {
     return (
         <main className="mobile-friendly">
-            <h1>Lobby: {props.currentLobby.code}</h1>
-            <div className="participants-list">
+          <h1>Lobby: {props.currentLobby.code}</h1>
+          <div className="participants-list">
             <h2>Participants:</h2>
             <ul>
               {props.participants.filter(p => !p.isAiParticipant).map((participant) => (
@@ -34,6 +35,9 @@ export const WaitingRoom = (props: Props) => {
               Waiting for host to start game...
             </div>
           )}
+          <button className="leave-lobby" onClick={props.leaveLobby}>
+            Leave Lobby
+          </button>
         </main>
       );
 }

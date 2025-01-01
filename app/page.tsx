@@ -225,6 +225,7 @@ useEffect(() => {
           await client.models.Lobby.delete({ id: currentLobby.id });
         }
       }
+      setCurrentLobby(null); // or however you update your currentLobby state
     }
   }
 
@@ -253,12 +254,19 @@ useEffect(() => {
         lobbyId: currentLobby.id,
         promptId: nextPrompt.data.id,
         roundNumber: round,
+        status: ROUND_STATUSES.ANSWERING
       });
 
       if (!nextRound.data?.id) {
         console.error("Failed to create next round");
         return;
       }
+
+      await client.models.Lobby.update({
+        id: currentLobby.id,
+        status: GAME_STATUSES.STARTED,
+        currentRound: round
+      });
 
       const { data, errors } = await client.queries.GenerateTextResponse({
         prompt: nextPrompt.data.text!
@@ -267,7 +275,7 @@ useEffect(() => {
       if (!errors && data) {
         const AiParticipant = participants.find(x => x.isAiParticipant);
         if (AiParticipant) {
-          const extractedAnswer = extractAnswer(nextPrompt.data.text!, data);
+          const extractedAnswer = extractAnswer(data, nextPrompt.data.text!, );
 
           await client.models.Answer.create({
             roundId: nextRound.data.id,
@@ -284,13 +292,11 @@ useEffect(() => {
       // Update round so it has above answer and transitions to next UI
       client.models.Round.update({
         id: nextRound.data.id,
-        status: ROUND_STATUSES.ANSWERING
       });
 
       // Update lobby
       await client.models.Lobby.update({
         id: currentLobby.id,
-        status: GAME_STATUSES.STARTED,
         currentRound: round
       });
 
@@ -300,22 +306,45 @@ useEffect(() => {
     }
   }
 
-  function extractAnswer(prompt: string, response: string): string {
-    // Remove the blank placeholder from the prompt
-    const promptWithoutBlanks = prompt.replace(" _____", "");
-    
-    // Remove the prompt text from the response
-    let extractedText = response.replace(promptWithoutBlanks, "");
-    
-    // Remove trailing period if it exists
-    if (extractedText.endsWith(".")) {
-        extractedText = extractedText.substring(0, extractedText.length - 1);
-    }
-    
-    // Trim any whitespace
-    extractedText = extractedText.trim();
-    
-    return extractedText || "generic AI answer, can't defeat AI";
+/**
+ * Extracts and formats the missing word(s) from an AI response.
+ * @param aiResponse The AI's full response.
+ * @param originalPrompt The original prompt with the blank (_____).
+ * @returns The cleaned missing word(s) with capitalization and no trailing full stops.
+ */
+function extractAnswer(aiResponse: string, originalPrompt: string): string {
+  // Normalize AI response and remove leading/trailing whitespace
+  const normalizedResponse = aiResponse.trim();
+
+  // Find the position of "____" in the original prompt
+  const blankString = "_____"
+  const blankIndex = originalPrompt.indexOf(blankString);
+  if (blankIndex === -1) {
+      throw new Error("Original prompt does not contain a blank (_____).");
+  }
+
+  // Split the prompt into parts before and after the blank
+  const beforeBlank = originalPrompt.slice(0, blankIndex).trim();
+  const afterBlank = originalPrompt.slice(blankIndex + blankString.length).trim();
+
+  // Remove "beforeBlank" from the start of the response
+  let extracted = normalizedResponse;
+  if (beforeBlank && normalizedResponse.toLowerCase().startsWith(beforeBlank.toLowerCase())) {
+      extracted = extracted.slice(beforeBlank.length).trim();
+  }
+
+  // Remove "afterBlank" from the end of the response
+  if (afterBlank && extracted.toLowerCase().endsWith(afterBlank.toLowerCase())) {
+      extracted = extracted.slice(0, -afterBlank.length).trim();
+  }
+
+  // Capitalize the first letter of the extracted phrase
+  extracted = extracted.charAt(0).toUpperCase() + extracted.slice(1);
+
+  // Remove any trailing full stops
+  extracted = extracted.replace(/\.$/, "");
+
+  return extracted;
 }
 
   async function finishGame() {

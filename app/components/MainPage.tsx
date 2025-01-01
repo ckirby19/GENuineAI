@@ -65,6 +65,7 @@ export const MainPage = (props: Props) => {
             currentLobby={props.currentLobby}
             isHost={props.isHost}
             startGame={props.startGame}
+            leaveLobby={props.leaveLobby}
         />
         )
     }

@@ -24,35 +24,32 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     // User prompt
     const prompt = event.arguments.prompt;
 
-    const promptWithContext = 
-    `Task: Generate a funny response for a party game where players try to guess which answer is AI generated
-        Context: This is for entertainment purposes. Be creative and humorous.
-        Format: Provide only the missing word(s) to fill in ____ and complete the sentence.
+    const promptWithContext = `<s>[INST]
+        Task: Fill in the blank with 1-3 words in a funny and creative way.
+        Context: Party game. The goal is to entertain.
+        Format: ONLY provide the missing word(s).
         Tone: Playful and imaginative.
         Rules: 
-        - Don't explain or apologize
-        - Keep it brief (1-3 words)
-        - Be creative
-        - Make it funny
-        - DO NOT change the original sentence prompt
-        - DO NOT include the original sentence in your response
+        - Do NOT repeat the sentence.
+        - Do NOT change the wording of the original sentence.
+        - Do NOT use quotation marks around your answer.
+        - Keep the response very brief.
+        - Be as funny and creative as possible.
+        - Give a single answer and do not explain it.
 
-        Complete this sentence: ${prompt}
-    `
+        Complete this sentence: ${prompt} [/INST]`;
 
     // Prepare the payload for the model.
     const payload = {
-        "inputText": `${promptWithContext}`,
-        "textGenerationConfig": {
-            "maxTokenCount": 15,
-            "stopSequences": [],
-            "temperature": 0.9,
-            "topP": 1.0
-        }
-    };
+        "prompt": promptWithContext,
+        "max_tokens": 150,
+        "stop": [".", "\n", "!"],
+        "temperature": 0.7,
+        "top_p": 0.5,
+        "top_k": 50
+    }
 
     const command = new InvokeModelCommand({
-        contentType: "application/json",
         body: JSON.stringify(payload),
         modelId: TEXT_MODEL_ID,
     });
@@ -61,11 +58,11 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     
     const data = JSON.parse(Buffer.from(response.body).toString());
 
-    console.log('Received response from Bedrock', data);
+    console.log(`Received response from Bedrock model ${TEXT_MODEL_ID}`, data);
 
-    if (data.results[0].completionReason != "FINISH"){
+    if (data.outputs[0].stop_reason != "stop"){
         console.warn("AI model did not correctly finish generating response")
     }
 
-    return data.results[0].outputText;
+    return data.outputs[0].text;
 };
