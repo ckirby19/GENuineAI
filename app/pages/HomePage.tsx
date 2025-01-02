@@ -25,7 +25,6 @@ export const HomePage = (props: Props) => {
                 <Brain className="w-12 h-12 mr-4 text-[hsl(var(--neon-purple))]" />
                 <p className="text-xl">Can you tell friend from (Generative AI) foe?</p>
             </div>
-            <h2></h2>
             <form onSubmit={handleNameSubmit} className="w-full max-w-md space-y-4">
                 <Input
                 type="text"
@@ -35,7 +34,9 @@ export const HomePage = (props: Props) => {
                 required
                 className="w-full bg-muted text-foreground border-[hsl(var(--neon-blue))]"
                 />
-                <Button className="w-full neon-button" type="submit">Submit</Button>
+                <Button className="w-full neon-button" type="submit">
+                    Submit
+                </Button>
             </form>
         </div>
       );

@@ -1,6 +1,10 @@
 import { Schema } from "@/amplify/data/resource";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { generateClient } from "aws-amplify/data";
 import { Dispatch, SetStateAction, useState } from "react";
+import { numberOfRounds } from "../model";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Props {
     username: string;
@@ -10,6 +14,7 @@ interface Props {
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
     currentLobby: Schema["Lobby"]["type"];
+    currentPrompt: Schema["Prompt"]["type"] | null;
     transitionToVoting: () => void;
 }
 
@@ -57,24 +62,40 @@ export const AnswerEntryPage = (props: Props) => {
       }
 
     return (
-        <div className="answer-phase">
-        {!props.answers.some(a => a.participantId === props.participants.find(p => p.userId === props.username)?.id) ? (
-          <form onSubmit={submitAnswer}>
-            <input
-              type="text"
-              value={props.userAnswer}
-              onChange={(e) => props.setUserAnswer(e.target.value)}
-              placeholder="Your answer..."
-              required
-            />
-            <button type="submit">Submit Answer</button>
-          </form>
-        ) : (
-          <div>Waiting for other players to answer...</div>
-        )}
-        <div>Human Answers submitted: {props.answers.filter(x => !x.isAiAnswer).length} / {props.participants.filter(x => !x.isAiParticipant).length}
-        </div>
-        <div>GenAI Answer submitted? {props.answers.find(x => x.isAiAnswer == true) != null ? "Yes" : "No"}</div>
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
+        <Card className="w-full max-w-2xl bg-muted neon-border">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <h2 className="text mb-8 neon-text">Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
+            </CardTitle>      
+            {props.currentPrompt && 
+              <h3 className="text mb-8 neon-text">{props.currentPrompt.text}</h3>
+            }    
+          </CardHeader>
+          <CardContent>
+          {!props.answers.some(a => a.participantId === props.participants.find(p => p.userId === props.username)?.id) ? (
+            <form onSubmit={submitAnswer}>
+              <Input
+                type="text"
+                value={props.userAnswer}
+                onChange={(e) => props.setUserAnswer(e.target.value)}
+                placeholder="Your answer..."
+                required
+              />
+              <Button className="w-full neon-button" type="submit">
+                Submit Answer
+              </Button>
+            </form>
+          ) : (
+            <p className="text-xl">
+              Waiting for other players to answer...
+            </p>
+          )}
+            <p className="text-xl">
+              Answers submitted: {props.answers.length} / {props.participants.length}
+            </p>
+          </CardContent>
+        </Card>
       </div>
       );
 }

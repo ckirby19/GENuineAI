@@ -72,15 +72,7 @@ export const MainPage = (props: Props) => {
     // The host has started the game
     if (props.currentLobby.status === GAME_STATUSES.STARTED){
         return (
-        <div className="mobile-friendly">
-            <div className="game-interface">
-            <ScoresInfo 
-              participants={props.participants} 
-            />
-            <div className="round-info">
-                <h2>Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
-                {props.currentPrompt && <h3>{props.currentPrompt.text}</h3>}
-            </div>
+          <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
             {(props.answers.length != props.participants.length) ? 
                 <AnswerEntryPage
                     username={props.username}
@@ -90,6 +82,7 @@ export const MainPage = (props: Props) => {
                     answers={props.answers}
                     currentRound={props.currentRound}
                     currentLobby={props.currentLobby}
+                    currentPrompt={props.currentPrompt}
                     transitionToVoting={props.transitionToVoting}
                 /> : 
                 <VotingPage
@@ -99,11 +92,11 @@ export const MainPage = (props: Props) => {
                     currentRound={props.currentRound}
                     currentVotes={props.currentVotes}
                     currentLobby={props.currentLobby}
+                    currentPrompt={props.currentPrompt}
                     transitionToScoring={props.transitionToScoring}
                 />
             }
             </div>
-        </div>
         )
     };
 
