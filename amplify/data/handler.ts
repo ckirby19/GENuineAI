@@ -44,8 +44,8 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
         "prompt": promptWithContext,
         "max_tokens": 150,
         "stop": [".", "\n", "!"],
-        "temperature": 0.7,
-        "top_p": 0.5,
+        "temperature": 1.0,
+        "top_p": 1.0,
         "top_k": 50
     }
 

@@ -139,11 +139,7 @@ export default function App() {
       alert("Not enough prompts available. Please contact administrator.");
       return;
     }
-
-    const shuffledPrompts = [...samplePrompts].sort(() => Math.random() - 0.5).slice(0, numberOfRounds + 1);
     
-    localStorage.setItem(`gamePrompts_${currentLobby.id}`, JSON.stringify(shuffledPrompts));
-
     transitionToRound(1);
   }
 
@@ -245,8 +241,8 @@ export default function App() {
 
     if (round <= numberOfRounds) {
 
-      const storedPrompts = JSON.parse(localStorage.getItem(`gamePrompts_${currentLobby.id}`) || "[]");
-      const nextPromptText = storedPrompts[round - 1];
+      var randomIndex = Math.floor(Math.random() * samplePrompts.length);
+      var nextPromptText = samplePrompts.splice(randomIndex, 1)[0];
 
       // Create next prompt
       const nextPrompt = await client.models.Prompt.create({
