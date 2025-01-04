@@ -26,7 +26,6 @@ export const VotingPage = (props: Props) => {
     const currentParticipant = props.participants.find(p => p.userId === props.username)
 
     async function submitVote() {
-        console.log("Check current voted answer", votedAnswerId)
         if (props.currentRound && votedAnswerId !== null) {
           const answer = props.answers.find(a => a.id === votedAnswerId);
           if (answer) {
@@ -43,7 +42,7 @@ export const VotingPage = (props: Props) => {
                 return;
               }
 
-              const round = await client.models.Round.update({
+              await client.models.Round.update({
                 id: props.currentRound.id
               })
               
@@ -58,12 +57,6 @@ export const VotingPage = (props: Props) => {
               await client.models.Lobby.update({
                 id: props.currentLobby.id
               })
-
-              const votes = (await round.data!.votes()).data;
-              if (votes.length === props.participants.filter(x => !x.isAiParticipant).length){
-                console.log("All votes submitted, moving to scoring phase");
-                props.transitionToScoring();
-              }
             }
         }
       }
@@ -104,7 +97,6 @@ export const VotingPage = (props: Props) => {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center space-y-4"
                 >
-                  <p>Waiting for other players to vote...</p>
                   <div className="w-full bg-accent rounded-full h-4">
                     <motion.div
                       className="bg-[hsl(var(--neon-blue))] h-4 rounded-full"

@@ -37,20 +37,13 @@ export const AnswerEntryPage = (props: Props) => {
                 text: props.userAnswer
               });
 
+              await client.models.Round.update({
+                id: props.currentRound.id
+              });
+
               await client.models.Lobby.update({
                 id: props.currentLobby.id
-              })
-  
-              const round = await client.models.Round.get({
-                id: props.currentRound.id
-              })
-  
-              const answers = (await round.data!.answers()).data;
-  
-              if (answers.length === props.participants.length) {
-                console.log("All answers submitted, moving to voting phase");
-                props.transitionToVoting();
-              }
+              });
             }
           }        
         } catch (error) {
@@ -60,21 +53,21 @@ export const AnswerEntryPage = (props: Props) => {
           setIsSubmitting(false);
         }
       }
-
+    
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
         <Card className="w-full max-w-2xl bg-muted neon-border">
           <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <h2 className="text mb-8 neon-text">Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
+            <CardTitle>
+              <h2 className="text mb-8 neon-text text-center">Round {props.currentLobby.currentRound} of {numberOfRounds}</h2>
             </CardTitle>      
             {props.currentPrompt && 
-              <h3 className="text mb-8 neon-text">{props.currentPrompt.text}</h3>
+              <h2 className="text mb-8 neon-text text-center">Prompt: {props.currentPrompt.text}</h2>
             }    
           </CardHeader>
           <CardContent>
           {!props.answers.some(a => a.participantId === props.participants.find(p => p.userId === props.username)?.id) ? (
-            <form onSubmit={submitAnswer}>
+            <form onSubmit={submitAnswer} className="flex flex-col gap-4">
               <Input
                 type="text"
                 value={props.userAnswer}
@@ -88,14 +81,11 @@ export const AnswerEntryPage = (props: Props) => {
             </form>
           ) : (
             <p className="text-xl">
-              Waiting for other players to answer...
+              Waiting for {props.participants.length - props.answers.length} other player(s) to answer
             </p>
           )}
-            <p className="text-xl">
-              Answers submitted: {props.answers.length} / {props.participants.length}
-            </p>
           </CardContent>
         </Card>
       </div>
-      );
+    );
 }

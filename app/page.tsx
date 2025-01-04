@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import "./app.css";
@@ -23,103 +23,111 @@ export default function App() {
 
   const isHost = participants.find(p => p.userId === username)?.isHost;
   
-// Lobby subscription
-useEffect(() => {
-  if (currentLobby?.id) {
-    const sub = client.models.Lobby.observeQuery({
-      filter: { id: { eq: currentLobby.id } }
-    }).subscribe({
-      next: (data) => {
-        if (data.items.length > 0) {
-          setCurrentLobby(data.items[0]);
-        }
-      },
-      error: (error) => {
-        console.error("Error in lobby subscription:", error);
-      }
-    });
-    return () => sub.unsubscribe();
-  }
-}, [currentLobby?.id]);
-
-// Participants subscription
-useEffect(() => {
-  if (currentLobby?.id) {
-    const sub = client.models.Participant.observeQuery({
-      filter: { lobbyId: { eq: currentLobby.id } }
-    }).subscribe({
-      next: (data) => {
-        setParticipants([...data.items]);
-      },
-      error: (error) => {
-        console.error("Error in participants subscription:", error);
-      }
-    });
-    return () => sub.unsubscribe();
-  }
-}, [currentLobby?.id]);
-
-// Round subscription
-useEffect(() => {
-  if (currentLobby?.id) {
-      const sub = client.models.Round.observeQuery({
-        filter: { 
-          and: [
-            { lobbyId: { eq: currentLobby.id } },
-            { roundNumber: { eq: currentLobby.currentRound! } }
-          ]
-        }
+  // Lobby subscription
+  useEffect(() => {
+    if (currentLobby?.id) {
+      const sub = client.models.Lobby.observeQuery({
+        filter: { id: { eq: currentLobby.id } }
       }).subscribe({
-      next: async (data) => {
-        if (data.items.length > 0) {
-          setCurrentRound(data.items[0]);
-
-          // Also fetch and set the prompt when round updates
-          const prompt = (await data.items[0].prompt()).data;
-          setCurrentPrompt(prompt);
+        next: (data) => {
+          if (data.items.length > 0) {
+            setCurrentLobby(data.items[0]);
+          }
+        },
+        error: (error) => {
+          console.error("Error in lobby subscription:", error);
         }
-      },
-      error: (error) => {
-        console.error("Error in round subscription:", error);
-      }
-    });
-    return () => sub.unsubscribe();
-  }
-}, [currentLobby?.id, currentLobby?.currentRound]);
+      });
+      return () => sub.unsubscribe();
+    }
+  }, [currentLobby?.id]);
 
-// Answers subscription
-useEffect(() => {
-  if (currentRound?.id) {
-    const sub = client.models.Answer.observeQuery({
-      filter: { roundId: { eq: currentRound.id } }
-    }).subscribe({
-      next: (data) => {
-        setCurrentAnswers([...data.items]);
-      },
-      error: (error) => {
-        console.error("Error in answers subscription:", error);
-      }
-    });
-    return () => sub.unsubscribe();
-  }
-}, [currentRound?.id]);
+  // Participants subscription
+  useEffect(() => {
+    if (currentLobby?.id) {
+      const sub = client.models.Participant.observeQuery({
+        filter: { lobbyId: { eq: currentLobby.id } }
+      }).subscribe({
+        next: (data) => {
+          setParticipants([...data.items]);
+        },
+        error: (error) => {
+          console.error("Error in participants subscription:", error);
+        }
+      });
+      return () => sub.unsubscribe();
+    }
+  }, [currentLobby?.id]);
 
-// Votes subscription
-useEffect(() => {
-  if (currentRound?.id) {
-    const sub = client.models.Vote.observeQuery({
-      filter: { roundId: { eq: currentRound.id } }
-    }).subscribe({
-      next: (data) => {
-        setCurrentVotes([...data.items]);
-      },
-      error: (error) => {
-        console.error("Error in votes subscription:", error);
-      }
-    });
-    return () => sub.unsubscribe();
-  }
-}, [currentRound?.id]);
+  // Round subscription
+  useEffect(() => {
+    if (currentLobby?.id) {
+        const sub = client.models.Round.observeQuery({
+          filter: { 
+            and: [
+              { lobbyId: { eq: currentLobby.id } },
+              { roundNumber: { eq: currentLobby.currentRound! } }
+            ]
+          }
+        }).subscribe({
+        next: async (data) => {
+          if (data.items.length > 0) {
+            setCurrentRound(data.items[0]);
+
+            // Also fetch and set the prompt when round updates
+            const prompt = (await data.items[0].prompt()).data;
+            setCurrentPrompt(prompt);
+          }
+        },
+        error: (error) => {
+          console.error("Error in round subscription:", error);
+        }
+      });
+      return () => sub.unsubscribe();
+    }
+  }, [currentLobby?.id, currentLobby?.currentRound]);
+
+  // Answers subscription
+  useEffect(() => {
+    if (currentRound?.id) {
+      const sub = client.models.Answer.observeQuery({
+        filter: { roundId: { eq: currentRound.id } }
+      }).subscribe({
+        next: (data) => {
+          setCurrentAnswers([...data.items]);
+          if (data.items.length === participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
+            transitionToVoting();
+          }
+        },
+        error: (error) => {
+          console.error("Error in answers subscription:", error);
+        }
+      });
+      return () => sub.unsubscribe();
+    }
+  }, [currentRound?.id]);
+
+  // Votes subscription
+  useEffect(() => {
+    if (currentRound?.id) {
+      const sub = client.models.Vote.observeQuery({
+        filter: { roundId: { eq: currentRound.id } }
+      }).subscribe({
+        next: (data) => {
+          setCurrentVotes([...data.items]);
+
+          if (data.items.length === participants.filter(x => !x.isAiParticipant).length && ROUND_STATUSES.VOTING){
+            console.log("All votes submitted, moving to scoring phase");
+            transitionToScoring();
+          }
+        },
+        error: (error) => {
+          console.error("Error in votes subscription:", error);
+        }
+      });
+      return () => sub.unsubscribe();
+    }
+  }, [currentRound?.id]);
 
   async function startGame() {
     if (!currentLobby) {
@@ -290,7 +298,7 @@ useEffect(() => {
       }
 
       // Update round so it has above answer and transitions to next UI
-      client.models.Round.update({
+      await client.models.Round.update({
         id: nextRound.data.id,
       });
 
@@ -373,14 +381,18 @@ useEffect(() => {
   }
 
   async function transitionToScoring(){
-    const updatedParticipants = [...participants]; // Create a new array to track score updates
-    const aiParticipant = updatedParticipants.find(x => x.isAiParticipant);
+    if (currentLobby == null) {
+      console.log("Cannot transition to scoring if not in a lobby")
+      return;
+    }
 
     if (currentRound == null){
       console.log("Cannot transition to scoring if not in a round")
       return;
     }
 
+    const updatedParticipants = [...participants]; // Create a new array to track score updates
+    const aiParticipant = updatedParticipants.find(x => x.isAiParticipant);
     const votes = (await currentRound.votes()).data;
 
     if (votes == null){
@@ -432,7 +444,17 @@ useEffect(() => {
       })
     ));
 
-    transitionToRound(currentLobby?.currentRound! + 1)
+    // Update round status
+    await client.models.Round.update({
+      id: currentRound?.id!,
+      status: ROUND_STATUSES.SCORING
+    })
+
+    // Update lobby
+    await client.models.Lobby.update({
+      id: currentLobby.id,
+    })
+
   }
 
   return (
@@ -459,6 +481,7 @@ useEffect(() => {
       leaveLobby={leaveLobby}
       transitionToVoting={transitionToVoting}
       transitionToScoring={transitionToScoring}
+      transitionToRound={transitionToRound}
     />
   )
 }

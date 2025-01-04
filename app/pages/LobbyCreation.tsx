@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { motion } from 'framer-motion'
 
 interface Props {
     username: string;
@@ -12,9 +13,16 @@ interface Props {
 export const LobbyCreation = (props: Props) => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
-          <h1 className="text-3xl font-bold mb-8 neon-text">Welcome, {props.username}!</h1>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-4xl">
+          <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           exit={{ opacity: 0, y: -20 }}
+           className="w-full max-w-md space-y-8"
+          >
             <Card className="bg-muted neon-border">
+              <CardHeader>
+                <h1 className="text-3xl font-bold neon-text">Welcome, {props.username}!</h1>
+              </CardHeader>
               <CardContent className="space-y-8">
                 <Button onClick={props.createLobby} className="w-full neon-button mt-6">Create New Lobby</Button>
                 <Input 
@@ -28,7 +36,7 @@ export const LobbyCreation = (props: Props) => {
                 <Button onClick={props.joinLobby} className="w-full neon-button mb-6">Join Lobby</Button>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         </div>
       );
 }
