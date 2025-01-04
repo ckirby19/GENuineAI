@@ -5,6 +5,8 @@ import { Amplify } from "aws-amplify";
 import "./app.css";
 import outputs from "@/amplify_outputs.json";
 import { Inter } from 'next/font/google'
+import { Toaster } from "@/components/ui/toaster"
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,6 +23,7 @@ export default function RootLayout({
         <main className="container mx-auto px-4 py-8">
           {children}
         </main>
+        <Toaster />
       </body>
     </html>
   );

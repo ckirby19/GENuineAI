@@ -2,8 +2,8 @@ import { Schema } from "@/amplify/data/resource";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { motion } from 'framer-motion'
-import { Users, Crown, Copy, ArrowLeft } from 'lucide-react'
-import { useToast } from "@/hooks/use-toast"
+import { Users, Crown, Copy } from 'lucide-react'
+import { useToast } from "@/components/hooks/use-toast"
 
 interface Props {
     username: string;
@@ -38,6 +38,7 @@ export const WaitingRoom = (props: Props) => {
       hidden: { opacity: 0, x: -20 },
       show: { opacity: 1, x: 0 }
     }
+
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
       <motion.div
@@ -111,30 +112,5 @@ export const WaitingRoom = (props: Props) => {
         </Card>
       </motion.div>
     </div>
-      // <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
-      //     <h1 className="text-3xl font-bold mb-8 neon-text">Lobby: {props.currentLobby.code}</h1>
-      //     <h2 className="text-xl">Participants:</h2>
-      //     <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-4xl">
-      //         {props.participants.filter(p => !p.isAiParticipant).map((participant) => (
-      //             <Card className="bg-muted neon-border text-justify">
-      //               <CardContent>
-      //                 {participant.username} {participant.isHost ? '(Host)' : ''}
-      //               </CardContent>
-      //             </Card>
-      //         ))}
-      //     </div>
-      //     {props.isHost ? (
-      //       <Button className="neon-button" onClick={props.startGame}>
-      //         Start Game
-      //       </Button>
-      //     ) : (
-      //       <p className="text-xl">
-      //         Waiting for host to start game...
-      //       </p>
-      //     )}
-      //     <Button className="neon-button" onClick={props.leaveLobby}>
-      //       Leave Lobby
-      //     </Button>
-      //   </div>
       );
 }
