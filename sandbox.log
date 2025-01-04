@@ -580,3 +580,97 @@
 }
 [handler] 22:37:00 END RequestId: 4d2859ef-5db3-4854-b778-6632db84ff4d
 [handler] 22:37:00 REPORT RequestId: 4d2859ef-5db3-4854-b778-6632db84ff4d	Duration: 226.66 ms	Billed Duration: 227 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 22:47:01 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 22:47:02 START RequestId: 252043ef-6cd3-4371-a5d4-fea15a2b3563 Version: $LATEST
+[handler] 22:47:02 2025-01-02T22:47:02.201Z	252043ef-6cd3-4371-a5d4-fea15a2b3563	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 22:47:02 2025-01-02T22:47:02.588Z	252043ef-6cd3-4371-a5d4-fea15a2b3563	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' served me jello shots on the first date',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[handler] 22:47:02 END RequestId: 252043ef-6cd3-4371-a5d4-fea15a2b3563
+[handler] 22:47:02 REPORT RequestId: 252043ef-6cd3-4371-a5d4-fea15a2b3563	Duration: 392.85 ms	Billed Duration: 393 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB	Init Duration: 285.82 ms
+[handler] 22:54:58 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 22:54:59 START RequestId: dbbd834e-ab7c-4284-b5c4-5fe6a431cee5 Version: $LATEST
+[handler] 22:54:59 2025-01-02T22:54:59.173Z	dbbd834e-ab7c-4284-b5c4-5fe6a431cee5	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 22:54:59 2025-01-02T22:54:59.484Z	dbbd834e-ab7c-4284-b5c4-5fe6a431cee5	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' swordfish', stop_reason: 'stop' } ] }
+[handler] 22:54:59 END RequestId: dbbd834e-ab7c-4284-b5c4-5fe6a431cee5
+[handler] 22:54:59 REPORT RequestId: dbbd834e-ab7c-4284-b5c4-5fe6a431cee5	Duration: 316.34 ms	Billed Duration: 317 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 287.95 ms
+[handler] 22:56:51 START RequestId: 31a9535d-1daf-4f0e-8984-7fa692bba91f Version: $LATEST
+[handler] 22:56:51 2025-01-02T22:56:51.355Z	31a9535d-1daf-4f0e-8984-7fa692bba91f	INFO	Text Prompt Handler started - received prompt: The worst thing to say during a job interview is _____
+[handler] 22:56:51 2025-01-02T22:56:51.575Z	31a9535d-1daf-4f0e-8984-7fa692bba91f	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Banana peel slipper joke', stop_reason: 'stop' } ]
+}
+[handler] 22:56:51 END RequestId: 31a9535d-1daf-4f0e-8984-7fa692bba91f
+[handler] 22:56:51 REPORT RequestId: 31a9535d-1daf-4f0e-8984-7fa692bba91f	Duration: 230.31 ms	Billed Duration: 231 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 22:59:12 START RequestId: d571a503-cafd-4989-ac74-031a3a26bea0 Version: $LATEST
+[handler] 22:59:12 2025-01-02T22:59:12.375Z	d571a503-cafd-4989-ac74-031a3a26bea0	INFO	Text Prompt Handler started - received prompt: The most surprising thing you'd find in a time capsule from 2024 would be _____
+[handler] 22:59:12 2025-01-02T22:59:12.647Z	d571a503-cafd-4989-ac74-031a3a26bea0	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' flying socks from the future', stop_reason: 'stop' } ]
+}
+[handler] 22:59:12 END RequestId: d571a503-cafd-4989-ac74-031a3a26bea0
+[handler] 22:59:12 REPORT RequestId: d571a503-cafd-4989-ac74-031a3a26bea0	Duration: 274.04 ms	Billed Duration: 275 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 22:59:26 2025-01-02T22:59:26.387Z	5f1662d3-0999-4a43-81cf-6751294957fd	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 22:59:26 START RequestId: 5f1662d3-0999-4a43-81cf-6751294957fd Version: $LATEST
+[handler] 22:59:26 2025-01-02T22:59:26.630Z	5f1662d3-0999-4a43-81cf-6751294957fd	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    { text: ' served me jellied kangaroo brains', stop_reason: 'stop' }
+  ]
+}
+[handler] 22:59:26 END RequestId: 5f1662d3-0999-4a43-81cf-6751294957fd
+[handler] 22:59:26 REPORT RequestId: 5f1662d3-0999-4a43-81cf-6751294957fd	Duration: 244.51 ms	Billed Duration: 245 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 22:59:38 START RequestId: 508a44bf-e4cd-432f-952d-bf7f74859938 Version: $LATEST
+[handler] 22:59:38 2025-01-02T22:59:38.523Z	508a44bf-e4cd-432f-952d-bf7f74859938	INFO	Text Prompt Handler started - received prompt: The secret ingredient in grandma's cookies is _____
+[handler] 22:59:38 2025-01-02T22:59:38.682Z	508a44bf-e4cd-432f-952d-bf7f74859938	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' love dust', stop_reason: 'stop' } ] }
+[handler] 22:59:38 END RequestId: 508a44bf-e4cd-432f-952d-bf7f74859938
+[handler] 22:59:38 REPORT RequestId: 508a44bf-e4cd-432f-952d-bf7f74859938	Duration: 161.30 ms	Billed Duration: 162 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 22:59:51 START RequestId: eeb4f59f-49e7-4123-810c-102464f80395 Version: $LATEST
+[handler] 22:59:51 2025-01-02T22:59:51.127Z	eeb4f59f-49e7-4123-810c-102464f80395	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 22:59:51 2025-01-02T22:59:51.258Z	eeb4f59f-49e7-4123-810c-102464f80395	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' swordfish', stop_reason: 'stop' } ] }
+[handler] 22:59:51 END RequestId: eeb4f59f-49e7-4123-810c-102464f80395
+[handler] 22:59:51 REPORT RequestId: eeb4f59f-49e7-4123-810c-102464f80395	Duration: 133.44 ms	Billed Duration: 134 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 23:00:01 2025-01-02T23:00:01.850Z	55ced038-a3ba-4f1f-b83f-240e7ad3e80a	INFO	Text Prompt Handler started - received prompt: My autobiography would be titled _____
+[handler] 23:00:01 START RequestId: 55ced038-a3ba-4f1f-b83f-240e7ad3e80a Version: $LATEST
+[handler] 23:00:02 2025-01-02T23:00:02.068Z	55ced038-a3ba-4f1f-b83f-240e7ad3e80a	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Tales from my Tuna Can', stop_reason: 'stop' } ]
+}
+[handler] 23:00:02 END RequestId: 55ced038-a3ba-4f1f-b83f-240e7ad3e80a
+[handler] 23:00:02 REPORT RequestId: 55ced038-a3ba-4f1f-b83f-240e7ad3e80a	Duration: 219.33 ms	Billed Duration: 220 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 12:29:33 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[handler] 12:29:33 START RequestId: 80372e07-daa1-479e-abf2-f8d894fde762 Version: $LATEST
+[handler] 12:29:33 2025-01-04T12:29:33.779Z	80372e07-daa1-479e-abf2-f8d894fde762	INFO	Text Prompt Handler started - received prompt: Never bring a _____ to a pillow fight
+[handler] 12:29:34 2025-01-04T12:29:34.114Z	80372e07-daa1-479e-abf2-f8d894fde762	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' swordfish', stop_reason: 'stop' } ] }
+[handler] 12:29:34 END RequestId: 80372e07-daa1-479e-abf2-f8d894fde762
+[handler] 12:29:34 REPORT RequestId: 80372e07-daa1-479e-abf2-f8d894fde762	Duration: 339.52 ms	Billed Duration: 340 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 243.46 ms
+[handler] 12:30:37 START RequestId: ffe188e2-1235-4b1c-998a-5521ff250f6a Version: $LATEST
+[handler] 12:30:37 2025-01-04T12:30:37.603Z	ffe188e2-1235-4b1c-998a-5521ff250f6a	INFO	Text Prompt Handler started - received prompt: The worst piece of advice I've ever received was _____
+[handler] 12:30:37 2025-01-04T12:30:37.824Z	ffe188e2-1235-4b1c-998a-5521ff250f6a	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' dance like a chicken', stop_reason: 'stop' } ] }
+[handler] 12:30:37 END RequestId: ffe188e2-1235-4b1c-998a-5521ff250f6a
+[handler] 12:30:37 REPORT RequestId: ffe188e2-1235-4b1c-998a-5521ff250f6a	Duration: 226.68 ms	Billed Duration: 227 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 12:31:38 START RequestId: 3b1c9774-fd26-4858-a3fe-34d14d1bd268 Version: $LATEST
+[handler] 12:31:38 2025-01-04T12:31:38.430Z	3b1c9774-fd26-4858-a3fe-34d14d1bd268	INFO	Text Prompt Handler started - received prompt: The secret ingredient in grandma's cookies is _____
+[handler] 12:31:38 2025-01-04T12:31:38.597Z	3b1c9774-fd26-4858-a3fe-34d14d1bd268	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' love dust', stop_reason: 'stop' } ] }
+[handler] 12:31:38 END RequestId: 3b1c9774-fd26-4858-a3fe-34d14d1bd268
+[handler] 12:31:38 REPORT RequestId: 3b1c9774-fd26-4858-a3fe-34d14d1bd268	Duration: 168.95 ms	Billed Duration: 169 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 12:32:36 START RequestId: 56aa3f46-a76f-4846-8e1e-edb6b1295344 Version: $LATEST
+[handler] 12:32:36 2025-01-04T12:32:36.610Z	56aa3f46-a76f-4846-8e1e-edb6b1295344	INFO	Text Prompt Handler started - received prompt: The worst thing to say during a job interview is _____
+[handler] 12:32:36 2025-01-04T12:32:36.795Z	56aa3f46-a76f-4846-8e1e-edb6b1295344	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Banana peel slipper joke', stop_reason: 'stop' } ]
+}
+[handler] 12:32:36 END RequestId: 56aa3f46-a76f-4846-8e1e-edb6b1295344
+[handler] 12:32:36 REPORT RequestId: 56aa3f46-a76f-4846-8e1e-edb6b1295344	Duration: 186.96 ms	Billed Duration: 187 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[handler] 12:33:28 START RequestId: 19bee7f9-b490-4209-a98d-6ca1a2be5bca Version: $LATEST
+[handler] 12:33:28 2025-01-04T12:33:28.466Z	19bee7f9-b490-4209-a98d-6ca1a2be5bca	INFO	Text Prompt Handler started - received prompt: I knew it was true love when they _____
+[handler] 12:33:28 2025-01-04T12:33:28.734Z	19bee7f9-b490-4209-a98d-6ca1a2be5bca	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' served me jello shots on the first date',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[handler] 12:33:28 END RequestId: 19bee7f9-b490-4209-a98d-6ca1a2be5bca
+[handler] 12:33:28 REPORT RequestId: 19bee7f9-b490-4209-a98d-6ca1a2be5bca	Duration: 270.36 ms	Billed Duration: 271 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
