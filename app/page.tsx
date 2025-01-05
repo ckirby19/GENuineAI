@@ -208,7 +208,6 @@ export default function App() {
           console.error("Failed to create next round");
           return;
         }
-        const extractedAnswer = extractAnswer(data, nextPrompt.data.text!);
 
         if (!nextRound.data){
           console.error("Failed to create next round");
@@ -218,7 +217,7 @@ export default function App() {
         await client.models.Answer.create({
           roundId: nextRound.data.id,
           participantId: aiParticipant.data.id,
-          text: extractedAnswer,
+          text: data,
           isAiAnswer: true
         });
 
@@ -302,115 +301,15 @@ export default function App() {
     }
 
     if (round <= numberOfRounds) {
-
-      // var randomIndex = Math.floor(Math.random() * samplePrompts.length);
-      // var nextPromptText = samplePrompts.splice(randomIndex, 1)[0];
-
-      // // Create next prompt
-      // const nextPrompt = await client.models.Prompt.create({
-      //   text: nextPromptText
-      // });
-
-      // if (!nextPrompt.data?.id) {
-      //   console.error("Failed to create next prompt");
-      //   return;
-      // }
-
-      // const nextRound = await client.models.Round.create({
-      //   lobbyId: currentLobby.id,
-      //   promptId: nextPrompt.data.id,
-      //   roundNumber: round,
-      //   status: ROUND_STATUSES.ANSWERING
-      // });
-
-      // if (!nextRound.data?.id) {
-      //   console.error("Failed to create next round");
-      //   return;
-      // }
-
       await client.models.Lobby.update({
         id: currentLobby.id,
         status: GAME_STATUSES.STARTED,
         currentRound: round
       });
-
-      // const { data, errors } = await client.queries.GenerateTextResponse({
-      //   prompt: nextPrompt.data.text!
-      // });
-
-      // if (!errors && data) {
-      //   const AiParticipant = participants.find(x => x.isAiParticipant);
-      //   if (AiParticipant) {
-      //     const extractedAnswer = extractAnswer(data, nextPrompt.data.text!, );
-
-      //     await client.models.Answer.create({
-      //       roundId: nextRound.data.id,
-      //       participantId: AiParticipant.id,
-      //       text: extractedAnswer,
-      //       isAiAnswer: true
-      //     });
-      //   }
-      // } else {
-      //   console.log("Unable to generate AI answer to prompt:", errors);
-      //   return;
-      // }
-
-      // Update round so it has above answer and transitions to next UI
-      // await client.models.Round.update({
-      //   id: nextRound.data.id,
-      // });
-
-      // // Update lobby
-      // await client.models.Lobby.update({
-      //   id: currentLobby.id,
-      //   currentRound: round
-      // });
-
     }
     else{
       finishGame()
     }
-  }
-
-  /**
-   * Extracts and formats the missing word(s) from an AI response.
-   * @param aiResponse The AI's full response.
-   * @param originalPrompt The original prompt with the blank (_____).
-   * @returns The cleaned missing word(s) with capitalization and no trailing full stops.
-   */
-  function extractAnswer(aiResponse: string, originalPrompt: string): string {
-    // Normalize AI response and remove leading/trailing whitespace
-    const normalizedResponse = aiResponse.trim();
-
-    // Find the position of "____" in the original prompt
-    const blankString = "_____"
-    const blankIndex = originalPrompt.indexOf(blankString);
-    if (blankIndex === -1) {
-        throw new Error("Original prompt does not contain a blank (_____).");
-    }
-
-    // Split the prompt into parts before and after the blank
-    const beforeBlank = originalPrompt.slice(0, blankIndex).trim();
-    const afterBlank = originalPrompt.slice(blankIndex + blankString.length).trim();
-
-    // Remove "beforeBlank" from the start of the response
-    let extracted = normalizedResponse;
-    if (beforeBlank && normalizedResponse.toLowerCase().startsWith(beforeBlank.toLowerCase())) {
-        extracted = extracted.slice(beforeBlank.length).trim();
-    }
-
-    // Remove "afterBlank" from the end of the response
-    if (afterBlank && extracted.toLowerCase().endsWith(afterBlank.toLowerCase())) {
-        extracted = extracted.slice(0, -afterBlank.length).trim();
-    }
-
-    // Capitalize the first letter of the extracted phrase
-    extracted = extracted.charAt(0).toUpperCase() + extracted.slice(1);
-
-    // Remove any trailing full stops
-    extracted = extracted.replace(/\.$/, "");
-
-    return extracted;
   }
 
   async function finishGame() {
