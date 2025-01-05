@@ -15,7 +15,6 @@ interface Props {
     currentRound: Schema["Round"]["type"] | null;
     currentLobby: Schema["Lobby"]["type"];
     currentPrompt: Schema["Prompt"]["type"] | null;
-    transitionToVoting: () => void;
 }
 
 export const AnswerEntryPage = (props: Props) => {

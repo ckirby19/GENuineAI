@@ -29,8 +29,6 @@ interface Props {
     createLobby: () => void;
     joinLobby: () => void;
     leaveLobby: () => void;
-    transitionToScoring: () => void;
-    transitionToVoting: () => void;
     transitionToRound: (round: number) => void;
 }
 
@@ -83,7 +81,6 @@ export const MainPage = (props: Props) => {
             currentRound={props.currentRound}
             currentLobby={props.currentLobby}
             currentPrompt={props.currentPrompt}
-            transitionToVoting={props.transitionToVoting}
           />
         )
       }
@@ -97,7 +94,6 @@ export const MainPage = (props: Props) => {
             currentVotes={props.currentVotes}
             currentLobby={props.currentLobby}
             currentPrompt={props.currentPrompt}
-            transitionToScoring={props.transitionToScoring}
           />
         )
       }

@@ -96,7 +96,7 @@ export default function App() {
       }).subscribe({
         next: (data) => {
           setCurrentAnswers([...data.items]);
-          if (data.items.length === participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
+          if (data.items.length >= participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
             transitionToVoting();
           }
         },
@@ -117,7 +117,7 @@ export default function App() {
         next: (data) => {
           setCurrentVotes([...data.items]);
 
-          if (data.items.length === participants.filter(x => !x.isAiParticipant).length && ROUND_STATUSES.VOTING){
+          if (data.items.length >= participants.filter(x => !x.isAiParticipant).length && ROUND_STATUSES.VOTING){
             transitionToScoring();
           }
         },
@@ -436,8 +436,6 @@ export default function App() {
       createLobby={createLobby}
       joinLobby={joinLobby}
       leaveLobby={leaveLobby}
-      transitionToVoting={transitionToVoting}
-      transitionToScoring={transitionToScoring}
       transitionToRound={transitionToRound}
     />
   )

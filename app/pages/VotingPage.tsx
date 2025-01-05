@@ -16,7 +16,6 @@ interface Props {
     currentVotes: Schema["Vote"]["type"][];
     currentLobby: Schema["Lobby"]["type"];
     currentPrompt: Schema["Prompt"]["type"] | null;
-    transitionToScoring: () => void;    
 }
 
 export const VotingPage = (props: Props) => {
