@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Brain, User, Users } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Schema } from '@/amplify/data/resource'
-import { scoreIncrementAnswerCreator, scoreIncrementVoter } from '../model'
+import { GAME_TYPE, scoreIncrementAnswerCreator, scoreIncrementVoter } from '../model'
 
 interface Props {
     username: string;
@@ -64,6 +64,7 @@ export const AnswerVoteRevealPage = (props: Props) => {
         return null;
 
     const currentAnswerSubmitter = props.participants.find(participant => participant.id === currentAnswer.participantId)
+    const gameType = props.currentLobby.gameType;
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
@@ -103,7 +104,9 @@ export const AnswerVoteRevealPage = (props: Props) => {
                             >
                               <Users className="w-5 h-5 text-[hsl(var(--neon-blue))]" />
                               <span>Votes: {voterUsernames.join(", ") || "No votes"}</span>
-                              {revealStage >= 3 && currentAnswer.isAiAnswer && (
+                              {revealStage >= 3 &&
+                              ((currentAnswer.isAiAnswer && gameType == GAME_TYPE.MULTI_PLAYER) || 
+                                (!currentAnswer.isAiAnswer && gameType == GAME_TYPE.SINGLE_PLAYER)) && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementVoter} points
                                 </span>
@@ -121,7 +124,9 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <User className="w-5 h-5 text-[hsl(var(--neon-green))]" />
                               <span>Submitted by: {currentAnswerSubmitter?.username}</span>
                               {currentAnswer.isAiAnswer && <Brain className="w-5 h-5 ml-2 text-[hsl(var(--neon-purple))]" />}
-                              {revealStage >= 3 && !currentAnswer.isAiAnswer && (
+                              {revealStage >= 3 &&
+                              ((!currentAnswer.isAiAnswer && gameType == GAME_TYPE.MULTI_PLAYER) || 
+                              (currentAnswer.isAiAnswer && gameType == GAME_TYPE.SINGLE_PLAYER)) && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementAnswerCreator * voterUsernames.length} points
                                 </span>

@@ -1,14 +1,19 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Brain } from 'lucide-react'
-import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { motion } from 'framer-motion'
+import { Dispatch, SetStateAction } from 'react'
+import { GAME_TYPE, GameType } from "../model"
 
 interface Props {
     username: string;
-    setUsername: React.Dispatch<React.SetStateAction<string>>;
+    setUsername: Dispatch<React.SetStateAction<string>>;
     isNameEntered: boolean;
-    setIsNameEntered: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsNameEntered: Dispatch<React.SetStateAction<boolean>>;
+    setGameMode: Dispatch<SetStateAction<GameType | null>>;
+    gameMode: GameType | null;
+    createLobby: (numberOfAiModels: number) => void;
 }
 
 export const HomePage = (props: Props) => {
@@ -16,7 +21,10 @@ export const HomePage = (props: Props) => {
     const handleNameSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (props.username.trim()) {
-          props.setIsNameEntered(true);
+            props.setIsNameEntered(true);
+            if (props.gameMode === GAME_TYPE.SINGLE_PLAYER){
+                props.createLobby(3);
+            }
         }
     };
     
@@ -31,9 +39,11 @@ export const HomePage = (props: Props) => {
                 <Card className="bg-muted neon-border">
                     <CardHeader>
                         <h1 className="text-4xl font-bold mb-8 neon-text text-center">GENuineAI</h1>
-                        <div className="flex items-center mb-8">
+                        <div className="flex items-center text-center mb-8">
                             <Brain className="w-12 h-12 mr-4 text-[hsl(var(--neon-purple))]" />
-                            <p className="text-xl">Can you tell friend from (Generative AI) foe?</p>
+                            <p className="text-xl">
+                                {props.gameMode === GAME_TYPE.SINGLE_PLAYER ? "Single Player" : "Multi-Player"} Mode
+                            </p>
                         </div>
                     </CardHeader>
                     <CardContent className="justify-center">
@@ -51,6 +61,15 @@ export const HomePage = (props: Props) => {
                             </Button>
                         </form>
                     </CardContent>
+                    <CardFooter>
+                        <Button 
+                        variant="outline" 
+                        className="w-full neon-border"
+                        onClick={() => props.setGameMode(null)}
+                        > 
+                            Return to Game Selection
+                        </Button>
+                    </CardFooter>
                 </Card>
             </motion.div>
         </div>

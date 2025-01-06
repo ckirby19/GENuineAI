@@ -4,12 +4,14 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { motion } from 'framer-motion'
 import { Users, Crown, Copy } from 'lucide-react'
 import { useToast } from "@/components/hooks/use-toast"
+import { GAME_TYPE, GameType } from "../model";
 
 interface Props {
     username: string;
     participants: Schema["Participant"]["type"][];
     currentLobby: Schema["Lobby"]["type"]
     isHost: boolean | null | undefined
+    gameMode: GameType | null;
     startGame: () => void;
     leaveLobby: () => void;
 }
@@ -54,15 +56,17 @@ export const WaitingRoom = (props: Props) => {
                 <Users className="w-6 h-6 mr-2 text-[hsl(var(--neon-purple))]" />
                 Lobby
               </span>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-xs"
-                onClick={copyLobbyCode}
-              >
-                <Copy className="w-4 h-4 mr-1" />
-                {props.currentLobby.code}
-              </Button>
+              {props.gameMode == GAME_TYPE.MULTI_PLAYER && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-xs"
+                  onClick={copyLobbyCode}
+                >
+                  <Copy className="w-4 h-4 mr-1" />
+                  {props.currentLobby.code}
+                </Button>
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -72,7 +76,7 @@ export const WaitingRoom = (props: Props) => {
               animate="show"
               className="space-y-2"
             >
-              {props.participants.filter(p => !p.isAiParticipant).map((player) => (
+              {props.participants.map((player) => (
                 <motion.div
                   key={player.id}
                   variants={item}
@@ -105,8 +109,8 @@ export const WaitingRoom = (props: Props) => {
               variant="outline" 
               className="w-full neon-border"
               onClick={props.leaveLobby}
-              asChild
             >
+              Leave Lobby
             </Button>
           </CardFooter>
         </Card>

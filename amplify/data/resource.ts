@@ -5,11 +5,19 @@ import {
   defineFunction,
 } from "@aws-amplify/backend";
 
-export const TEXT_MODEL_ID = "mistral.mistral-7b-instruct-v0:2"; // meta.llama3-70b-instruct-v1
-export const IMAGE_MODEL_ID = "amazon.titan-image-generator-v1" // amazon.titan-image-generator-v2:0
+export const TEXT_MODEL_ID = "mistral.mistral-7b-instruct-v0:2";
 
-export const generateTextResponse = defineFunction({
-  entry: "./handler.ts",
+export const generatePromptResponse = defineFunction({
+  entry: "./promptResponseHandler.ts",
+  environment: {
+    MODEL_ID: TEXT_MODEL_ID,
+  },
+  timeoutSeconds: 30,
+  memoryMB: 1024
+});
+
+export const pickHumanResponse = defineFunction({
+  entry: "./pickHumanReponseHandler.ts",
   environment: {
     MODEL_ID: TEXT_MODEL_ID,
   },
@@ -22,6 +30,7 @@ const schema = a.schema({
     .model({
       code: a.string(),
       hostId: a.string(),
+      gameType: a.enum(['SINGLE_PLAYER', 'MULTIPLAYER']),
       status: a.enum(['WAITING', 'STARTED', 'COMPLETED']),
       currentRound: a.integer().default(0),
       participants: a.hasMany('Participant', 'lobbyId'),
@@ -86,7 +95,13 @@ const schema = a.schema({
     .arguments({ prompt: a.string().required() })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(generateTextResponse)),
+    .handler(a.handler.function(generatePromptResponse)),
+  PickHumanResponse: a
+    .query()
+    .arguments({ prompt: a.string().required() })
+    .returns(a.string())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(pickHumanResponse)),
 });
 
 export type Schema = ClientSchema<typeof schema>;

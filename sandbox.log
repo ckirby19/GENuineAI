@@ -778,3 +778,275 @@
 [handler] 14:30:32 2025-01-05T14:30:32.169Z	bc1fbf67-23d2-4827-9ae8-cde424038158	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: 'Broken jokes', stop_reason: 'stop' } ] }
 [handler] 14:30:32 END RequestId: bc1fbf67-23d2-4827-9ae8-cde424038158
 [handler] 14:30:32 REPORT RequestId: bc1fbf67-23d2-4827-9ae8-cde424038158	Duration: 168.92 ms	Billed Duration: 169 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 22:28:01 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 22:28:02 START RequestId: b1171dee-4b81-481b-b3cc-b31d67067a91 Version: $LATEST
+[promptResponseHandler] 22:28:02 2025-01-05T22:28:02.011Z	b1171dee-4b81-481b-b3cc-b31d67067a91	INFO	Text Prompt Handler started - received prompt: I have an extremely rare condition called “_____________ Face.”
+[promptResponseHandler] 22:28:02 2025-01-05T22:28:02.333Z	b1171dee-4b81-481b-b3cc-b31d67067a91	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Picklepuss syndrome', stop_reason: 'stop' } ] }
+[promptResponseHandler] 22:28:02 END RequestId: b1171dee-4b81-481b-b3cc-b31d67067a91
+[promptResponseHandler] 22:28:02 REPORT RequestId: b1171dee-4b81-481b-b3cc-b31d67067a91	Duration: 327.33 ms	Billed Duration: 328 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 281.21 ms
+[promptResponseHandler] 22:28:03 2025-01-05T22:28:03.177Z	3d7f213f-0157-418f-910c-4d68d9d8ddc5	INFO	Text Prompt Handler started - received prompt: It's scary. It's reliable. Even an idiot could use it. Get ready for _______!
+[promptResponseHandler] 22:28:03 START RequestId: 3d7f213f-0157-418f-910c-4d68d9d8ddc5 Version: $LATEST
+[promptResponseHandler] 22:28:03 2025-01-05T22:28:03.400Z	3d7f213f-0157-418f-910c-4d68d9d8ddc5	INFO	Received response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' nuclearFridge party', stop_reason: 'stop' } ] }
+[promptResponseHandler] 22:28:03 END RequestId: 3d7f213f-0157-418f-910c-4d68d9d8ddc5
+[promptResponseHandler] 22:28:03 REPORT RequestId: 3d7f213f-0157-418f-910c-4d68d9d8ddc5	Duration: 224.17 ms	Billed Duration: 225 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 23:11:33 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 23:11:33 START RequestId: 038ffb81-a3bd-4bd3-9cd6-430632016ce4 Version: $LATEST
+[promptResponseHandler] 23:11:33 2025-01-06T23:11:33.304Z	038ffb81-a3bd-4bd3-9cd6-430632016ce4	INFO	Text Prompt Handler started - received prompt: It's bold. It's aerodynamic. It's finally legal. It's time for _______!
+[promptResponseHandler] 23:11:33 2025-01-06T23:11:33.637Z	038ffb81-a3bd-4bd3-9cd6-430632016ce4	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Broom closet racing', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:33 END RequestId: 038ffb81-a3bd-4bd3-9cd6-430632016ce4
+[promptResponseHandler] 23:11:33 REPORT RequestId: 038ffb81-a3bd-4bd3-9cd6-430632016ce4	Duration: 336.80 ms	Billed Duration: 337 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 216.00 ms
+[promptResponseHandler] 23:11:34 2025-01-06T23:11:34.233Z	89d0e0ca-fdb1-47f2-9e88-3ad298ca7e04	INFO	Text Prompt Handler started - received prompt: It's bold. It's aerodynamic. It's finally legal. It's time for _______!
+[promptResponseHandler] 23:11:34 START RequestId: 89d0e0ca-fdb1-47f2-9e88-3ad298ca7e04 Version: $LATEST
+[promptResponseHandler] 23:11:34 2025-01-06T23:11:34.445Z	89d0e0ca-fdb1-47f2-9e88-3ad298ca7e04	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' Jelly belly flotation device party',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[promptResponseHandler] 23:11:34 END RequestId: 89d0e0ca-fdb1-47f2-9e88-3ad298ca7e04
+[promptResponseHandler] 23:11:34 REPORT RequestId: 89d0e0ca-fdb1-47f2-9e88-3ad298ca7e04	Duration: 213.73 ms	Billed Duration: 214 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 23:11:34 2025-01-06T23:11:34.965Z	4f71f0c9-3291-47a5-955b-6f006bb7596a	INFO	Text Prompt Handler started - received prompt: It's bold. It's aerodynamic. It's finally legal. It's time for _______!
+[promptResponseHandler] 23:11:34 START RequestId: 4f71f0c9-3291-47a5-955b-6f006bb7596a Version: $LATEST
+[promptResponseHandler] 23:11:35 2025-01-06T23:11:35.243Z	4f71f0c9-3291-47a5-955b-6f006bb7596a	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Marshmallow launcher party', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:11:35 END RequestId: 4f71f0c9-3291-47a5-955b-6f006bb7596a
+[promptResponseHandler] 23:11:35 REPORT RequestId: 4f71f0c9-3291-47a5-955b-6f006bb7596a	Duration: 279.74 ms	Billed Duration: 280 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 23:11:36 2025-01-06T23:11:36.053Z	0b294c60-4148-418a-b655-17271509477a	INFO	Text Prompt Handler started - received prompt: The secret to a lasting marriage is communication, communication, and ______.
+[promptResponseHandler] 23:11:36 START RequestId: 0b294c60-4148-418a-b655-17271509477a Version: $LATEST
+[promptResponseHandler] 23:11:36 2025-01-06T23:11:36.325Z	0b294c60-4148-418a-b655-17271509477a	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Tacos or margaritas', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:36 END RequestId: 0b294c60-4148-418a-b655-17271509477a
+[promptResponseHandler] 23:11:36 REPORT RequestId: 0b294c60-4148-418a-b655-17271509477a	Duration: 273.83 ms	Billed Duration: 274 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 23:11:36 2025-01-06T23:11:36.638Z	380b20f3-aeea-43ea-97a6-a25b27c796cd	INFO	Text Prompt Handler started - received prompt: The secret to a lasting marriage is communication, communication, and ______.
+[promptResponseHandler] 23:11:36 START RequestId: 380b20f3-aeea-43ea-97a6-a25b27c796cd Version: $LATEST
+[promptResponseHandler] 23:11:36 2025-01-06T23:11:36.873Z	380b20f3-aeea-43ea-97a6-a25b27c796cd	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' whimsical pickles', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:36 END RequestId: 380b20f3-aeea-43ea-97a6-a25b27c796cd
+[promptResponseHandler] 23:11:36 REPORT RequestId: 380b20f3-aeea-43ea-97a6-a25b27c796cd	Duration: 235.66 ms	Billed Duration: 236 ms	Memory Size: 1024 MB	Max Memory Used: 79 MB
+[promptResponseHandler] 23:11:38 START RequestId: 149e8d5e-5286-46b5-b1e9-90e51dbb2cc5 Version: $LATEST
+[promptResponseHandler] 23:11:38 2025-01-06T23:11:38.506Z	149e8d5e-5286-46b5-b1e9-90e51dbb2cc5	INFO	Text Prompt Handler started - received prompt: The secret to a lasting marriage is communication, communication, and ______.
+[promptResponseHandler] 23:11:38 2025-01-06T23:11:38.666Z	149e8d5e-5286-46b5-b1e9-90e51dbb2cc5	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' flying unicorns', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:38 END RequestId: 149e8d5e-5286-46b5-b1e9-90e51dbb2cc5
+[promptResponseHandler] 23:11:38 REPORT RequestId: 149e8d5e-5286-46b5-b1e9-90e51dbb2cc5	Duration: 162.48 ms	Billed Duration: 163 ms	Memory Size: 1024 MB	Max Memory Used: 79 MB
+[promptResponseHandler] 23:11:39 START RequestId: 54f30b9a-f683-4655-9f0e-88b38152ae10 Version: $LATEST
+[promptResponseHandler] 23:11:39 2025-01-06T23:11:39.410Z	54f30b9a-f683-4655-9f0e-88b38152ae10	INFO	Text Prompt Handler started - received prompt: What's my secret power?
+[promptResponseHandler] 23:11:39 2025-01-06T23:11:39.619Z	54f30b9a-f683-4655-9f0e-88b38152ae10	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Burping jelly beans', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:39 END RequestId: 54f30b9a-f683-4655-9f0e-88b38152ae10
+[promptResponseHandler] 23:11:39 REPORT RequestId: 54f30b9a-f683-4655-9f0e-88b38152ae10	Duration: 211.28 ms	Billed Duration: 212 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:11:39 2025-01-06T23:11:39.970Z	0b76a445-bf81-427e-bc07-349fad3bd305	INFO	Text Prompt Handler started - received prompt: What's my secret power?
+[promptResponseHandler] 23:11:39 START RequestId: 0b76a445-bf81-427e-bc07-349fad3bd305 Version: $LATEST
+[promptResponseHandler] 23:11:40 2025-01-06T23:11:40.135Z	0b76a445-bf81-427e-bc07-349fad3bd305	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Belch-contour manipulation', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:11:40 END RequestId: 0b76a445-bf81-427e-bc07-349fad3bd305
+[promptResponseHandler] 23:11:40 REPORT RequestId: 0b76a445-bf81-427e-bc07-349fad3bd305	Duration: 166.53 ms	Billed Duration: 167 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:11:40 START RequestId: e223f089-a7b3-4860-93ff-e76a0891b879 Version: $LATEST
+[promptResponseHandler] 23:11:40 2025-01-06T23:11:40.629Z	e223f089-a7b3-4860-93ff-e76a0891b879	INFO	Text Prompt Handler started - received prompt: What's my secret power?
+[promptResponseHandler] 23:11:40 2025-01-06T23:11:40.842Z	e223f089-a7b3-4860-93ff-e76a0891b879	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Belly button jells', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:40 END RequestId: e223f089-a7b3-4860-93ff-e76a0891b879
+[promptResponseHandler] 23:11:40 REPORT RequestId: e223f089-a7b3-4860-93ff-e76a0891b879	Duration: 215.20 ms	Billed Duration: 216 ms	Memory Size: 1024 MB	Max Memory Used: 81 MB
+[promptResponseHandler] 23:11:41 2025-01-06T23:11:41.433Z	45554d87-4c8d-467b-a887-dac499991d2d	INFO	Text Prompt Handler started - received prompt: Isten! I'm from the future. You've got to stop _____________!
+[promptResponseHandler] 23:11:41 START RequestId: 45554d87-4c8d-467b-a887-dac499991d2d Version: $LATEST
+[promptResponseHandler] 23:11:41 2025-01-06T23:11:41.618Z	45554d87-4c8d-467b-a887-dac499991d2d	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Time travelers, party crashers', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:11:41 END RequestId: 45554d87-4c8d-467b-a887-dac499991d2d
+[promptResponseHandler] 23:11:41 REPORT RequestId: 45554d87-4c8d-467b-a887-dac499991d2d	Duration: 186.34 ms	Billed Duration: 187 ms	Memory Size: 1024 MB	Max Memory Used: 81 MB
+[promptResponseHandler] 23:11:41 2025-01-06T23:11:41.919Z	1cc6f73e-0eed-48c9-b01b-a473aa183875	INFO	Text Prompt Handler started - received prompt: Isten! I'm from the future. You've got to stop _____________!
+[promptResponseHandler] 23:11:41 START RequestId: 1cc6f73e-0eed-48c9-b01b-a473aa183875 Version: $LATEST
+[promptResponseHandler] 23:11:42 2025-01-06T23:11:42.135Z	1cc6f73e-0eed-48c9-b01b-a473aa183875	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' time travelers feast', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:42 END RequestId: 1cc6f73e-0eed-48c9-b01b-a473aa183875
+[promptResponseHandler] 23:11:42 REPORT RequestId: 1cc6f73e-0eed-48c9-b01b-a473aa183875	Duration: 216.99 ms	Billed Duration: 217 ms	Memory Size: 1024 MB	Max Memory Used: 81 MB
+[promptResponseHandler] 23:11:42 2025-01-06T23:11:42.405Z	8116ad7e-ae0b-46c7-acbf-46f193c41ea6	INFO	Text Prompt Handler started - received prompt: Isten! I'm from the future. You've got to stop _____________!
+[promptResponseHandler] 23:11:42 START RequestId: 8116ad7e-ae0b-46c7-acbf-46f193c41ea6 Version: $LATEST
+[promptResponseHandler] 23:11:42 2025-01-06T23:11:42.584Z	8116ad7e-ae0b-46c7-acbf-46f193c41ea6	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' time travelers feast', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:42 END RequestId: 8116ad7e-ae0b-46c7-acbf-46f193c41ea6
+[promptResponseHandler] 23:11:42 REPORT RequestId: 8116ad7e-ae0b-46c7-acbf-46f193c41ea6	Duration: 180.04 ms	Billed Duration: 181 ms	Memory Size: 1024 MB	Max Memory Used: 83 MB
+[promptResponseHandler] 23:11:43 2025-01-06T23:11:43.035Z	798d2651-27b6-4e2c-bbd5-e912b8287b06	INFO	Text Prompt Handler started - received prompt: Never fear, Captain ______ is here!
+[promptResponseHandler] 23:11:43 START RequestId: 798d2651-27b6-4e2c-bbd5-e912b8287b06 Version: $LATEST
+[promptResponseHandler] 23:11:43 2025-01-06T23:11:43.176Z	798d2651-27b6-4e2c-bbd5-e912b8287b06	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party tricks', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:43 END RequestId: 798d2651-27b6-4e2c-bbd5-e912b8287b06
+[promptResponseHandler] 23:11:43 REPORT RequestId: 798d2651-27b6-4e2c-bbd5-e912b8287b06	Duration: 141.77 ms	Billed Duration: 142 ms	Memory Size: 1024 MB	Max Memory Used: 83 MB
+[promptResponseHandler] 23:11:43 2025-01-06T23:11:43.451Z	b3d03eee-5f9e-4625-8977-6b9635a3fdbe	INFO	Text Prompt Handler started - received prompt: Never fear, Captain ______ is here!
+[promptResponseHandler] 23:11:43 START RequestId: b3d03eee-5f9e-4625-8977-6b9635a3fdbe Version: $LATEST
+[promptResponseHandler] 23:11:43 2025-01-06T23:11:43.681Z	b3d03eee-5f9e-4625-8977-6b9635a3fdbe	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Party favor dispenser', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:11:43 END RequestId: b3d03eee-5f9e-4625-8977-6b9635a3fdbe
+[promptResponseHandler] 23:11:43 REPORT RequestId: b3d03eee-5f9e-4625-8977-6b9635a3fdbe	Duration: 231.96 ms	Billed Duration: 232 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:11:44 2025-01-06T23:11:44.219Z	bd1e0eb5-bf3b-473f-9a4b-58aa919a7dfd	INFO	Text Prompt Handler started - received prompt: Never fear, Captain ______ is here!
+[promptResponseHandler] 23:11:44 START RequestId: bd1e0eb5-bf3b-473f-9a4b-58aa919a7dfd Version: $LATEST
+[promptResponseHandler] 23:11:44 2025-01-06T23:11:44.434Z	bd1e0eb5-bf3b-473f-9a4b-58aa919a7dfd	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Banana peel heroism', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:11:44 END RequestId: bd1e0eb5-bf3b-473f-9a4b-58aa919a7dfd
+[promptResponseHandler] 23:11:44 REPORT RequestId: bd1e0eb5-bf3b-473f-9a4b-58aa919a7dfd	Duration: 216.12 ms	Billed Duration: 217 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[pickHumanReponseHandler] 23:11:58 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 23:11:58 START RequestId: edc1be9f-33ee-4f93-9e85-8f0401c7c2cf Version: $LATEST
+[pickHumanReponseHandler] 23:11:58 2025-01-06T23:11:58.660Z	edc1be9f-33ee-4f93-9e85-8f0401c7c2cf	INFO	Text Prompt Handler started - received prompt:
+[pickHumanReponseHandler] 23:11:58 2025-01-06T23:11:58.775Z	edc1be9f-33ee-4f93-9e85-8f0401c7c2cf	ERROR	Invoke Error 	{"errorType":"AccessDeniedException","errorMessage":"User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-pickHumanReponseHandlerla-fOhO6KomrVQ5/amplify-awsamplifygen2-co-pickHumanReponseHandlerl-uVXEPxnhwcT4 is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/mistral.mistral-7b-instruct-v0:2 because no identity-based policy allows the bedrock:InvokeModel action","name":"AccessDeniedException","$fault":"client","$metadata":{"httpStatusCode":403,"requestId":"3aa4007e-c24d-402d-b0f4-0bcd51a9445f","attempts":1,"totalRetryDelay":0},"stack":["AccessDeniedException: User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-pickHumanReponseHandlerla-fOhO6KomrVQ5/amplify-awsamplifygen2-co-pickHumanReponseHandlerl-uVXEPxnhwcT4 is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/mistral.mistral-7b-instruct-v0:2 because no identity-based policy allows the bedrock:InvokeModel action","    at de_AccessDeniedExceptionRes (file:///var/task/index.mjs:53:58291)","    at de_CommandError (file:///var/task/index.mjs:53:56865)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async Runtime.Tce [as handler] (file:///var/task/index.mjs:60:108)"]}
+[pickHumanReponseHandler] 23:11:58 END RequestId: edc1be9f-33ee-4f93-9e85-8f0401c7c2cf
+[pickHumanReponseHandler] 23:11:58 REPORT RequestId: edc1be9f-33ee-4f93-9e85-8f0401c7c2cf	Duration: 118.37 ms	Billed Duration: 119 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB	Init Duration: 279.07 ms
+[promptResponseHandler] 23:25:34 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 23:25:34 START RequestId: aefe198c-1808-4df8-89d6-580ce053cbac Version: $LATEST
+[promptResponseHandler] 23:25:34 2025-01-06T23:25:34.599Z	aefe198c-1808-4df8-89d6-580ce053cbac	INFO	Text Prompt Handler started - received prompt: Airport security guidelines now prohibit ______ on airplanes.
+[promptResponseHandler] 23:25:34 2025-01-06T23:25:34.896Z	aefe198c-1808-4df8-89d6-580ce053cbac	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Exploding watermelons', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:25:34 END RequestId: aefe198c-1808-4df8-89d6-580ce053cbac
+[promptResponseHandler] 23:25:34 REPORT RequestId: aefe198c-1808-4df8-89d6-580ce053cbac	Duration: 303.30 ms	Billed Duration: 304 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 290.84 ms
+[promptResponseHandler] 23:25:35 2025-01-06T23:25:35.764Z	ed0bc2e7-9396-470e-b326-ab50d79e792e	INFO	Text Prompt Handler started - received prompt: Isten! I'm from the future. You've got to stop _____________!
+[promptResponseHandler] 23:25:35 START RequestId: ed0bc2e7-9396-470e-b326-ab50d79e792e Version: $LATEST
+[promptResponseHandler] 23:25:35 2025-01-06T23:25:35.976Z	ed0bc2e7-9396-470e-b326-ab50d79e792e	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' time travelers, puppy mayhem', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:25:35 END RequestId: ed0bc2e7-9396-470e-b326-ab50d79e792e
+[promptResponseHandler] 23:25:35 REPORT RequestId: ed0bc2e7-9396-470e-b326-ab50d79e792e	Duration: 214.06 ms	Billed Duration: 215 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 23:25:36 2025-01-06T23:25:36.683Z	7059d0ef-d4b0-4cca-8ffd-144681f7aa1e	INFO	Text Prompt Handler started - received prompt: The blind date was going horribly until we discovered our shared interest in ______.
+[promptResponseHandler] 23:25:36 START RequestId: 7059d0ef-d4b0-4cca-8ffd-144681f7aa1e Version: $LATEST
+[promptResponseHandler] 23:25:36 2025-01-06T23:25:36.887Z	7059d0ef-d4b0-4cca-8ffd-144681f7aa1e	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' flatulence perfume collections', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:25:36 END RequestId: 7059d0ef-d4b0-4cca-8ffd-144681f7aa1e
+[promptResponseHandler] 23:25:36 REPORT RequestId: 7059d0ef-d4b0-4cca-8ffd-144681f7aa1e	Duration: 205.04 ms	Billed Duration: 206 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 23:25:37 START RequestId: 7f42cddb-b7d6-4404-8a08-2deb740d031f Version: $LATEST
+[promptResponseHandler] 23:25:37 2025-01-06T23:25:37.414Z	7f42cddb-b7d6-4404-8a08-2deb740d031f	INFO	Text Prompt Handler started - received prompt: Attention students! Principal Butthead is at home recovering from ______. We hope he'll be back soon.
+[promptResponseHandler] 23:25:37 2025-01-06T23:25:37.680Z	7f42cddb-b7d6-4404-8a08-2deb740d031f	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    { text: " Party crasher's rude interruption", stop_reason: 'stop' }
+  ]
+}
+[promptResponseHandler] 23:25:37 END RequestId: 7f42cddb-b7d6-4404-8a08-2deb740d031f
+[promptResponseHandler] 23:25:37 REPORT RequestId: 7f42cddb-b7d6-4404-8a08-2deb740d031f	Duration: 268.51 ms	Billed Duration: 269 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 23:25:38 START RequestId: a42093e1-28c0-46d4-bf4f-c62c25eb65e4 Version: $LATEST
+[promptResponseHandler] 23:25:38 2025-01-06T23:25:38.311Z	a42093e1-28c0-46d4-bf4f-c62c25eb65e4	INFO	Text Prompt Handler started - received prompt: It's tasty. It's aerodynamic. You've never seen anything like it! Please, Mommy. Keep me safe from _______!
+[promptResponseHandler] 23:25:38 2025-01-06T23:25:38.498Z	a42093e1-28c0-46d4-bf4f-c62c25eb65e4	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Helicopter jellybeans', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:25:38 END RequestId: a42093e1-28c0-46d4-bf4f-c62c25eb65e4
+[promptResponseHandler] 23:25:38 REPORT RequestId: a42093e1-28c0-46d4-bf4f-c62c25eb65e4	Duration: 189.07 ms	Billed Duration: 190 ms	Memory Size: 1024 MB	Max Memory Used: 79 MB
+[promptResponseHandler] 23:25:59 START RequestId: f1ed5628-b4a5-4180-be15-f41be54e3987 Version: $LATEST
+[promptResponseHandler] 23:25:59 2025-01-06T23:25:59.657Z	f1ed5628-b4a5-4180-be15-f41be54e3987	INFO	Text Prompt Handler started - received prompt: Having problems with ______? Try ______!
+[promptResponseHandler] 23:25:59 2025-01-06T23:25:59.944Z	f1ed5628-b4a5-4180-be15-f41be54e3987	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' Having problems with dancing elephants? Try mango tap-dancing lessons',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[promptResponseHandler] 23:25:59 END RequestId: f1ed5628-b4a5-4180-be15-f41be54e3987
+[promptResponseHandler] 23:25:59 REPORT RequestId: f1ed5628-b4a5-4180-be15-f41be54e3987	Duration: 300.29 ms	Billed Duration: 301 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:00 2025-01-06T23:26:00.296Z	4e945e19-ffd8-415d-bf5e-8e21c176d5db	INFO	Text Prompt Handler started - received prompt: Having problems with ______? Try ______!
+[promptResponseHandler] 23:26:00 START RequestId: 4e945e19-ffd8-415d-bf5e-8e21c176d5db Version: $LATEST
+[promptResponseHandler] 23:26:00 2025-01-06T23:26:00.539Z	4e945e19-ffd8-415d-bf5e-8e21c176d5db	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Guacamole dips, dance moves', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:26:00 END RequestId: 4e945e19-ffd8-415d-bf5e-8e21c176d5db
+[promptResponseHandler] 23:26:00 REPORT RequestId: 4e945e19-ffd8-415d-bf5e-8e21c176d5db	Duration: 244.32 ms	Billed Duration: 245 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:00 2025-01-06T23:26:00.847Z	b057cc50-048e-45d0-b618-ebc3e6cbb45c	INFO	Text Prompt Handler started - received prompt: Having problems with ______? Try ______!
+[promptResponseHandler] 23:26:00 START RequestId: b057cc50-048e-45d0-b618-ebc3e6cbb45c Version: $LATEST
+[promptResponseHandler] 23:26:01 2025-01-06T23:26:01.059Z	b057cc50-048e-45d0-b618-ebc3e6cbb45c	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' Having problems with invisible friends? Try imaginary solutions',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[promptResponseHandler] 23:26:01 END RequestId: b057cc50-048e-45d0-b618-ebc3e6cbb45c
+[promptResponseHandler] 23:26:01 REPORT RequestId: b057cc50-048e-45d0-b618-ebc3e6cbb45c	Duration: 213.15 ms	Billed Duration: 214 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:01 START RequestId: e41e5755-74ab-49bd-bcae-e58ec3bd2fcf Version: $LATEST
+[promptResponseHandler] 23:26:01 2025-01-06T23:26:01.614Z	e41e5755-74ab-49bd-bcae-e58ec3bd2fcf	INFO	Text Prompt Handler started - received prompt: It's tasty. It's loud. Grandmas love it. Get ready for _______!
+[promptResponseHandler] 23:26:01 2025-01-06T23:26:01.759Z	e41e5755-74ab-49bd-bcae-e58ec3bd2fcf	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Jello wrestling', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:01 END RequestId: e41e5755-74ab-49bd-bcae-e58ec3bd2fcf
+[promptResponseHandler] 23:26:01 REPORT RequestId: e41e5755-74ab-49bd-bcae-e58ec3bd2fcf	Duration: 147.08 ms	Billed Duration: 148 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:02 2025-01-06T23:26:02.061Z	ee2ef7e7-13ed-4931-9283-c391db64ed99	INFO	Text Prompt Handler started - received prompt: It's tasty. It's loud. Grandmas love it. Get ready for _______!
+[promptResponseHandler] 23:26:02 START RequestId: ee2ef7e7-13ed-4931-9283-c391db64ed99 Version: $LATEST
+[promptResponseHandler] 23:26:02 2025-01-06T23:26:02.215Z	ee2ef7e7-13ed-4931-9283-c391db64ed99	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party potatoes', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:02 END RequestId: ee2ef7e7-13ed-4931-9283-c391db64ed99
+[promptResponseHandler] 23:26:02 REPORT RequestId: ee2ef7e7-13ed-4931-9283-c391db64ed99	Duration: 155.90 ms	Billed Duration: 156 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:02 2025-01-06T23:26:02.501Z	cd0184e0-0ffc-40a1-ba11-9d5be3d91d24	INFO	Text Prompt Handler started - received prompt: It's tasty. It's loud. Grandmas love it. Get ready for _______!
+[promptResponseHandler] 23:26:02 START RequestId: cd0184e0-0ffc-40a1-ba11-9d5be3d91d24 Version: $LATEST
+[promptResponseHandler] 23:26:02 2025-01-06T23:26:02.707Z	cd0184e0-0ffc-40a1-ba11-9d5be3d91d24	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Jello batting', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:02 END RequestId: cd0184e0-0ffc-40a1-ba11-9d5be3d91d24
+[promptResponseHandler] 23:26:02 REPORT RequestId: cd0184e0-0ffc-40a1-ba11-9d5be3d91d24	Duration: 207.47 ms	Billed Duration: 208 ms	Memory Size: 1024 MB	Max Memory Used: 80 MB
+[promptResponseHandler] 23:26:03 2025-01-06T23:26:03.402Z	fbe3a16f-55fe-49c4-98a8-5b856ca5bb21	INFO	Text Prompt Handler started - received prompt: Now in bookstores: Nancy Drew and the Mystery of ______.
+[promptResponseHandler] 23:26:03 START RequestId: fbe3a16f-55fe-49c4-98a8-5b856ca5bb21 Version: $LATEST
+[promptResponseHandler] 23:26:03 2025-01-06T23:26:03.587Z	fbe3a16f-55fe-49c4-98a8-5b856ca5bb21	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Haunted donut shop', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:03 END RequestId: fbe3a16f-55fe-49c4-98a8-5b856ca5bb21
+[promptResponseHandler] 23:26:03 REPORT RequestId: fbe3a16f-55fe-49c4-98a8-5b856ca5bb21	Duration: 186.52 ms	Billed Duration: 187 ms	Memory Size: 1024 MB	Max Memory Used: 82 MB
+[promptResponseHandler] 23:26:03 START RequestId: dcb6e184-7d39-4f16-93cb-3386664a6ddc Version: $LATEST
+[promptResponseHandler] 23:26:03 2025-01-06T23:26:03.972Z	dcb6e184-7d39-4f16-93cb-3386664a6ddc	INFO	Text Prompt Handler started - received prompt: Now in bookstores: Nancy Drew and the Mystery of ______.
+[promptResponseHandler] 23:26:04 2025-01-06T23:26:04.132Z	dcb6e184-7d39-4f16-93cb-3386664a6ddc	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Time Warp Socks', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:04 END RequestId: dcb6e184-7d39-4f16-93cb-3386664a6ddc
+[promptResponseHandler] 23:26:04 REPORT RequestId: dcb6e184-7d39-4f16-93cb-3386664a6ddc	Duration: 166.15 ms	Billed Duration: 167 ms	Memory Size: 1024 MB	Max Memory Used: 83 MB
+[promptResponseHandler] 23:26:04 2025-01-06T23:26:04.509Z	afd513f8-65e7-4c92-a210-43aeb5ab5688	INFO	Text Prompt Handler started - received prompt: Now in bookstores: Nancy Drew and the Mystery of ______.
+[promptResponseHandler] 23:26:04 START RequestId: afd513f8-65e7-4c92-a210-43aeb5ab5688 Version: $LATEST
+[promptResponseHandler] 23:26:04 2025-01-06T23:26:04.705Z	afd513f8-65e7-4c92-a210-43aeb5ab5688	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Pickle Cabbage Curse', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:04 END RequestId: afd513f8-65e7-4c92-a210-43aeb5ab5688
+[promptResponseHandler] 23:26:04 REPORT RequestId: afd513f8-65e7-4c92-a210-43aeb5ab5688	Duration: 198.19 ms	Billed Duration: 199 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:05 START RequestId: 8783e556-90a2-4c5f-bb4c-1c15ca049094 Version: $LATEST
+[promptResponseHandler] 23:26:05 2025-01-06T23:26:05.227Z	8783e556-90a2-4c5f-bb4c-1c15ca049094	INFO	Text Prompt Handler started - received prompt: How am I maintaining my relationship status?
+[promptResponseHandler] 23:26:05 2025-01-06T23:26:05.431Z	8783e556-90a2-4c5f-bb4c-1c15ca049094	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' Jelly belief,magnetically attached',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[promptResponseHandler] 23:26:05 END RequestId: 8783e556-90a2-4c5f-bb4c-1c15ca049094
+[promptResponseHandler] 23:26:05 REPORT RequestId: 8783e556-90a2-4c5f-bb4c-1c15ca049094	Duration: 206.43 ms	Billed Duration: 207 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:05 2025-01-06T23:26:05.694Z	8d33f290-2979-4fec-aaf8-39c17cb6d427	INFO	Text Prompt Handler started - received prompt: How am I maintaining my relationship status?
+[promptResponseHandler] 23:26:05 START RequestId: 8d33f290-2979-4fec-aaf8-39c17cb6d427 Version: $LATEST
+[promptResponseHandler] 23:26:05 2025-01-06T23:26:05.902Z	8d33f290-2979-4fec-aaf8-39c17cb6d427	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Magical unicorn connections', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:26:05 END RequestId: 8d33f290-2979-4fec-aaf8-39c17cb6d427
+[promptResponseHandler] 23:26:05 REPORT RequestId: 8d33f290-2979-4fec-aaf8-39c17cb6d427	Duration: 209.55 ms	Billed Duration: 210 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:06 START RequestId: e66a7f98-5bb9-4bae-b16d-3600b8af2323 Version: $LATEST
+[promptResponseHandler] 23:26:06 2025-01-06T23:26:06.303Z	e66a7f98-5bb9-4bae-b16d-3600b8af2323	INFO	Text Prompt Handler started - received prompt: How am I maintaining my relationship status?
+[promptResponseHandler] 23:26:06 2025-01-06T23:26:06.463Z	e66a7f98-5bb9-4bae-b16d-3600b8af2323	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Magic beans and rainbows', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:26:06 END RequestId: e66a7f98-5bb9-4bae-b16d-3600b8af2323
+[promptResponseHandler] 23:26:06 REPORT RequestId: e66a7f98-5bb9-4bae-b16d-3600b8af2323	Duration: 162.28 ms	Billed Duration: 163 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:06 START RequestId: 585d8813-c48b-4e08-bfcb-33e1a4b27058 Version: $LATEST
+[promptResponseHandler] 23:26:06 2025-01-06T23:26:06.925Z	585d8813-c48b-4e08-bfcb-33e1a4b27058	INFO	Text Prompt Handler started - received prompt: Now in toy stores: it’s _____________ Batman!
+[promptResponseHandler] 23:26:07 2025-01-06T23:26:07.082Z	585d8813-c48b-4e08-bfcb-33e1a4b27058	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Glowing Jelly Batman', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:07 END RequestId: 585d8813-c48b-4e08-bfcb-33e1a4b27058
+[promptResponseHandler] 23:26:07 REPORT RequestId: 585d8813-c48b-4e08-bfcb-33e1a4b27058	Duration: 159.04 ms	Billed Duration: 160 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:07 2025-01-06T23:26:07.453Z	925d8466-c620-412c-89e3-ea5a68b4d916	INFO	Text Prompt Handler started - received prompt: Now in toy stores: it’s _____________ Batman!
+[promptResponseHandler] 23:26:07 START RequestId: 925d8466-c620-412c-89e3-ea5a68b4d916 Version: $LATEST
+[promptResponseHandler] 23:26:07 2025-01-06T23:26:07.651Z	925d8466-c620-412c-89e3-ea5a68b4d916	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Glowing Jelly Batman', stop_reason: 'stop' } ] }
+[promptResponseHandler] 23:26:07 END RequestId: 925d8466-c620-412c-89e3-ea5a68b4d916
+[promptResponseHandler] 23:26:07 REPORT RequestId: 925d8466-c620-412c-89e3-ea5a68b4d916	Duration: 199.07 ms	Billed Duration: 200 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[promptResponseHandler] 23:26:07 START RequestId: e123aa92-4400-4935-b52f-193b226f7cd9 Version: $LATEST
+[promptResponseHandler] 23:26:07 2025-01-06T23:26:07.914Z	e123aa92-4400-4935-b52f-193b226f7cd9	INFO	Text Prompt Handler started - received prompt: Now in toy stores: it’s _____________ Batman!
+[promptResponseHandler] 23:26:08 2025-01-06T23:26:08.053Z	e123aa92-4400-4935-b52f-193b226f7cd9	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Dance Battling Batman', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 23:26:08 END RequestId: e123aa92-4400-4935-b52f-193b226f7cd9
+[promptResponseHandler] 23:26:08 REPORT RequestId: e123aa92-4400-4935-b52f-193b226f7cd9	Duration: 141.97 ms	Billed Duration: 142 ms	Memory Size: 1024 MB	Max Memory Used: 84 MB
+[pickHumanReponseHandler] 23:26:58 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 23:26:58 START RequestId: bf8da7c1-b485-4dc0-9c7e-29332314f46c Version: $LATEST
+[pickHumanReponseHandler] 23:26:58 2025-01-06T23:26:58.844Z	bf8da7c1-b485-4dc0-9c7e-29332314f46c	INFO	Text Prompt Handler started - received prompt:
+[pickHumanReponseHandler] 23:26:59 2025-01-06T23:26:59.060Z	bf8da7c1-b485-4dc0-9c7e-29332314f46c	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 23:26:59 END RequestId: bf8da7c1-b485-4dc0-9c7e-29332314f46c
+[pickHumanReponseHandler] 23:26:59 REPORT RequestId: bf8da7c1-b485-4dc0-9c7e-29332314f46c	Duration: 221.59 ms	Billed Duration: 222 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 279.40 ms
+[pickHumanReponseHandler] 23:36:50 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 23:36:51 START RequestId: 2aeeccc2-1cf2-4991-aed4-08ed83add18c Version: $LATEST
+[pickHumanReponseHandler] 23:36:51 2025-01-06T23:36:51.140Z	2aeeccc2-1cf2-4991-aed4-08ed83add18c	INFO	Text Prompt Handler started - received prompt:
+[pickHumanReponseHandler] 23:36:51 2025-01-06T23:36:51.366Z	2aeeccc2-1cf2-4991-aed4-08ed83add18c	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 23:36:51 END RequestId: 2aeeccc2-1cf2-4991-aed4-08ed83add18c
+[pickHumanReponseHandler] 23:36:51 REPORT RequestId: 2aeeccc2-1cf2-4991-aed4-08ed83add18c	Duration: 231.10 ms	Billed Duration: 232 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 256.20 ms
+[pickHumanReponseHandler] 23:42:05 START RequestId: a5d654bd-8a37-48df-b4ef-06612154db3f Version: $LATEST
+[pickHumanReponseHandler] 23:42:05 2025-01-06T23:42:05.098Z	a5d654bd-8a37-48df-b4ef-06612154db3f	INFO	Text Prompt Handler started - received prompt: (1) Random AI Answer: 0.15723951299701855
+[pickHumanReponseHandler] 23:42:05 2025-01-06T23:42:05.327Z	a5d654bd-8a37-48df-b4ef-06612154db3f	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 23:42:05 END RequestId: a5d654bd-8a37-48df-b4ef-06612154db3f
+[pickHumanReponseHandler] 23:42:05 REPORT RequestId: a5d654bd-8a37-48df-b4ef-06612154db3f	Duration: 248.43 ms	Billed Duration: 249 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 23:42:05 START RequestId: 4ca04069-e847-40eb-9885-11cfc69fa8b2 Version: $LATEST
+[pickHumanReponseHandler] 23:42:05 2025-01-06T23:42:05.568Z	4ca04069-e847-40eb-9885-11cfc69fa8b2	INFO	Text Prompt Handler started - received prompt:
+[pickHumanReponseHandler] 23:42:05 2025-01-06T23:42:05.739Z	4ca04069-e847-40eb-9885-11cfc69fa8b2	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 23:42:05 END RequestId: 4ca04069-e847-40eb-9885-11cfc69fa8b2
+[pickHumanReponseHandler] 23:42:05 REPORT RequestId: 4ca04069-e847-40eb-9885-11cfc69fa8b2	Duration: 173.24 ms	Billed Duration: 174 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB

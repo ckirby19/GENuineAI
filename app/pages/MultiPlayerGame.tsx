@@ -1,7 +1,7 @@
 import { Schema } from "@/amplify/data/resource";
 import { LobbyCreation } from "./LobbyCreation";
 import { HomePage } from "./HomePage";
-import { GAME_STATUSES, ROUND_STATUSES } from "../model";
+import { GAME_STATUSES, GameType, ROUND_STATUSES } from "../model";
 import { WaitingRoom } from "./WaitingRoom";
 import { AnswerEntryPage } from "./AnswerEntryPage";
 import { VotingPage } from "./VotingPage";
@@ -14,6 +14,8 @@ interface Props {
     setUsername: Dispatch<SetStateAction<string>>;
     isNameEntered: boolean;
     setIsNameEntered: Dispatch<SetStateAction<boolean>>;
+    gameMode: GameType | null;
+    setGameMode: Dispatch<SetStateAction<GameType | null>>
     lobbyCode: string;
     setLobbyCode: Dispatch<SetStateAction<string>>;
     currentLobby: Schema["Lobby"]["type"] | null
@@ -26,13 +28,13 @@ interface Props {
     currentPrompt: Schema["Prompt"]["type"] | null;
     currentVotes: Schema["Vote"]["type"][];
     startGame: () => void;
-    createLobby: () => void;
+    createLobby: (numberOfAiModels: number) => void;
     joinLobby: () => void;
     leaveLobby: () => void;
     transitionToRound: (round: number) => void;
 }
 
-export const MainPage = (props: Props) => {
+export const MultiPlayerGame = (props: Props) => {
     if (!props.isNameEntered) {
         return (
           <HomePage 
@@ -40,15 +42,19 @@ export const MainPage = (props: Props) => {
             setUsername={props.setUsername}
             isNameEntered={props.isNameEntered}
             setIsNameEntered={props.setIsNameEntered}  
+            setGameMode={props.setGameMode}
+            gameMode={props.gameMode}
+            createLobby={props.createLobby}
           />
         ) 
-    } 
+    }
 
     if (!props.currentLobby) {
         return (
           <LobbyCreation
             username={props.username}
             lobbyCode={props.lobbyCode}
+            setIsNameEntered={props.setIsNameEntered}  
             setLobbyCode={props.setLobbyCode}
             createLobby={props.createLobby}
             joinLobby={props.joinLobby}
@@ -58,14 +64,15 @@ export const MainPage = (props: Props) => {
 
     if (props.currentLobby.status === GAME_STATUSES.WAITING){
         return (
-        <WaitingRoom 
+          <WaitingRoom 
             username={props.username}
             participants={props.participants}
             currentLobby={props.currentLobby}
             isHost={props.isHost}
             startGame={props.startGame}
             leaveLobby={props.leaveLobby}
-        />
+            gameMode={props.gameMode}
+          />
         )
     }
     
@@ -114,11 +121,11 @@ export const MainPage = (props: Props) => {
     };
 
     if (props.currentLobby.status === GAME_STATUSES.COMPLETED){
-    return (
-      <GameEnd
-        participants={props.participants}
-        leaveLobby={props.leaveLobby} 
-      />
-    )
+      return (
+        <GameEnd
+          participants={props.participants}
+          leaveLobby={props.leaveLobby} 
+        />
+      )
   }
 }

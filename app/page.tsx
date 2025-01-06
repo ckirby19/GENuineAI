@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import "./app.css";
-import { GAME_STATUSES, numberOfRounds, ROUND_STATUSES, scoreIncrementAI, scoreIncrementAnswerCreator, scoreIncrementVoter } from "./model";
-import { MainPage } from "./pages/MainPage";
+import { GAME_STATUSES, GAME_TYPE, GameType, numberOfRounds, ROUND_STATUSES, scoreIncrementAI, scoreIncrementAnswerCreator, scoreIncrementVoter } from "./model";
+import { MultiPlayerGame } from "./pages/MultiPlayerGame";
 import { getPrompts } from "./getPrompts";
+import { GameModePage } from "./pages/GameModePage";
+import { SinglePlayerGame } from "./pages/SinglePlayerGame";
 
 const client = generateClient<Schema>();
 
@@ -14,6 +16,7 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [lobbyCode, setLobbyCode] = useState("");
   const [userAnswer, setUserAnswer] = useState("");
+  const [gameMode, setGameMode] = useState<GameType | null>(null);
   const [isNameEntered, setIsNameEntered] = useState(false);
   const [currentLobby, setCurrentLobby] = useState<Schema["Lobby"]["type"] | null>(null);
   const [participants, setParticipants] = useState<Schema["Participant"]["type"][]>([]);
@@ -90,14 +93,19 @@ export default function App() {
 
   // Answers subscription
   useEffect(() => {
-    if (currentRound?.id) {
+    if (currentRound?.id && currentLobby?.id) {
       const sub = client.models.Answer.observeQuery({
         filter: { roundId: { eq: currentRound.id } }
       }).subscribe({
         next: (data) => {
           setCurrentAnswers([...data.items]);
           if (data.items.length >= participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
-            transitionToVoting();
+            if (gameMode == GAME_TYPE.SINGLE_PLAYER) {
+              transitionToSinglePlayerVoting();
+            }
+            if (gameMode == GAME_TYPE.MULTI_PLAYER) {
+              transitionToMultiPlayerVoting();
+            }
           }
         },
         error: (error) => {
@@ -118,7 +126,10 @@ export default function App() {
           setCurrentVotes([...data.items]);
 
           if (data.items.length >= participants.filter(x => !x.isAiParticipant).length && ROUND_STATUSES.VOTING){
-            transitionToScoring();
+            // Single-player transition is done manually
+            if (gameMode == GAME_TYPE.MULTI_PLAYER) {
+              transitionToMultiPlayerScoring();
+            }
           }
         },
         error: (error) => {
@@ -138,7 +149,7 @@ export default function App() {
     transitionToRound(1);
   }
 
-  async function createLobby() {
+  async function createLobby(numberOfAiModels: number) {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
     const lobby = await client.models.Lobby.create({
@@ -154,15 +165,6 @@ export default function App() {
       lobbyId: lobby.data?.id,
       isHost: true
     });
-    
-    // Create AI participant
-    const aiParticipant = await client.models.Participant.create({
-      userId: "AI",
-      username: "AI",
-      lobbyId: lobby.data?.id,
-      isHost: false,
-      isAiParticipant: true
-    });
 
     setCurrentLobby(lobby.data); // This will start the lobby sub
 
@@ -177,12 +179,25 @@ export default function App() {
       return;
     }
 
-    // Create all rounds with these prompts
+    const aiParticipants = [];
+
+    for (let modelNum = 0; modelNum < numberOfAiModels; modelNum++) {
+      let aiParticipant = await client.models.Participant.create({
+        userId: `AI-${modelNum}`,
+        username: `AI-${modelNum}`,
+        lobbyId: lobby.data.id,
+        isHost: false,
+        isAiParticipant: true
+      });
+
+      aiParticipants.push(aiParticipant);
+    }
+
     for (let i = 0; i < numberOfRounds; i++) {
-      const promptText = allPrompts[i];
+      let promptText = allPrompts[i];
 
       // Create next prompt
-      const nextPrompt = await client.models.Prompt.create({
+      let nextPrompt = await client.models.Prompt.create({
         text: promptText
       });
 
@@ -191,45 +206,51 @@ export default function App() {
         return;
       }
 
-      const nextRound = await client.models.Round.create({
+      let nextRound = await client.models.Round.create({
         lobbyId: lobby.data.id,
         promptId: nextPrompt.data.id,
         roundNumber: i + 1,
         status: ROUND_STATUSES.ANSWERING
       });
 
-      // Create AI answer for this round
-      const { data, errors } = await client.queries.GenerateTextResponse({
-        prompt: nextPrompt.data.text!
-      });
-
-      if (!errors && data) {
-        if (!aiParticipant.data?.id || !nextRound.data?.id){
-          console.error("Failed to create next round");
-          return;
-        }
-
-        if (!nextRound.data){
-          console.error("Failed to create next round");
-          return;
-        }
-
-        await client.models.Answer.create({
-          roundId: nextRound.data.id,
-          participantId: aiParticipant.data.id,
-          text: data,
-          isAiAnswer: true
-        });
-
-        await client.models.Round.update({
-          id: nextRound.data.id,
-        });
+      // Create all rounds with these prompts
+      for (let j = 0; j < numberOfAiModels; j++) {
+        let aiParticipant = aiParticipants[j];
+        // Create AI answer for this round
         
-      } else {
-        console.log("Unable to generate AI answer to prompt:", errors);
-        return;
-      }
+        // let { data, errors } = await client.queries.GenerateTextResponse({
+        //   prompt: nextPrompt.data.text!
+        // });
+        let data = `Random AI Answer: ${Math.random()}`
+        let errors = null;
 
+        if (!errors && data) {
+          if (!aiParticipant.data?.id){
+            console.error("Failed to create ai participant");
+            return;
+          }
+
+          if (!nextRound.data){
+            console.error("Failed to create next round");
+            return;
+          }
+
+          await client.models.Answer.create({
+            roundId: nextRound.data.id,
+            participantId: aiParticipant.data.id,
+            text: data,
+            isAiAnswer: true
+          });
+
+          await client.models.Round.update({
+            id: nextRound.data.id,
+          });
+          
+        } else {
+          console.log("Unable to generate AI answer to prompt:", errors);
+          return;
+        }
+      }
     }
     
     // Trigger initial update to notify other subs
@@ -319,7 +340,7 @@ export default function App() {
     });
   }
 
-  async function transitionToVoting(){
+  async function transitionToMultiPlayerVoting(){
     if (!currentLobby) {
       console.log("Cannot transition to voting if not in a lobby")
       return;
@@ -337,7 +358,88 @@ export default function App() {
     })
   }
 
-  async function transitionToScoring(){
+  async function transitionToSinglePlayerVoting(){
+    if (!currentLobby) {
+      console.log("Cannot transition to voting if not in a lobby")
+      return;
+    }
+
+    if (!currentRound) {
+      console.log("Cannot transition to voting if not in a round")
+      return;
+    }
+
+    // Update round status
+    await client.models.Round.update({
+      id: currentRound.id,
+      status: ROUND_STATUSES.VOTING
+    })
+
+    // Update lobby
+    await client.models.Lobby.update({
+      id: currentLobby.id,
+    })
+
+    const allAnswers = (await currentRound.answers()).data;
+    console.log("Check all answers", allAnswers);
+
+    // Do the above first so that the UI goes to the VotingPageAi page
+    const aiParticipants = participants.filter(x => x.isAiParticipant);
+    const stringsToFind = ["1", "2", "3"]
+    for (let i=0; i<aiParticipants.length; i++){
+      let aiParti = aiParticipants[i];
+      let filteredAnswers = allAnswers.filter(x => x.participantId != aiParti.id);
+
+      // Now request a vote from each AI model
+      const formattedAnswersPrompt = filteredAnswers.map((answer, index) => `(${index + 1}) ${answer.text}`).join('\n');
+
+      console.log("Check prompt for voting:", formattedAnswersPrompt)
+
+      let { data, errors } = await client.queries.PickHumanResponse({
+        prompt: formattedAnswersPrompt,
+      });
+
+      if (!errors && data) {
+        const found = stringsToFind.find(num => data.includes(num));
+    
+        // If found, convert to number, otherwise return null
+        var chosenAnswer = found ? parseInt(found) : null;
+
+        if (chosenAnswer == null){
+          console.log("AI voter did not response correctly", aiParti)
+          return;
+        }
+
+        console.log("Check chosen answer", chosenAnswer)
+        console.log("Check associated answer", filteredAnswers[chosenAnswer - 1])
+
+        // Create vote
+        await client.models.Vote.create({
+          roundId: currentRound?.id!,
+          participantId: aiParti.id,
+          answerId: filteredAnswers[chosenAnswer - 1].id
+        });
+
+      } else {
+        console.log("Unable to generate AI vote for answer", errors);
+        return;
+      }
+
+    }
+
+    await client.models.Round.update({
+      id: currentRound.id,
+      status: ROUND_STATUSES.VOTING
+    })
+
+    // Update lobby
+    await client.models.Lobby.update({
+      id: currentLobby.id,
+    })
+
+  }
+
+  async function transitionToMultiPlayerScoring(){
     if (currentLobby == null) {
       console.log("Cannot transition to scoring if not in a lobby")
       return;
@@ -414,29 +516,138 @@ export default function App() {
 
   }
 
-  return (
-    <MainPage
-      username={username}
-      isNameEntered={isNameEntered}
-      lobbyCode={lobbyCode}
-      currentLobby={currentLobby}
-      participants={participants}
-      isHost={isHost}
-      userAnswer={userAnswer}
-      answers={currentAnswers}
-      currentRound={currentRound}
-      currentPrompt={currentPrompt}
-      currentVotes={currentVotes}
-      setUsername={setUsername}
-      setIsNameEntered={setIsNameEntered}
-      setLobbyCode={setLobbyCode}
-      setUserAnswer={setUserAnswer}
-      // Custom Methods
-      startGame={startGame}
-      createLobby={createLobby}
-      joinLobby={joinLobby}
-      leaveLobby={leaveLobby}
-      transitionToRound={transitionToRound}
-    />
-  )
+  async function transitionToSinglePlayerScoring(){
+    if (currentLobby == null) {
+      console.log("Cannot transition to scoring if not in a lobby")
+      return;
+    }
+
+    if (currentRound == null){
+      console.log("Cannot transition to scoring if not in a round")
+      return;
+    }
+
+    const updatedParticipants = [...participants]; // Create a new array to track score updates
+    const humanParticipant = updatedParticipants.find(x => !x.isAiParticipant);
+    const votes = (await currentRound.votes()).data;
+
+    if (votes == null){
+      console.log("No votes found for round", currentRound?.id!)
+      return;
+    }
+
+    for (const vote of votes){
+      const answerVotedFor = (await vote.answer()).data;
+      if (answerVotedFor){
+        if (!answerVotedFor.isAiAnswer){
+          // Ai voted for human answer
+          const voter = updatedParticipants.find(p => p.id === vote.participantId);
+          if (voter){
+            voter.score = (voter.score ?? 0) + scoreIncrementVoter
+          }
+          else{
+            console.log("No voter found for vote", vote)
+          }
+        }
+        else{
+            // AI voted for AI answer, reward human
+            if (humanParticipant){
+              humanParticipant.score = (humanParticipant.score ?? 0) + (scoreIncrementAI)
+            }
+            else{
+              console.log("No AI participant found")
+            }
+        }
+      }
+      else{
+        console.log("No answer found for vote", vote)
+      }
+    }
+
+    await Promise.all(updatedParticipants.map(participant => 
+      client.models.Participant.update({
+          id: participant.id,
+          score: participant.score,
+      })
+    ));
+
+    // Update round status
+    await client.models.Round.update({
+      id: currentRound?.id!,
+      status: ROUND_STATUSES.SCORING
+    })
+
+    // Update lobby
+    await client.models.Lobby.update({
+      id: currentLobby.id,
+    })
+  }
+
+  if (!gameMode) {
+    return (
+      <GameModePage 
+        setGameMode={setGameMode}
+      />
+    ) 
+  }
+  if (gameMode === GAME_TYPE.MULTI_PLAYER){
+    return (
+      <MultiPlayerGame
+        username={username}
+        isNameEntered={isNameEntered}
+        lobbyCode={lobbyCode}
+        currentLobby={currentLobby}
+        participants={participants}
+        gameMode = {gameMode}
+        isHost={isHost}
+        userAnswer={userAnswer}
+        answers={currentAnswers}
+        currentRound={currentRound}
+        currentPrompt={currentPrompt}
+        currentVotes={currentVotes}
+        setGameMode={setGameMode}
+        setUsername={setUsername}
+        setIsNameEntered={setIsNameEntered}
+        setLobbyCode={setLobbyCode}
+        setUserAnswer={setUserAnswer}
+        // Custom Methods
+        startGame={startGame}
+        createLobby={createLobby}
+        joinLobby={joinLobby}
+        leaveLobby={leaveLobby}
+        transitionToRound={transitionToRound}
+      />
+    )
+  }
+  else if (gameMode === GAME_TYPE.SINGLE_PLAYER){
+    return (
+      <SinglePlayerGame
+        username={username}
+        isNameEntered={isNameEntered}
+        lobbyCode={lobbyCode}
+        currentLobby={currentLobby}
+        participants={participants}
+        gameMode = {gameMode}
+        isHost={isHost}
+        userAnswer={userAnswer}
+        answers={currentAnswers}
+        currentRound={currentRound}
+        currentPrompt={currentPrompt}
+        currentVotes={currentVotes}
+        setGameMode={setGameMode}
+        setUsername={setUsername}
+        setIsNameEntered={setIsNameEntered}
+        setLobbyCode={setLobbyCode}
+        setUserAnswer={setUserAnswer}
+        // Custom Methods
+        startGame={startGame}
+        createLobby={createLobby}
+        joinLobby={joinLobby}
+        leaveLobby={leaveLobby}
+        transitionToRound={transitionToRound}
+        transitionToSinglePlayerScoring={transitionToSinglePlayerScoring}
+      />
+    )
+  }
+
 }

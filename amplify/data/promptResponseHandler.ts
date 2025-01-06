@@ -58,7 +58,7 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
     
     const data = JSON.parse(Buffer.from(response.body).toString());
 
-    console.log(`Received response from Bedrock model ${TEXT_MODEL_ID}`, data);
+    console.log(`Received answer response from Bedrock model ${TEXT_MODEL_ID}`, data);
 
     if (data.outputs[0].stop_reason != "stop"){
         console.warn("AI model did not correctly finish generating response")
