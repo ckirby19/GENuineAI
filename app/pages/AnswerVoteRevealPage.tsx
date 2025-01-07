@@ -67,7 +67,7 @@ export const AnswerVoteRevealPage = (props: Props) => {
     const gameType = props.currentLobby.gameType;
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 from-background to-accent">
           <AnimatePresence mode="wait">
               <motion.div
                 key="game"

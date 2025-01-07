@@ -29,7 +29,7 @@ export const HomePage = (props: Props) => {
     };
     
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-background to-accent">
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 from-background to-accent">
             <motion.div
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}

@@ -7,7 +7,6 @@ import outputs from "@/amplify_outputs.json";
 import { Inter } from 'next/font/google'
 import { Toaster } from "@/components/ui/toaster"
 
-
 const inter = Inter({ subsets: ['latin'] })
 
 Amplify.configure(outputs);
@@ -19,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gradient-to-br from-background to-accent min-h-screen`}>
-        <main className="container mx-auto px-4 py-8">
+      <body className={`${inter.className} min-h-screen bg-gradient-to-br from-background to-accent`}>
+        <main className="container mx-auto px-4 py-8 bg-transparent">
           {children}
         </main>
         <Toaster />
