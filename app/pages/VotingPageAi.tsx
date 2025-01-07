@@ -48,7 +48,7 @@ export const VotingPageAi = (props: Props) => {
             {/* AI Players voting status */}
             <div className="space-y-4">
               {props.participants.filter(x => x.isAiParticipant).map((ai) => (
-                props.currentVotes.filter(x => x.participantId == ai.id) && (
+                props.currentVotes.filter(x => x.participantId == ai.id).length != 0 && (
                   <motion.div
                     key={ai.id}
                     initial={{ opacity: 0, x: -20 }}

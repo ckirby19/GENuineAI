@@ -101,7 +101,7 @@ export default function App() {
           setCurrentAnswers([...data.items]);
           if (data.items.length >= participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
             if (gameMode == GAME_TYPE.SINGLE_PLAYER) {
-              transitionToSinglePlayerVoting();
+              transitionToSinglePlayerVoting(data.items);
             }
             if (gameMode == GAME_TYPE.MULTI_PLAYER) {
               transitionToMultiPlayerVoting();
@@ -218,11 +218,9 @@ export default function App() {
         let aiParticipant = aiParticipants[j];
         // Create AI answer for this round
         
-        // let { data, errors } = await client.queries.GenerateTextResponse({
-        //   prompt: nextPrompt.data.text!
-        // });
-        let data = `Random AI Answer: ${Math.random()}`
-        let errors = null;
+        let { data, errors } = await client.queries.GenerateTextResponse({
+          prompt: nextPrompt.data.text!
+        });
 
         if (!errors && data) {
           if (!aiParticipant.data?.id){
@@ -311,7 +309,8 @@ export default function App() {
           await client.models.Lobby.delete({ id: currentLobby.id });
         }
       }
-      setCurrentLobby(null); // or however you update your currentLobby state
+      setCurrentLobby(null);
+      setGameMode(null);
     }
   }
 
@@ -358,7 +357,7 @@ export default function App() {
     })
   }
 
-  async function transitionToSinglePlayerVoting(){
+  async function transitionToSinglePlayerVoting(allAnswers: Schema["Answer"]["type"][]){
     if (!currentLobby) {
       console.log("Cannot transition to voting if not in a lobby")
       return;
@@ -380,9 +379,6 @@ export default function App() {
       id: currentLobby.id,
     })
 
-    const allAnswers = (await currentRound.answers()).data;
-    console.log("Check all answers", allAnswers);
-
     // Do the above first so that the UI goes to the VotingPageAi page
     const aiParticipants = participants.filter(x => x.isAiParticipant);
     const stringsToFind = ["1", "2", "3"]
@@ -392,8 +388,6 @@ export default function App() {
 
       // Now request a vote from each AI model
       const formattedAnswersPrompt = filteredAnswers.map((answer, index) => `(${index + 1}) ${answer.text}`).join('\n');
-
-      console.log("Check prompt for voting:", formattedAnswersPrompt)
 
       let { data, errors } = await client.queries.PickHumanResponse({
         prompt: formattedAnswersPrompt,
@@ -409,9 +403,6 @@ export default function App() {
           console.log("AI voter did not response correctly", aiParti)
           return;
         }
-
-        console.log("Check chosen answer", chosenAnswer)
-        console.log("Check associated answer", filteredAnswers[chosenAnswer - 1])
 
         // Create vote
         await client.models.Vote.create({

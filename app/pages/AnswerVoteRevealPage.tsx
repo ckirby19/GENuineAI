@@ -105,8 +105,8 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <Users className="w-5 h-5 text-[hsl(var(--neon-blue))]" />
                               <span>Votes: {voterUsernames.join(", ") || "No votes"}</span>
                               {revealStage >= 3 &&
-                              ((currentAnswer.isAiAnswer && gameType == GAME_TYPE.MULTI_PLAYER) || 
-                                (!currentAnswer.isAiAnswer && gameType == GAME_TYPE.SINGLE_PLAYER)) && (
+                              currentAnswer.isAiAnswer &&
+                              gameType == GAME_TYPE.MULTI_PLAYER && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementVoter} points
                                 </span>
@@ -125,8 +125,8 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <span>Submitted by: {currentAnswerSubmitter?.username}</span>
                               {currentAnswer.isAiAnswer && <Brain className="w-5 h-5 ml-2 text-[hsl(var(--neon-purple))]" />}
                               {revealStage >= 3 &&
-                              ((!currentAnswer.isAiAnswer && gameType == GAME_TYPE.MULTI_PLAYER) || 
-                              (currentAnswer.isAiAnswer && gameType == GAME_TYPE.SINGLE_PLAYER)) && (
+                              !currentAnswer.isAiAnswer &&
+                              gameType == GAME_TYPE.MULTI_PLAYER && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementAnswerCreator * voterUsernames.length} points
                                 </span>
