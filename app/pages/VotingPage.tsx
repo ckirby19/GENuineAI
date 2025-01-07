@@ -101,12 +101,12 @@ export const VotingPage = (props: Props) => {
                       className="bg-[hsl(var(--neon-blue))] h-4 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: 
-                        `${(props.currentVotes.length / props.participants.filter(x => !x.isAiParticipant).length) * 100}%` 
+                        `${Math.min((props.currentVotes.length / props.participants.filter(x => !x.isAiParticipant).length) * 100, 100)}%` 
                       }}
                       transition={{ duration: 0.5 }}
                     />
                   </div>
-                  <p>{props.currentVotes.length} out of {props.participants.filter(x => !x.isAiParticipant).length} players have voted</p>
+                  <p>{Math.min(props.currentVotes.length, props.participants.filter(x => !x.isAiParticipant).length)} out of {props.participants.filter(x => !x.isAiParticipant).length} players have voted</p>
                 </motion.div>
               )}
             </CardContent>

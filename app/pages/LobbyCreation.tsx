@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { motion } from 'framer-motion'
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     username: string;
     lobbyCode: string;
-    setLobbyCode: React.Dispatch<React.SetStateAction<string>>;
-    createLobby: () => void;
+    setLobbyCode: Dispatch<SetStateAction<string>>;
+    createLobby: (numberOfAiModels: number) => void;
     joinLobby: () => void;
+    setIsNameEntered: Dispatch<SetStateAction<boolean>>;
 }
 export const LobbyCreation = (props: Props) => {
     return (
@@ -24,7 +26,7 @@ export const LobbyCreation = (props: Props) => {
                 <h1 className="text-3xl font-bold neon-text">Welcome, {props.username}!</h1>
               </CardHeader>
               <CardContent className="space-y-8">
-                <Button onClick={props.createLobby} className="w-full neon-button mt-6">Create New Lobby</Button>
+                <Button onClick={() => props.createLobby(1)} className="w-full neon-button mt-6">Create New Lobby</Button>
                 <Input 
                   type="text" 
                   placeholder="Enter lobby code" 
@@ -35,6 +37,15 @@ export const LobbyCreation = (props: Props) => {
                 />
                 <Button onClick={props.joinLobby} className="w-full neon-button mb-6">Join Lobby</Button>
               </CardContent>
+              <CardFooter>
+                <Button 
+                variant="outline" 
+                className="w-full neon-border"
+                onClick={() => props.setIsNameEntered(false)}
+                > 
+                  Return to Name Entry
+                </Button>
+              </CardFooter>
             </Card>
           </motion.div>
         </div>

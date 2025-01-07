@@ -4,8 +4,14 @@ export const GAME_STATUSES = {
     COMPLETED: 'COMPLETED' // Once all rounds are finished
   } as const;
   
-// Create a type from the values
 export type GameStatus = typeof GAME_STATUSES[keyof typeof GAME_STATUSES];
+
+export const GAME_TYPE = {
+  SINGLE_PLAYER: 'SINGLE_PLAYER',
+  MULTI_PLAYER: 'MULTIPLAYER'
+} as const;
+
+export type GameType = typeof GAME_TYPE[keyof typeof GAME_TYPE];
   
 export const ROUND_STATUSES = {
   ANSWERING: 'ANSWERING', // Waiting for everyone to answer
