@@ -1367,3 +1367,96 @@
 [pickHumanReponseHandler] 00:12:03 2025-01-07T00:12:03.583Z	84b7a4a2-2699-4beb-b846-fc651335e035	WARN	AI model did not correctly finish generating response
 [pickHumanReponseHandler] 00:12:03 END RequestId: 84b7a4a2-2699-4beb-b846-fc651335e035
 [pickHumanReponseHandler] 00:12:03 REPORT RequestId: 84b7a4a2-2699-4beb-b846-fc651335e035	Duration: 255.75 ms	Billed Duration: 256 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 00:14:03 START RequestId: 305643be-7af3-437e-9ef1-5116b6a0c78f Version: $LATEST
+[promptResponseHandler] 00:14:03 2025-01-07T00:14:03.924Z	305643be-7af3-437e-9ef1-5116b6a0c78f	INFO	Text Prompt Handler started - received prompt: Not to brag, but I've been called the "Picasso of ______."
+[promptResponseHandler] 00:14:04 2025-01-07T00:14:04.110Z	305643be-7af3-437e-9ef1-5116b6a0c78f	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party favors design', stop_reason: 'stop' } ] }
+[promptResponseHandler] 00:14:04 END RequestId: 305643be-7af3-437e-9ef1-5116b6a0c78f
+[promptResponseHandler] 00:14:04 REPORT RequestId: 305643be-7af3-437e-9ef1-5116b6a0c78f	Duration: 192.09 ms	Billed Duration: 193 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 00:14:04 2025-01-07T00:14:04.394Z	11cc8ceb-7ceb-4955-a55f-d93243199c8e	INFO	Text Prompt Handler started - received prompt: Not to brag, but I've been called the "Picasso of ______."
+[promptResponseHandler] 00:14:04 START RequestId: 11cc8ceb-7ceb-4955-a55f-d93243199c8e Version: $LATEST
+[promptResponseHandler] 00:14:04 2025-01-07T00:14:04.615Z	11cc8ceb-7ceb-4955-a55f-d93243199c8e	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party favors design', stop_reason: 'stop' } ] }
+[promptResponseHandler] 00:14:04 END RequestId: 11cc8ceb-7ceb-4955-a55f-d93243199c8e
+[promptResponseHandler] 00:14:04 REPORT RequestId: 11cc8ceb-7ceb-4955-a55f-d93243199c8e	Duration: 222.10 ms	Billed Duration: 223 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 00:14:04 2025-01-07T00:14:04.950Z	93fcade5-f04f-4278-8f10-7ea8a5550b9c	INFO	Text Prompt Handler started - received prompt: Not to brag, but I've been called the "Picasso of ______."
+[promptResponseHandler] 00:14:04 START RequestId: 93fcade5-f04f-4278-8f10-7ea8a5550b9c Version: $LATEST
+[promptResponseHandler] 00:14:05 2025-01-07T00:14:05.258Z	93fcade5-f04f-4278-8f10-7ea8a5550b9c	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ` Not to brag, but I've been called the "Picasso of party hats`,
+      stop_reason: 'stop'
+    }
+  ]
+}
+[promptResponseHandler] 00:14:05 END RequestId: 93fcade5-f04f-4278-8f10-7ea8a5550b9c
+[promptResponseHandler] 00:14:05 REPORT RequestId: 93fcade5-f04f-4278-8f10-7ea8a5550b9c	Duration: 309.64 ms	Billed Duration: 310 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 00:14:09 START RequestId: 10ae058f-97af-4dd4-a6e5-3c696fe49b7a Version: $LATEST
+[pickHumanReponseHandler] 00:14:09 2025-01-07T00:14:09.885Z	10ae058f-97af-4dd4-a6e5-3c696fe49b7a	INFO	Text Prompt Handler started - received prompt: (1)  Not to brag, but I've been called the "Picasso of party hats
+(2)  Party favors design
+(3) we
+[pickHumanReponseHandler] 00:14:10 2025-01-07T00:14:10.070Z	10ae058f-97af-4dd4-a6e5-3c696fe49b7a	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 00:14:10 END RequestId: 10ae058f-97af-4dd4-a6e5-3c696fe49b7a
+[pickHumanReponseHandler] 00:14:10 REPORT RequestId: 10ae058f-97af-4dd4-a6e5-3c696fe49b7a	Duration: 207.33 ms	Billed Duration: 208 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 00:14:10 START RequestId: 36db6854-2dd2-4028-b0e3-e86a8fad2ec3 Version: $LATEST
+[pickHumanReponseHandler] 00:14:10 2025-01-07T00:14:10.343Z	36db6854-2dd2-4028-b0e3-e86a8fad2ec3	INFO	Text Prompt Handler started - received prompt: (1)  Party favors design
+(2)  Not to brag, but I've been called the "Picasso of party hats
+(3) we
+[pickHumanReponseHandler] 00:14:10 2025-01-07T00:14:10.498Z	36db6854-2dd2-4028-b0e3-e86a8fad2ec3	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 00:14:10 END RequestId: 36db6854-2dd2-4028-b0e3-e86a8fad2ec3
+[pickHumanReponseHandler] 00:14:10 REPORT RequestId: 36db6854-2dd2-4028-b0e3-e86a8fad2ec3	Duration: 156.99 ms	Billed Duration: 157 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 00:14:10 START RequestId: 73c23e61-3258-4d13-8933-6b7a102827b6 Version: $LATEST
+[pickHumanReponseHandler] 00:14:10 2025-01-07T00:14:10.907Z	73c23e61-3258-4d13-8933-6b7a102827b6	INFO	Text Prompt Handler started - received prompt: (1)  Party favors design
+(2)  Party favors design
+(3) we
+[pickHumanReponseHandler] 00:14:11 2025-01-07T00:14:11.122Z	73c23e61-3258-4d13-8933-6b7a102827b6	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    {
+      text: ' Both AI generated the same response',
+      stop_reason: 'stop'
+    }
+  ]
+}
+[pickHumanReponseHandler] 00:14:11 END RequestId: 73c23e61-3258-4d13-8933-6b7a102827b6
+[pickHumanReponseHandler] 00:14:11 REPORT RequestId: 73c23e61-3258-4d13-8933-6b7a102827b6	Duration: 217.58 ms	Billed Duration: 218 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 00:15:22 2025-01-07T00:15:22.713Z	c9c143bf-52f4-4059-b523-5bac24601870	INFO	Text Prompt Handler started - received prompt: It's gorgeous. It's delicious. It'll make you the envy of your neighbors. New from Mattel, it's _______!
+[promptResponseHandler] 00:15:22 START RequestId: c9c143bf-52f4-4059-b523-5bac24601870 Version: $LATEST
+[promptResponseHandler] 00:15:22 2025-01-07T00:15:22.866Z	c9c143bf-52f4-4059-b523-5bac24601870	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Party frolic cupcake toy', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 00:15:22 END RequestId: c9c143bf-52f4-4059-b523-5bac24601870
+[promptResponseHandler] 00:15:22 REPORT RequestId: c9c143bf-52f4-4059-b523-5bac24601870	Duration: 155.12 ms	Billed Duration: 156 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 00:15:23 2025-01-07T00:15:23.177Z	a6c4d1e1-d586-49b5-afc4-60f43c6f5db4	INFO	Text Prompt Handler started - received prompt: It's gorgeous. It's delicious. It'll make you the envy of your neighbors. New from Mattel, it's _______!
+[promptResponseHandler] 00:15:23 START RequestId: a6c4d1e1-d586-49b5-afc4-60f43c6f5db4 Version: $LATEST
+[promptResponseHandler] 00:15:23 2025-01-07T00:15:23.338Z	a6c4d1e1-d586-49b5-afc4-60f43c6f5db4	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party snacks, surely', stop_reason: 'stop' } ] }
+[promptResponseHandler] 00:15:23 END RequestId: a6c4d1e1-d586-49b5-afc4-60f43c6f5db4
+[promptResponseHandler] 00:15:23 REPORT RequestId: a6c4d1e1-d586-49b5-afc4-60f43c6f5db4	Duration: 162.08 ms	Billed Duration: 163 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 00:15:23 2025-01-07T00:15:23.729Z	ab4053cf-dcce-49ed-b723-b9b7e3117e70	INFO	Text Prompt Handler started - received prompt: It's gorgeous. It's delicious. It'll make you the envy of your neighbors. New from Mattel, it's _______!
+[promptResponseHandler] 00:15:23 START RequestId: ab4053cf-dcce-49ed-b723-b9b7e3117e70 Version: $LATEST
+[promptResponseHandler] 00:15:23 2025-01-07T00:15:23.934Z	ab4053cf-dcce-49ed-b723-b9b7e3117e70	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Edible garden gnome', stop_reason: 'stop' } ] }
+[promptResponseHandler] 00:15:23 END RequestId: ab4053cf-dcce-49ed-b723-b9b7e3117e70
+[promptResponseHandler] 00:15:23 REPORT RequestId: ab4053cf-dcce-49ed-b723-b9b7e3117e70	Duration: 206.64 ms	Billed Duration: 207 ms	Memory Size: 1024 MB	Max Memory Used: 82 MB
+[pickHumanReponseHandler] 00:15:29 2025-01-07T00:15:29.146Z	28914739-4794-44cf-a0bf-73f3e516358f	INFO	Text Prompt Handler started - received prompt: (1)  Party snacks, surely
+(2)  Edible garden gnome
+(3) asd
+[pickHumanReponseHandler] 00:15:29 START RequestId: 28914739-4794-44cf-a0bf-73f3e516358f Version: $LATEST
+[pickHumanReponseHandler] 00:15:29 2025-01-07T00:15:29.278Z	28914739-4794-44cf-a0bf-73f3e516358f	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 3', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 00:15:29 END RequestId: 28914739-4794-44cf-a0bf-73f3e516358f
+[pickHumanReponseHandler] 00:15:29 REPORT RequestId: 28914739-4794-44cf-a0bf-73f3e516358f	Duration: 133.39 ms	Billed Duration: 134 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 00:15:29 2025-01-07T00:15:29.534Z	3605c7af-437e-4945-82a7-3476f87626db	INFO	Text Prompt Handler started - received prompt: (1)  Party frolic cupcake toy
+(2)  Edible garden gnome
+(3) asd
+[pickHumanReponseHandler] 00:15:29 START RequestId: 3605c7af-437e-4945-82a7-3476f87626db Version: $LATEST
+[pickHumanReponseHandler] 00:15:29 2025-01-07T00:15:29.668Z	3605c7af-437e-4945-82a7-3476f87626db	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 3', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 00:15:29 END RequestId: 3605c7af-437e-4945-82a7-3476f87626db
+[pickHumanReponseHandler] 00:15:29 REPORT RequestId: 3605c7af-437e-4945-82a7-3476f87626db	Duration: 135.28 ms	Billed Duration: 136 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 00:15:29 START RequestId: 89305059-d8a3-427e-8a13-291426eb7f50 Version: $LATEST
+[pickHumanReponseHandler] 00:15:29 2025-01-07T00:15:29.910Z	89305059-d8a3-427e-8a13-291426eb7f50	INFO	Text Prompt Handler started - received prompt: (1)  Party snacks, surely
+(2)  Party frolic cupcake toy
+(3) asd
+[pickHumanReponseHandler] 00:15:30 2025-01-07T00:15:30.088Z	89305059-d8a3-427e-8a13-291426eb7f50	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [
+    { text: ' 1 or 2 (I cannot determine with', stop_reason: 'length' }
+  ]
+}
+[pickHumanReponseHandler] 00:15:30 2025-01-07T00:15:30.088Z	89305059-d8a3-427e-8a13-291426eb7f50	WARN	AI model did not correctly finish generating response
+[pickHumanReponseHandler] 00:15:30 END RequestId: 89305059-d8a3-427e-8a13-291426eb7f50
+[pickHumanReponseHandler] 00:15:30 REPORT RequestId: 89305059-d8a3-427e-8a13-291426eb7f50	Duration: 180.33 ms	Billed Duration: 181 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB

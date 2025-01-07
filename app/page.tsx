@@ -400,15 +400,14 @@ export default function App() {
         var chosenAnswer = found ? parseInt(found) : null;
 
         if (chosenAnswer == null){
-          console.log("AI voter did not response correctly", aiParti)
-          return;
+          console.log("AI voter did not response correctly", data)
         }
 
         // Create vote
         await client.models.Vote.create({
           roundId: currentRound?.id!,
           participantId: aiParti.id,
-          answerId: filteredAnswers[chosenAnswer - 1].id
+          answerId: filteredAnswers[(chosenAnswer ?? 1) - 1].id
         });
 
       } else {
