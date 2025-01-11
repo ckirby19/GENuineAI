@@ -98,7 +98,7 @@ const schema = a.schema({
     .handler(a.handler.function(generatePromptResponse)),
   PickHumanResponse: a
     .query()
-    .arguments({ prompt: a.string().required() })
+    .arguments({ answers: a.string().required(), originalPrompt: a.string().required() })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(pickHumanResponse)),
