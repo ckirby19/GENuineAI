@@ -368,6 +368,13 @@ export default function App() {
       return;
     }
 
+    var prompt = (await currentRound.prompt()).data;
+
+    if (!prompt?.text) {
+      console.log("Cannot transition to voting if there is no prompt")
+      return;
+    }
+
     // Update round status
     await client.models.Round.update({
       id: currentRound.id,
@@ -390,7 +397,8 @@ export default function App() {
       const formattedAnswersPrompt = filteredAnswers.map((answer, index) => `(${index + 1}) ${answer.text}`).join('\n');
 
       let { data, errors } = await client.queries.PickHumanResponse({
-        prompt: formattedAnswersPrompt,
+        originalPrompt: prompt.text,
+        answers: formattedAnswersPrompt,
       });
 
       if (!errors && data) {

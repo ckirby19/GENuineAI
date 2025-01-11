@@ -8,7 +8,7 @@ export const handler: Schema["GenerateTextResponse"]["functionHandler"] = async 
   event,
   context
 ) => {
-    console.log('Text Prompt Handler started - received prompt:', event.arguments.prompt);
+    console.log('Text Prompt Handler Started - received prompt:', event.arguments.prompt);
     const AWS_REGION = process.env.AWS_REGION || "eu-west-2";
 
     const client = new BedrockRuntimeClient({
