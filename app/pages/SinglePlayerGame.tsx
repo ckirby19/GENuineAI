@@ -1,13 +1,12 @@
 import { HomePage } from "./HomePage";
-import { GAME_STATUSES, GameType, ROUND_STATUSES } from "../model";
+import { GAME_STATUSES, GameAnswerType, GameType, ROUND_STATUSES } from "../model";
 import { Dispatch, SetStateAction } from "react";
 import { Schema } from "@/amplify/data/resource";
 import { WaitingRoom } from "./WaitingRoom";
-import { assert } from "console";
-import { AnswerEntryPage } from "./AnswerEntryPage";
+import { AnswerEntryPage } from "./textGame/AnswerEntryPage";
 import { GameEnd } from "./GameEnd";
 import { AnswerVoteRevealPage } from "./AnswerVoteRevealPage";
-import { VotingPageAi } from "./VotingPageAi";
+import { VotingPageAi } from "./textGame/VotingPageAi";
 
 interface Props {
   username: string;
@@ -28,7 +27,7 @@ interface Props {
   currentPrompt: Schema["Prompt"]["type"] | null;
   currentVotes: Schema["Vote"]["type"][];
   startGame: () => void;
-  createLobby: (numberOfAiModels: number) => void;
+  createLobby: (numberOfAiModels: number, gameAnswerType: GameAnswerType) => void;
   joinLobby: () => void;
   leaveLobby: () => void;
   transitionToRound: (round: number) => void;
@@ -64,11 +63,6 @@ export const SinglePlayerGame = (props: Props) => {
       )
     }
 
-    // No need to go to lobby creation screen, just:
-    // Create all the prompts and rounds, 3 AI models, and start the game
-    // Have the answer entry for the user
-    // Once user adds their answer, we prompt all AI models to choose (New UI instead of voting page)
-    // Show results
     if (props.currentLobby && props.currentLobby.status === GAME_STATUSES.STARTED){
       if (props.currentRound?.status === ROUND_STATUSES.ANSWERING){
         return (

@@ -1,13 +1,12 @@
 import { Schema } from "@/amplify/data/resource";
 import { LobbyCreation } from "./LobbyCreation";
 import { HomePage } from "./HomePage";
-import { GAME_STATUSES, GameType, ROUND_STATUSES } from "../model";
+import { GAME_STATUSES, GameType, GAME_ANSWER_TYPE, GameAnswerType } from "../model";
 import { WaitingRoom } from "./WaitingRoom";
-import { AnswerEntryPage } from "./AnswerEntryPage";
-import { VotingPage } from "./VotingPage";
 import { Dispatch, SetStateAction } from "react";
 import { GameEnd } from "./GameEnd";
-import { AnswerVoteRevealPage } from "./AnswerVoteRevealPage";
+import { TextGame } from "./textGame/TextGame";
+import { DrawingGame } from "./drawingGame/DrawingGame";
 
 interface Props {
     username: string;
@@ -28,7 +27,7 @@ interface Props {
     currentPrompt: Schema["Prompt"]["type"] | null;
     currentVotes: Schema["Vote"]["type"][];
     startGame: () => void;
-    createLobby: (numberOfAiModels: number) => void;
+    createLobby: (numberOfAiModels: number, gameAnswerType: GameAnswerType) => void;
     joinLobby: () => void;
     leaveLobby: () => void;
     transitionToRound: (round: number) => void;
@@ -75,11 +74,12 @@ export const MultiPlayerGame = (props: Props) => {
           />
         )
     }
+
     
     if (props.currentLobby.status === GAME_STATUSES.STARTED){
-      if (props.currentRound?.status === ROUND_STATUSES.ANSWERING){
+      if (props.currentLobby.gameAnswerType === GAME_ANSWER_TYPE.TEXT){
         return (
-          <AnswerEntryPage
+          <TextGame
             username={props.username}
             userAnswer={props.userAnswer}
             setUserAnswer={props.setUserAnswer}
@@ -88,37 +88,28 @@ export const MultiPlayerGame = (props: Props) => {
             currentRound={props.currentRound}
             currentLobby={props.currentLobby}
             currentPrompt={props.currentPrompt}
-          />
-        )
-      }
-      else if (props.currentRound?.status === ROUND_STATUSES.VOTING){
-        return (
-          <VotingPage
-            username={props.username}
-            participants={props.participants}
-            answers={props.answers}
-            currentRound={props.currentRound}
             currentVotes={props.currentVotes}
-            currentLobby={props.currentLobby}
-            currentPrompt={props.currentPrompt}
-          />
-        )
-      }
-      else if (props.currentRound?.status === ROUND_STATUSES.SCORING){
-        return (
-          <AnswerVoteRevealPage
-            username={props.username}
-            participants={props.participants}
-            answers={props.answers}
-            currentRound={props.currentRound}
-            currentVotes={props.currentVotes}
-            currentLobby={props.currentLobby}
-            currentPrompt={props.currentPrompt}
             transitionToRound={props.transitionToRound}
           />
         )
       }
-    };
+      else if (props.currentLobby.gameAnswerType === GAME_ANSWER_TYPE.DRAWING){
+        return (
+          <DrawingGame
+            username={props.username}
+            userAnswer={props.userAnswer}
+            setUserAnswer={props.setUserAnswer}
+            participants={props.participants}
+            answers={props.answers}
+            currentRound={props.currentRound}
+            currentLobby={props.currentLobby}
+            currentPrompt={props.currentPrompt}
+            currentVotes={props.currentVotes}
+            transitionToRound={props.transitionToRound}
+          />
+      )
+      }
+    }
 
     if (props.currentLobby.status === GAME_STATUSES.COMPLETED){
       return (

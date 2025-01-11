@@ -12,6 +12,13 @@ export const GAME_TYPE = {
 } as const;
 
 export type GameType = typeof GAME_TYPE[keyof typeof GAME_TYPE];
+
+export const GAME_ANSWER_TYPE = {
+  TEXT: 'TEXT',
+  DRAWING: 'DRAWING'
+} as const;
+
+export type GameAnswerType = typeof GAME_ANSWER_TYPE[keyof typeof GAME_ANSWER_TYPE];
   
 export const ROUND_STATUSES = {
   ANSWERING: 'ANSWERING', // Waiting for everyone to answer
@@ -21,8 +28,9 @@ export const ROUND_STATUSES = {
   
 export type RoundStatus = typeof ROUND_STATUSES[keyof typeof ROUND_STATUSES];
 
-export const numberOfRounds = 5;
-export const numberOfStoredPrompts = 402;
+export const numberOfRounds = 2;
+export const numberOfStoredTextPrompts = 402;
+export const numberOfStoredDrawingPrompts = 50;
 
 export const scoreIncrementVoter = 100;
 export const scoreIncrementAnswerCreator = 50;

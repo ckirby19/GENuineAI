@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import "./app.css";
-import { GAME_STATUSES, GAME_TYPE, GameType, numberOfRounds, ROUND_STATUSES, scoreIncrementAI, scoreIncrementAnswerCreator, scoreIncrementVoter } from "./model";
+import { GAME_ANSWER_TYPE, GAME_STATUSES, GAME_TYPE, GameAnswerType, GameType, numberOfRounds, ROUND_STATUSES, scoreIncrementAI, scoreIncrementAnswerCreator, scoreIncrementVoter } from "./model";
 import { MultiPlayerGame } from "./pages/MultiPlayerGame";
-import { getPrompts } from "./getPrompts";
+import { getDrawingPrompts, getTextPrompts } from "./getPrompts";
 import { GameModePage } from "./pages/GameModePage";
 import { SinglePlayerGame } from "./pages/SinglePlayerGame";
 
@@ -149,13 +149,22 @@ export default function App() {
     transitionToRound(1);
   }
 
-  async function createLobby(numberOfAiModels: number) {
+  async function createLobby(numberOfAiModels: number, gameAnswerType: GameAnswerType) {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    if (gameAnswerType == GAME_ANSWER_TYPE.TEXT) {
+      initTextGame(numberOfAiModels, code);
+    } else if (gameAnswerType == GAME_ANSWER_TYPE.DRAWING) {
+      initDrawingGame(numberOfAiModels, code);
+    }
+  }
 
+  async function initTextGame(numberOfAiModels: number, code: string) {
+    
     const lobby = await client.models.Lobby.create({
       code,
       hostId: username,
-      status: GAME_STATUSES.WAITING
+      status: GAME_STATUSES.WAITING,
+      gameAnswerType: GAME_ANSWER_TYPE.TEXT
     });
     
     // Create host participant
@@ -168,7 +177,7 @@ export default function App() {
 
     setCurrentLobby(lobby.data); // This will start the lobby sub
 
-    var allPrompts = await getPrompts(numberOfRounds)
+    var allPrompts = await getTextPrompts(numberOfRounds)
     if (!allPrompts){
       console.error("Failed to create prompts");
       return;
@@ -219,6 +228,114 @@ export default function App() {
         // Create AI answer for this round
         
         let { data, errors } = await client.queries.GenerateTextResponse({
+          prompt: nextPrompt.data.text!
+        });
+
+        if (!errors && data) {
+          if (!aiParticipant.data?.id){
+            console.error("Failed to create ai participant");
+            return;
+          }
+
+          if (!nextRound.data){
+            console.error("Failed to create next round");
+            return;
+          }
+
+          await client.models.Answer.create({
+            roundId: nextRound.data.id,
+            participantId: aiParticipant.data.id,
+            text: data,
+            isAiAnswer: true
+          });
+
+          await client.models.Round.update({
+            id: nextRound.data.id,
+          });
+          
+        } else {
+          console.log("Unable to generate AI answer to prompt:", errors);
+          return;
+        }
+      }
+    }
+    
+    // Trigger initial update to notify other subs
+    await client.models.Lobby.update({
+      id: lobby.data?.id!
+    });
+  }
+
+  async function initDrawingGame(numberOfAiModels: number, code: string) {
+    
+    const lobby = await client.models.Lobby.create({
+      code,
+      hostId: username,
+      status: GAME_STATUSES.WAITING,
+      gameAnswerType: GAME_ANSWER_TYPE.DRAWING
+    });
+    
+    // Create host participant
+    await client.models.Participant.create({
+      userId: username,
+      username: username,
+      lobbyId: lobby.data?.id,
+      isHost: true
+    });
+
+    setCurrentLobby(lobby.data); // This will start the lobby sub
+
+    var allPrompts = await getDrawingPrompts(numberOfRounds)
+    if (!allPrompts){
+      console.error("Failed to create prompts");
+      return;
+    }
+
+    if (!lobby.data?.id) {
+      console.error("Failed to create lobby");
+      return;
+    }
+
+    const aiParticipants = [];
+
+    for (let modelNum = 0; modelNum < numberOfAiModels; modelNum++) {
+      let aiParticipant = await client.models.Participant.create({
+        userId: `AI-${modelNum}`,
+        username: `AI-${modelNum}`,
+        lobbyId: lobby.data.id,
+        isHost: false,
+        isAiParticipant: true
+      });
+
+      aiParticipants.push(aiParticipant);
+    }
+
+    for (let i = 0; i < numberOfRounds; i++) {
+      let promptText = allPrompts[i];
+
+      // Create next prompt
+      let nextPrompt = await client.models.Prompt.create({
+        text: promptText
+      });
+
+      if (!nextPrompt.data?.id) {
+        console.error("Failed to create next prompt");
+        return;
+      }
+
+      let nextRound = await client.models.Round.create({
+        lobbyId: lobby.data.id,
+        promptId: nextPrompt.data.id,
+        roundNumber: i + 1,
+        status: ROUND_STATUSES.ANSWERING
+      });
+
+      // Create all rounds with these prompts
+      for (let j = 0; j < numberOfAiModels; j++) {
+        let aiParticipant = aiParticipants[j];
+        // Create AI answer for this round
+        
+        let { data, errors } = await client.queries.GenerateDrawingResponse({
           prompt: nextPrompt.data.text!
         });
 
@@ -333,8 +450,12 @@ export default function App() {
   }
 
   async function finishGame() {
+    if (!currentLobby) {
+      console.log("Cannot end game if not in a lobby")
+      return;
+    }
     await client.models.Lobby.update({
-      id: currentLobby?.id ?? "",
+      id: currentLobby.id,
       status: GAME_STATUSES.COMPLETED
     });
   }

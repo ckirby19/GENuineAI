@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { motion } from 'framer-motion'
 import { Users, Crown, Copy } from 'lucide-react'
 import { useToast } from "@/components/hooks/use-toast"
-import { GAME_TYPE, GameType } from "../model";
+import { GAME_ANSWER_TYPE, GAME_TYPE, GameType } from "../model";
 
 interface Props {
     username: string;
@@ -54,7 +54,7 @@ export const WaitingRoom = (props: Props) => {
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center">
                 <Users className="w-6 h-6 mr-2 text-[hsl(var(--neon-purple))]" />
-                Lobby
+                {props.currentLobby.gameAnswerType == GAME_ANSWER_TYPE.DRAWING ? "Drawing Game" : "Text Game"} Lobby
               </span>
               {props.gameMode == GAME_TYPE.MULTI_PLAYER && (
                 <Button 

@@ -3,12 +3,13 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { motion } from 'framer-motion'
 import { Dispatch, SetStateAction } from "react";
+import { GAME_ANSWER_TYPE, GameAnswerType } from "../model";
 
 interface Props {
     username: string;
     lobbyCode: string;
     setLobbyCode: Dispatch<SetStateAction<string>>;
-    createLobby: (numberOfAiModels: number) => void;
+    createLobby: (numberOfAiModels: number, gameAnswerType: GameAnswerType) => void;
     joinLobby: () => void;
     setIsNameEntered: Dispatch<SetStateAction<boolean>>;
 }
@@ -26,7 +27,8 @@ export const LobbyCreation = (props: Props) => {
                 <h1 className="text-3xl font-bold neon-text">Welcome, {props.username}!</h1>
               </CardHeader>
               <CardContent className="space-y-8">
-                <Button onClick={() => props.createLobby(1)} className="w-full neon-button mt-6">Create New Lobby</Button>
+                <Button onClick={() => props.createLobby(1, GAME_ANSWER_TYPE.TEXT)} className="w-full neon-button mt-6">Create New Text Game Lobby</Button>
+                <Button onClick={() => props.createLobby(1, GAME_ANSWER_TYPE.DRAWING)} className="w-full neon-button mt-6">Create New Drawing Game Lobby</Button>
                 <Input 
                   type="text" 
                   placeholder="Enter lobby code" 

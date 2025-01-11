@@ -49,8 +49,8 @@ export const GameModePage = (props: Props) => {
             <h2 className="text-lg font-semibold">How to Play</h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-            In both game modes, players receive creative prompts and must craft responses. 
-            The goal is to write answers that are convincing enough to be mistaken for AI-generated content. 
+            In all game modes, players receive creative prompts and must craft responses. 
+            The goal is to write or draw something that is convincing enough to be mistaken for AI-generated content. 
             Score points by successfully deceiving others and correctly identifying AI-generated responses!
           </p>
         </motion.div>
@@ -117,15 +117,15 @@ export const GameModePage = (props: Props) => {
                       <li>Compete for the highest score</li>
                     </ul>
                     <p className="text-sm text-muted-foreground">
-                        Can you tell friend from (Generative AI) foe?
+                      Can you tell friend from (Generative AI) foe?
                     </p>
                   </div>
                 </div>
               </CardContent>
               <CardFooter>
               <Button className="w-full neon-button" onClick={() => props.setGameMode(GAME_TYPE.MULTI_PLAYER)}>
-                    <ArrowRight className="w-4 h-4 ml-2" /> Play with Friends
-               </Button>
+                <ArrowRight className="w-4 h-4 ml-2" /> Play with Friends
+              </Button>
               </CardFooter>
             </Card>
           </motion.div>
