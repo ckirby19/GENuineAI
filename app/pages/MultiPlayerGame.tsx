@@ -108,6 +108,7 @@ export const MultiPlayerGame = (props: Props) => {
         return (
           <AnswerVoteRevealPage
             username={props.username}
+            gameMode={props.gameMode}
             participants={props.participants}
             answers={props.answers}
             currentRound={props.currentRound}
