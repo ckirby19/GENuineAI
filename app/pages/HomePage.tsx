@@ -4,7 +4,7 @@ import { Brain } from 'lucide-react'
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { motion } from 'framer-motion'
 import { Dispatch, SetStateAction } from 'react'
-import { GAME_TYPE, GameType } from "../model"
+import { GAME_TYPE, GameType, singlePlayerModels } from "../model"
 
 interface Props {
     username: string;
@@ -13,7 +13,7 @@ interface Props {
     setIsNameEntered: Dispatch<React.SetStateAction<boolean>>;
     setGameMode: Dispatch<SetStateAction<GameType | null>>;
     gameMode: GameType | null;
-    createLobby: (numberOfAiModels: number) => void;
+    createLobby: (aiModels: string[]) => void;
 }
 
 export const HomePage = (props: Props) => {
@@ -23,7 +23,7 @@ export const HomePage = (props: Props) => {
         if (props.username.trim()) {
             props.setIsNameEntered(true);
             if (props.gameMode === GAME_TYPE.SINGLE_PLAYER){
-                props.createLobby(3);
+                props.createLobby(singlePlayerModels);
             }
         }
     };

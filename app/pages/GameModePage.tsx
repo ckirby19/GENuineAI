@@ -79,8 +79,7 @@ export const GameModePage = (props: Props) => {
                     </p>
                     <ul className="text-sm space-y-1 list-disc list-inside text-muted-foreground">
                       <li>Compete against 3 AI opponents</li>
-                      <li>Trick AI models with your responses</li>
-                      <li>Practice your creative writing</li>
+                      <li>Earn points by tricking AI models into thinking your responses are AI</li>
                     </ul>
                     <p className="text-sm text-muted-foreground">
                         Can you trick AI into thinking you are AI too?
@@ -112,9 +111,8 @@ export const GameModePage = (props: Props) => {
                         Compete against friends and a single AI model in a multiplayer game of creativity.
                     </p>
                     <ul className="text-sm space-y-1 list-disc list-inside text-muted-foreground">
-                      <li>Play with friends online</li>
-                      <li>Trick other players with your responses</li>
-                      <li>Compete for the highest score</li>
+                      <li>Trick friends into thinking your responses are AI generated</li>
+                      <li>Earn points by finding the AI answer</li>
                     </ul>
                     <p className="text-sm text-muted-foreground">
                         Can you tell friend from (Generative AI) foe?

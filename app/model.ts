@@ -21,9 +21,19 @@ export const ROUND_STATUSES = {
   
 export type RoundStatus = typeof ROUND_STATUSES[keyof typeof ROUND_STATUSES];
 
-export const numberOfRounds = 5;
+export const numberOfRounds = 1;
 export const numberOfStoredPrompts = 402;
 
 export const scoreIncrementVoter = 100;
 export const scoreIncrementAnswerCreator = 50;
 export const scoreIncrementAI = 50;
+
+export const singlePlayerModels = [
+  "mistral.mistral-7b-instruct-v0:2",
+  "amazon.titan-text-express-v1",
+  "anthropic.claude-3-haiku-20240307-v1:0"
+]
+
+export const multiPlayerModels = [
+  "mistral.mistral-7b-instruct-v0:2"
+]
