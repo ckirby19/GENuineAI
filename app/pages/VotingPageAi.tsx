@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { Brain, Activity, Eye, X } from 'lucide-react'
+import { NormaliseAnswer } from "../helpers";
 
 interface Props {
     username: string;
@@ -35,13 +36,15 @@ export const VotingPageAi = (props: Props) => {
                 {props.currentPrompt?.text}
               </h3>
               <div className="grid grid-cols-1 gap-2">
-                {props.answers.map((answer) => (
-                  <div
-                    key={answer.id}
-                    className="p-3 rounded-lg bg-accent/50 text-sm"
-                  >
-                    {answer.text}
-                  </div>
+                {props.answers
+                  .filter(answer => answer.text != null)
+                  .map((answer) => (
+                    <div
+                      key={answer.id}
+                      className="p-3 rounded-lg bg-accent/50 text-sm"
+                    >
+                      {NormaliseAnswer(answer.text!)}
+                    </div>
                 ))}
               </div>
             </div>

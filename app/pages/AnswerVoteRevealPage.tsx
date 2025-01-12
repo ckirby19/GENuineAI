@@ -3,10 +3,11 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Brain, User, Users } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Schema } from '@/amplify/data/resource'
-import { GAME_TYPE, scoreIncrementAnswerCreator, scoreIncrementVoter } from '../model'
+import { GAME_TYPE, GameType, scoreIncrementAnswerCreator, scoreIncrementVoter } from '../model'
 
 interface Props {
     username: string;
+    gameMode: GameType | null;
     participants: Schema["Participant"]["type"][];
     answers: Schema["Answer"]["type"][];
     currentRound: Schema["Round"]["type"] | null;
@@ -24,47 +25,54 @@ export const AnswerVoteRevealPage = (props: Props) => {
     const currentAnswer = props.answers[currentAnswerIndex]
 
     useEffect(() => {    
-        const timers = [
-            setTimeout(() => setRevealStage(1), 2000), // Reveal votes after 2 seconds
-            setTimeout(() => setRevealStage(2), 5000), // Reveal submitter after 5 seconds
-            setTimeout(() => setRevealStage(3), 6000), // Reveal score addition after 6 seconds
-            setTimeout(() => {
-                if (currentAnswerIndex < props.answers.length - 1) {
-                    setCurrentAnswerIndex(prev => prev + 1)
-                    setRevealStage(0)
-                } 
-                else {
-                    props.transitionToRound(props.currentLobby.currentRound! + 1)
-                }
-            }, 9000) // Move to next answer or end game after 9 seconds
-        ]
+      const timers = [
+        setTimeout(() => setRevealStage(1), 1000), // Reveal votes
+        setTimeout(() => setRevealStage(2), 2000), // Reveal submitter
+        setTimeout(() => setRevealStage(3), 2500), // Reveal score addition
+        setTimeout(() => {
+          if (currentAnswerIndex < props.answers.length - 1) {
+              setCurrentAnswerIndex(prev => prev + 1)
+              setRevealStage(0)
+          } 
+          else {
+              props.transitionToRound(props.currentLobby.currentRound! + 1)
+          }
+        }, 4000) // Move to next answer or end game
+      ]
     
-        return () => timers.forEach(clearTimeout)
+      return () => timers.forEach(clearTimeout)
     }, [currentAnswerIndex])
 
     useEffect(() => {
-        async function fetchVoterUsernames() {
-            if (!currentAnswer) return;
-            
-            const usernames = await Promise.all(
-                props.currentVotes
-                    .filter(vote => vote.answerId === currentAnswer.id)
-                    .map(async vote => {
-                        const participant = await vote.participant();
-                        return participant.data?.username || 'Unknown';
-                    })
-            );
-            setVoterUsernames(usernames);
-        }
-    
-        fetchVoterUsernames();
+      async function fetchVoterUsernames() {
+        if (!currentAnswer) return;
+          
+        const usernames = await Promise.all(
+          props.currentVotes
+            .filter(vote => vote.answerId === currentAnswer.id)
+            .map(async vote => {
+              const participant = await vote.participant();
+              return participant.data?.username || 'Unknown';
+            })
+        );
+        setVoterUsernames(usernames);
+      }
+  
+      fetchVoterUsernames();
     }, [currentAnswerIndex]);
 
     if (props.answers.length === 0 || props.participants == null)
         return null;
 
     const currentAnswerSubmitter = props.participants.find(participant => participant.id === currentAnswer.participantId)
-    const gameType = props.currentLobby.gameType;
+
+    const VotersGetScore = () =>
+      (props.gameMode == GAME_TYPE.SINGLE_PLAYER && currentAnswer.isAiAnswer == false) ||
+      (props.gameMode == GAME_TYPE.MULTI_PLAYER && currentAnswer.isAiAnswer == true);
+
+    const AnswerCreatorGetsScore = () =>
+      (props.gameMode == GAME_TYPE.SINGLE_PLAYER && currentAnswer.isAiAnswer == true) ||
+      (props.gameMode == GAME_TYPE.MULTI_PLAYER && currentAnswer.isAiAnswer == false);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 from-background to-accent">
@@ -105,8 +113,7 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <Users className="w-5 h-5 text-[hsl(var(--neon-blue))]" />
                               <span>Votes: {voterUsernames.join(", ") || "No votes"}</span>
                               {revealStage >= 3 &&
-                              currentAnswer.isAiAnswer &&
-                              gameType == GAME_TYPE.MULTI_PLAYER && (
+                              VotersGetScore() && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementVoter} points
                                 </span>
@@ -125,8 +132,7 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <span>Submitted by: {currentAnswerSubmitter?.username}</span>
                               {currentAnswer.isAiAnswer && <Brain className="w-5 h-5 ml-2 text-[hsl(var(--neon-purple))]" />}
                               {revealStage >= 3 &&
-                              !currentAnswer.isAiAnswer &&
-                              gameType == GAME_TYPE.MULTI_PLAYER && (
+                              AnswerCreatorGetsScore() && (
                                 <span className="ml-2 text-[hsl(var(--neon-green))]">
                                   +{scoreIncrementAnswerCreator * voterUsernames.length} points
                                 </span>

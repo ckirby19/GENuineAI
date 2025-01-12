@@ -9,6 +9,7 @@ import { MultiPlayerGame } from "./pages/MultiPlayerGame";
 import { getPrompts } from "./getPrompts";
 import { GameModePage } from "./pages/GameModePage";
 import { SinglePlayerGame } from "./pages/SinglePlayerGame";
+import { NormaliseAnswer } from "./helpers";
 
 const client = generateClient<Schema>();
 
@@ -391,10 +392,11 @@ export default function App() {
     const stringsToFind = ["1", "2", "3"]
     for (let i=0; i<aiParticipants.length; i++){
       let aiParti = aiParticipants[i];
-      let filteredAnswers = allAnswers.filter(x => x.participantId != aiParti.id);
+      let filteredAnswers = allAnswers.filter(x => x.text != null && x.participantId != aiParti.id);
 
       // Now request a vote from each AI model
-      const formattedAnswersPrompt = filteredAnswers.map((answer, index) => `(${index + 1}) ${answer.text}`).join('\n');
+      const formattedAnswersPrompt = filteredAnswers
+        .map((answer, index) => `(${index + 1}) ${NormaliseAnswer(answer.text!)}`).join('\n');
 
       let { data, errors } = await client.queries.PickHumanResponse({
         originalPrompt: prompt.text,
