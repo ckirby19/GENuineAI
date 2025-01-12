@@ -3,7 +3,6 @@ import { GAME_STATUSES, GameType, ROUND_STATUSES } from "../model";
 import { Dispatch, SetStateAction } from "react";
 import { Schema } from "@/amplify/data/resource";
 import { WaitingRoom } from "./WaitingRoom";
-import { assert } from "console";
 import { AnswerEntryPage } from "./AnswerEntryPage";
 import { GameEnd } from "./GameEnd";
 import { AnswerVoteRevealPage } from "./AnswerVoteRevealPage";
@@ -102,6 +101,7 @@ export const SinglePlayerGame = (props: Props) => {
         return (
           <AnswerVoteRevealPage
             username={props.username}
+            gameMode={props.gameMode}
             participants={props.participants}
             answers={props.answers}
             currentRound={props.currentRound}
