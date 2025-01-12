@@ -150,7 +150,7 @@ export default function App() {
     transitionToRound(1);
   }
 
-  async function createLobby(numberOfAiModels: number) {
+  async function createLobby(aiModels: string[]) {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
     const lobby = await client.models.Lobby.create({
@@ -181,11 +181,14 @@ export default function App() {
     }
 
     const aiParticipants = [];
+    
+    const numberOfAiModels = aiModels.length;
 
     for (let modelNum = 0; modelNum < numberOfAiModels; modelNum++) {
+      let aiModelName = aiModels[modelNum];
       let aiParticipant = await client.models.Participant.create({
-        userId: `AI-${modelNum}`,
-        username: `AI-${modelNum}`,
+        userId: `${aiModelName}`,
+        username: `AI-${aiModelName.split(".")[0]}`,
         lobbyId: lobby.data.id,
         isHost: false,
         isAiParticipant: true
@@ -218,9 +221,12 @@ export default function App() {
       for (let j = 0; j < numberOfAiModels; j++) {
         let aiParticipant = aiParticipants[j];
         // Create AI answer for this round
-        
+        let aiModelName = aiModels[j];
+        console.log("Check model name", aiModelName);
+
         let { data, errors } = await client.queries.GenerateTextResponse({
-          prompt: nextPrompt.data.text!
+          prompt: nextPrompt.data.text!,
+          model: aiModelName
         });
 
         if (!errors && data) {
@@ -246,7 +252,7 @@ export default function App() {
           });
           
         } else {
-          console.log("Unable to generate AI answer to prompt:", errors);
+          console.log("Unable to generate AI answer to prompt:", aiModelName, errors);
           return;
         }
       }
@@ -387,20 +393,19 @@ export default function App() {
       id: currentLobby.id,
     })
 
-    // Do the above first so that the UI goes to the VotingPageAi page
     const aiParticipants = participants.filter(x => x.isAiParticipant);
     const stringsToFind = ["1", "2", "3"]
     for (let i=0; i<aiParticipants.length; i++){
       let aiParti = aiParticipants[i];
       let filteredAnswers = allAnswers.filter(x => x.text != null && x.participantId != aiParti.id);
 
-      // Now request a vote from each AI model
       const formattedAnswersPrompt = filteredAnswers
         .map((answer, index) => `(${index + 1}) ${NormaliseAnswer(answer.text!)}`).join('\n');
-
+      
       let { data, errors } = await client.queries.PickHumanResponse({
         originalPrompt: prompt.text,
         answers: formattedAnswersPrompt,
+        model: aiParti.userId!
       });
 
       if (!errors && data) {

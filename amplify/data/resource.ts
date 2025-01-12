@@ -5,22 +5,14 @@ import {
   defineFunction,
 } from "@aws-amplify/backend";
 
-export const TEXT_MODEL_ID = "mistral.mistral-7b-instruct-v0:2";
-
 export const generatePromptResponse = defineFunction({
   entry: "./promptResponseHandler.ts",
-  environment: {
-    MODEL_ID: TEXT_MODEL_ID,
-  },
   timeoutSeconds: 30,
   memoryMB: 1024
 });
 
 export const pickHumanResponse = defineFunction({
   entry: "./pickHumanReponseHandler.ts",
-  environment: {
-    MODEL_ID: TEXT_MODEL_ID,
-  },
   timeoutSeconds: 30,
   memoryMB: 1024
 });
@@ -92,13 +84,20 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()]),
   GenerateTextResponse: a
     .query()
-    .arguments({ prompt: a.string().required() })
+    .arguments({
+      prompt: a.string().required(),
+      model: a.string().required()
+    })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(generatePromptResponse)),
   PickHumanResponse: a
     .query()
-    .arguments({ answers: a.string().required(), originalPrompt: a.string().required() })
+    .arguments({
+      answers: a.string().required(),
+      originalPrompt: a.string().required(),
+      model: a.string().required()
+    })
     .returns(a.string())
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(pickHumanResponse)),

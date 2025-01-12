@@ -2195,3 +2195,500 @@
 [pickHumanReponseHandler] 15:23:00 2025-01-12T15:23:00.898Z	db5336dd-588c-4a28-94a0-5dcf63c4379b	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
 [pickHumanReponseHandler] 15:23:00 END RequestId: db5336dd-588c-4a28-94a0-5dcf63c4379b
 [pickHumanReponseHandler] 15:23:00 REPORT RequestId: db5336dd-588c-4a28-94a0-5dcf63c4379b	Duration: 125.84 ms	Billed Duration: 126 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 16:52:47 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 16:52:47 START RequestId: 19fa508a-42a6-4fb8-946c-06cc013e32aa Version: $LATEST
+[promptResponseHandler] 16:52:47 2025-01-12T16:52:47.516Z	19fa508a-42a6-4fb8-946c-06cc013e32aa	INFO	Text Prompt Handler Started - received prompt: Check me out, yo! I call this dance move "______."
+[promptResponseHandler] 16:52:47 2025-01-12T16:52:47.523Z	19fa508a-42a6-4fb8-946c-06cc013e32aa	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Missing model","stack":["Error: Missing model","    at Runtime.Fce [as handler] (file:///var/task/index.mjs:53:76566)","    at Runtime.handleOnceNonStreaming (file:///var/runtime/index.mjs:1173:29)"]}
+[promptResponseHandler] 16:52:47 END RequestId: 19fa508a-42a6-4fb8-946c-06cc013e32aa
+[promptResponseHandler] 16:52:47 REPORT RequestId: 19fa508a-42a6-4fb8-946c-06cc013e32aa	Duration: 11.10 ms	Billed Duration: 12 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 287.37 ms
+[promptResponseHandler] 16:55:44 START RequestId: bf07f281-e66b-49f0-9795-abd79ed68885 Version: $LATEST
+[promptResponseHandler] 16:55:45 2025-01-12T16:55:45.004Z	bf07f281-e66b-49f0-9795-abd79ed68885	INFO	Text Prompt Handler Started - received prompt: HAHAHAHA! CHUNGO HAPPY. CHUNGO HAVE FUN WITH _____________.
+[promptResponseHandler] 16:55:45 2025-01-12T16:55:45.006Z	bf07f281-e66b-49f0-9795-abd79ed68885	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Missing model","stack":["Error: Missing model","    at Runtime.Fce [as handler] (file:///var/task/index.mjs:53:76566)","    at Runtime.handleOnceNonStreaming (file:///var/runtime/index.mjs:1173:29)"]}
+[promptResponseHandler] 16:55:45 END RequestId: bf07f281-e66b-49f0-9795-abd79ed68885
+[promptResponseHandler] 16:55:45 REPORT RequestId: bf07f281-e66b-49f0-9795-abd79ed68885	Duration: 16.57 ms	Billed Duration: 17 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB
+[promptResponseHandler] 17:04:22 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:04:23 START RequestId: 9103c94a-0e01-455a-8fbf-9cf1194d1fb8 Version: $LATEST
+[promptResponseHandler] 17:04:23 2025-01-12T17:04:23.035Z	9103c94a-0e01-455a-8fbf-9cf1194d1fb8	INFO	Text Prompt Handler Started - received prompt: What will always get you laid?
+[promptResponseHandler] 17:04:23 2025-01-12T17:04:23.315Z	9103c94a-0e01-455a-8fbf-9cf1194d1fb8	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Charm and wit, lucky pillow', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 17:04:23 END RequestId: 9103c94a-0e01-455a-8fbf-9cf1194d1fb8
+[promptResponseHandler] 17:04:23 REPORT RequestId: 9103c94a-0e01-455a-8fbf-9cf1194d1fb8	Duration: 285.50 ms	Billed Duration: 286 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 276.75 ms
+[promptResponseHandler] 17:04:23 START RequestId: ec95a8f3-ed2d-4f10-ac4f-285909ed5cbb Version: $LATEST
+[promptResponseHandler] 17:04:23 2025-01-12T17:04:23.730Z	ec95a8f3-ed2d-4f10-ac4f-285909ed5cbb	INFO	Text Prompt Handler Started - received prompt: What will always get you laid?
+[promptResponseHandler] 17:04:23 2025-01-12T17:04:23.761Z	ec95a8f3-ed2d-4f10-ac4f-285909ed5cbb	ERROR	Invoke Error 	{"errorType":"AccessDeniedException","errorMessage":"User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-promptResponseHandlerlamb-k4zGwZ60Mj24/amplify-awsamplifygen2-co-promptResponseHandlerlam-aMfOT1oEOZuY is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/amazon.titan-text-lite-v1 because no identity-based policy allows the bedrock:InvokeModel action","name":"AccessDeniedException","$fault":"client","$metadata":{"httpStatusCode":403,"requestId":"1fba166f-25e1-4bdb-96b9-45d7068746c8","attempts":1,"totalRetryDelay":0},"stack":["AccessDeniedException: User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-promptResponseHandlerlamb-k4zGwZ60Mj24/amplify-awsamplifygen2-co-promptResponseHandlerlam-aMfOT1oEOZuY is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/amazon.titan-text-lite-v1 because no identity-based policy allows the bedrock:InvokeModel action","    at de_AccessDeniedExceptionRes (file:///var/task/index.mjs:53:58291)","    at de_CommandError (file:///var/task/index.mjs:53:56865)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async LX (file:///var/task/index.mjs:78:218)","    at async Runtime.Fce [as handler] (file:///var/task/index.mjs:53:76763)"]}
+[promptResponseHandler] 17:04:23 END RequestId: ec95a8f3-ed2d-4f10-ac4f-285909ed5cbb
+[promptResponseHandler] 17:04:23 REPORT RequestId: ec95a8f3-ed2d-4f10-ac4f-285909ed5cbb	Duration: 33.95 ms	Billed Duration: 34 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 17:06:26 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:06:26 START RequestId: 9c5ed2ab-bd53-4811-9ae5-a7d0fd803dcb Version: $LATEST
+[promptResponseHandler] 17:06:26 2025-01-12T17:06:26.692Z	9c5ed2ab-bd53-4811-9ae5-a7d0fd803dcb	INFO	Text Prompt Handler Started - received prompt: What's about to take this school dance to the next level?
+[promptResponseHandler] 17:06:26 2025-01-12T17:06:26.919Z	9c5ed2ab-bd53-4811-9ae5-a7d0fd803dcb	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Robot worms disco', stop_reason: 'stop' } ] }
+[promptResponseHandler] 17:06:26 END RequestId: 9c5ed2ab-bd53-4811-9ae5-a7d0fd803dcb
+[promptResponseHandler] 17:06:26 REPORT RequestId: 9c5ed2ab-bd53-4811-9ae5-a7d0fd803dcb	Duration: 232.16 ms	Billed Duration: 233 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 297.43 ms
+[promptResponseHandler] 17:06:27 START RequestId: b7fadbd0-0ecd-45cd-87f7-14114618cc7a Version: $LATEST
+[promptResponseHandler] 17:06:27 2025-01-12T17:06:27.260Z	b7fadbd0-0ecd-45cd-87f7-14114618cc7a	INFO	Text Prompt Handler Started - received prompt: What's about to take this school dance to the next level?
+[promptResponseHandler] 17:06:27 2025-01-12T17:06:27.290Z	b7fadbd0-0ecd-45cd-87f7-14114618cc7a	ERROR	Invoke Error 	{"errorType":"AccessDeniedException","errorMessage":"User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-promptResponseHandlerlamb-k4zGwZ60Mj24/amplify-awsamplifygen2-co-promptResponseHandlerlam-aMfOT1oEOZuY is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/amazon.titan-text-lite-v1 because no identity-based policy allows the bedrock:InvokeModel action","name":"AccessDeniedException","$fault":"client","$metadata":{"httpStatusCode":403,"requestId":"0b37d275-b26b-48d1-a3d3-223068bb698d","attempts":1,"totalRetryDelay":0},"stack":["AccessDeniedException: User: arn:aws:sts::024115598641:assumed-role/amplify-awsamplifygen2-co-promptResponseHandlerlamb-k4zGwZ60Mj24/amplify-awsamplifygen2-co-promptResponseHandlerlam-aMfOT1oEOZuY is not authorized to perform: bedrock:InvokeModel on resource: arn:aws:bedrock:eu-west-2::foundation-model/amazon.titan-text-lite-v1 because no identity-based policy allows the bedrock:InvokeModel action","    at de_AccessDeniedExceptionRes (file:///var/task/index.mjs:53:58291)","    at de_CommandError (file:///var/task/index.mjs:53:56865)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async LX (file:///var/task/index.mjs:78:218)","    at async Runtime.Fce [as handler] (file:///var/task/index.mjs:53:76763)"]}
+[promptResponseHandler] 17:06:27 END RequestId: b7fadbd0-0ecd-45cd-87f7-14114618cc7a
+[promptResponseHandler] 17:06:27 REPORT RequestId: b7fadbd0-0ecd-45cd-87f7-14114618cc7a	Duration: 32.89 ms	Billed Duration: 33 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 17:31:28 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:31:29 START RequestId: 7c88fba0-bd68-438e-ab91-d4e94c678c14 Version: $LATEST
+[promptResponseHandler] 17:31:29 2025-01-12T17:31:29.233Z	7c88fba0-bd68-438e-ab91-d4e94c678c14	INFO	Text Prompt Handler Started - received prompt: Anthropologists have recently discovered a primitive tribe that worships ______.
+[promptResponseHandler] 17:31:29 2025-01-12T17:31:29.557Z	7c88fba0-bd68-438e-ab91-d4e94c678c14	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Flying spaghetti monsters', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 17:31:29 END RequestId: 7c88fba0-bd68-438e-ab91-d4e94c678c14
+[promptResponseHandler] 17:31:29 REPORT RequestId: 7c88fba0-bd68-438e-ab91-d4e94c678c14	Duration: 330.05 ms	Billed Duration: 331 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 248.43 ms
+[promptResponseHandler] 17:31:29 2025-01-12T17:31:29.940Z	b873f2ea-ed97-483c-be43-603f585d03a0	INFO	Text Prompt Handler Started - received prompt: Anthropologists have recently discovered a primitive tribe that worships ______.
+[promptResponseHandler] 17:31:29 START RequestId: b873f2ea-ed97-483c-be43-603f585d03a0 Version: $LATEST
+[promptResponseHandler] 17:31:30 2025-01-12T17:31:30.691Z	b873f2ea-ed97-483c-be43-603f585d03a0	INFO	Received answer response from Bedrock model amazon.titan-text-lite-v1 {
+  inputTextTokenCount: 133,
+  results: [
+    {
+      tokenCount: 9,
+      outputText: '\nRocky hills. \n\n        .',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 17:31:30 2025-01-12T17:31:30.691Z	b873f2ea-ed97-483c-be43-603f585d03a0	WARN	AI model did not correctly finish generating response
+[promptResponseHandler] 17:31:30 END RequestId: b873f2ea-ed97-483c-be43-603f585d03a0
+[promptResponseHandler] 17:31:30 REPORT RequestId: b873f2ea-ed97-483c-be43-603f585d03a0	Duration: 752.91 ms	Billed Duration: 753 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 17:37:07 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:37:07 START RequestId: 02f3ab0b-c17d-4f1d-b1d6-0fc260000d21 Version: $LATEST
+[promptResponseHandler] 17:37:07 2025-01-12T17:37:07.920Z	02f3ab0b-c17d-4f1d-b1d6-0fc260000d21	INFO	Text Prompt Handler Started - received prompt: What never fails to liven up the party?
+[promptResponseHandler] 17:37:08 2025-01-12T17:37:08.185Z	02f3ab0b-c17d-4f1d-b1d6-0fc260000d21	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' party animals', stop_reason: 'stop' } ] }
+[promptResponseHandler] 17:37:08 END RequestId: 02f3ab0b-c17d-4f1d-b1d6-0fc260000d21
+[promptResponseHandler] 17:37:08 REPORT RequestId: 02f3ab0b-c17d-4f1d-b1d6-0fc260000d21	Duration: 270.67 ms	Billed Duration: 271 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB	Init Duration: 290.82 ms
+[promptResponseHandler] 17:37:08 START RequestId: 22e5c2dd-f2bf-4406-a7de-6e394dd25428 Version: $LATEST
+[promptResponseHandler] 17:37:08 2025-01-12T17:37:08.548Z	22e5c2dd-f2bf-4406-a7de-6e394dd25428	INFO	Text Prompt Handler Started - received prompt: What never fails to liven up the party?
+[promptResponseHandler] 17:37:09 2025-01-12T17:37:09.207Z	22e5c2dd-f2bf-4406-a7de-6e394dd25428	INFO	Received answer response from Bedrock model amazon.titan-text-lite-v1 {
+  inputTextTokenCount: 129,
+  results: [
+    {
+      tokenCount: 7,
+      outputText: '\n        Black d—k.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 17:37:09 END RequestId: 22e5c2dd-f2bf-4406-a7de-6e394dd25428
+[promptResponseHandler] 17:37:09 REPORT RequestId: 22e5c2dd-f2bf-4406-a7de-6e394dd25428	Duration: 661.52 ms	Billed Duration: 662 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 17:37:09 START RequestId: 2ddc2b83-bc2a-4c46-9343-46aca2a57dd8 Version: $LATEST
+[promptResponseHandler] 17:37:09 2025-01-12T17:37:09.560Z	2ddc2b83-bc2a-4c46-9343-46aca2a57dd8	INFO	Text Prompt Handler Started - received prompt: What never fails to liven up the party?
+[promptResponseHandler] 17:37:09 2025-01-12T17:37:09.884Z	2ddc2b83-bc2a-4c46-9343-46aca2a57dd8	INFO	Received answer response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01C4Zci85apeGULRwFMfKUx4',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: 'Twerking hamsters.' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 149, output_tokens: 10 }
+}
+[promptResponseHandler] 17:37:09 END RequestId: 2ddc2b83-bc2a-4c46-9343-46aca2a57dd8
+[promptResponseHandler] 17:37:09 REPORT RequestId: 2ddc2b83-bc2a-4c46-9343-46aca2a57dd8	Duration: 326.63 ms	Billed Duration: 327 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 17:38:30 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 17:38:31 START RequestId: efbebc21-7807-41c0-ac72-e1454a0dd801 Version: $LATEST
+[pickHumanReponseHandler] 17:38:31 2025-01-12T17:38:31.247Z	efbebc21-7807-41c0-ac72-e1454a0dd801	INFO	Pick Human Reponse Handler Started - received answers to choose from: (1) twerking hamsters
+(2) black d—k
+(3) drugs
+[pickHumanReponseHandler] 17:38:31 END RequestId: efbebc21-7807-41c0-ac72-e1454a0dd801
+[pickHumanReponseHandler] 17:38:31 REPORT RequestId: efbebc21-7807-41c0-ac72-e1454a0dd801	Duration: 9.09 ms	Billed Duration: 10 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 257.90 ms
+[promptResponseHandler] 17:45:35 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:45:35 START RequestId: 56441cee-be31-4b92-83ca-87ff268820ab Version: $LATEST
+[promptResponseHandler] 17:45:35 2025-01-12T17:45:35.847Z	56441cee-be31-4b92-83ca-87ff268820ab	INFO	Text Prompt Handler Started - received prompt: All I want for Christmas is _______ .
+[promptResponseHandler] 17:45:36 2025-01-12T17:45:36.080Z	56441cee-be31-4b92-83ca-87ff268820ab	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' gag gifts galore', stop_reason: 'stop' } ] }
+[promptResponseHandler] 17:45:36 END RequestId: 56441cee-be31-4b92-83ca-87ff268820ab
+[promptResponseHandler] 17:45:36 REPORT RequestId: 56441cee-be31-4b92-83ca-87ff268820ab	Duration: 238.46 ms	Billed Duration: 239 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 286.85 ms
+[promptResponseHandler] 17:45:36 2025-01-12T17:45:36.380Z	00ccfd10-ae65-46e5-b441-1f63703ba4de	INFO	Text Prompt Handler Started - received prompt: All I want for Christmas is _______ .
+[promptResponseHandler] 17:45:36 START RequestId: 00ccfd10-ae65-46e5-b441-1f63703ba4de Version: $LATEST
+[promptResponseHandler] 17:45:37 2025-01-12T17:45:37.560Z	00ccfd10-ae65-46e5-b441-1f63703ba4de	INFO	Received answer response from Bedrock model amazon.titan-text-lite-v1 {
+  inputTextTokenCount: 129,
+  results: [
+    {
+      tokenCount: 28,
+      outputText: '!.!.!..."\n' +
+        '        To play this game, make sure to come up with your most ridiculous and creative response for the given subject.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 17:45:37 END RequestId: 00ccfd10-ae65-46e5-b441-1f63703ba4de
+[promptResponseHandler] 17:45:37 REPORT RequestId: 00ccfd10-ae65-46e5-b441-1f63703ba4de	Duration: 1182.16 ms	Billed Duration: 1183 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 17:45:37 2025-01-12T17:45:37.939Z	f08044c5-2ee2-4d56-953b-d8da698b1385	INFO	Text Prompt Handler Started - received prompt: All I want for Christmas is _______ .
+[promptResponseHandler] 17:45:37 START RequestId: f08044c5-2ee2-4d56-953b-d8da698b1385 Version: $LATEST
+[promptResponseHandler] 17:45:38 2025-01-12T17:45:38.744Z	f08044c5-2ee2-4d56-953b-d8da698b1385	INFO	Received answer response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_011t7Y2zwYeSuuGmSEADsBLV',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: "Bigfoot's foot." } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 149, output_tokens: 9 }
+}
+[promptResponseHandler] 17:45:38 END RequestId: f08044c5-2ee2-4d56-953b-d8da698b1385
+[promptResponseHandler] 17:45:38 REPORT RequestId: f08044c5-2ee2-4d56-953b-d8da698b1385	Duration: 807.07 ms	Billed Duration: 808 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 17:45:52 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 17:45:52 START RequestId: 6b006f70-5555-4928-b8c1-94286dc48a6a Version: $LATEST
+[pickHumanReponseHandler] 17:45:52 2025-01-12T17:45:52.492Z	6b006f70-5555-4928-b8c1-94286dc48a6a	INFO	Pick Human Response Handler Started - for prompt All I want for Christmas is _______ .
+         receieved answers to choose from: (1) gag gifts galore
+(2) !.!.!..."        to play this game, make sure to come up with your most ridiculous and creative response for the given subject
+(3) money
+[pickHumanReponseHandler] 17:45:52 END RequestId: 6b006f70-5555-4928-b8c1-94286dc48a6a
+[pickHumanReponseHandler] 17:45:52 REPORT RequestId: 6b006f70-5555-4928-b8c1-94286dc48a6a	Duration: 10.35 ms	Billed Duration: 11 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 283.06 ms
+[promptResponseHandler] 17:55:43 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 17:55:43 START RequestId: 7d174d0d-6d8e-4247-a7d6-ac84988c374b Version: $LATEST
+[promptResponseHandler] 17:55:43 2025-01-12T17:55:43.325Z	7d174d0d-6d8e-4247-a7d6-ac84988c374b	INFO	Text Prompt Handler Started - received prompt: After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: ______.
+[promptResponseHandler] 17:55:43 2025-01-12T17:55:43.569Z	7d174d0d-6d8e-4247-a7d6-ac84988c374b	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' mud puddles and rubber chickens', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 17:55:43 END RequestId: 7d174d0d-6d8e-4247-a7d6-ac84988c374b
+[promptResponseHandler] 17:55:43 REPORT RequestId: 7d174d0d-6d8e-4247-a7d6-ac84988c374b	Duration: 249.40 ms	Billed Duration: 250 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 291.18 ms
+[promptResponseHandler] 17:55:43 2025-01-12T17:55:43.958Z	6e6a526d-75de-4e95-b0b7-f0a5d5921be2	INFO	Text Prompt Handler Started - received prompt: After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: ______.
+[promptResponseHandler] 17:55:43 START RequestId: 6e6a526d-75de-4e95-b0b7-f0a5d5921be2 Version: $LATEST
+[promptResponseHandler] 17:55:44 2025-01-12T17:55:44.338Z	6e6a526d-75de-4e95-b0b7-f0a5d5921be2	INFO	Received answer response from Bedrock model amazon.titan-text-lite-v1 {
+  inputTextTokenCount: 153,
+  results: [ { tokenCount: 1, outputText: '', completionReason: 'FINISH' } ]
+}
+[promptResponseHandler] 17:55:44 END RequestId: 6e6a526d-75de-4e95-b0b7-f0a5d5921be2
+[promptResponseHandler] 17:55:44 REPORT RequestId: 6e6a526d-75de-4e95-b0b7-f0a5d5921be2	Duration: 381.40 ms	Billed Duration: 382 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:05:26 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 18:05:27 START RequestId: 49075ac2-2d87-4589-b89e-6f5797e3a5b0 Version: $LATEST
+[promptResponseHandler] 18:05:27 2025-01-12T18:05:27.279Z	49075ac2-2d87-4589-b89e-6f5797e3a5b0	INFO	Text Prompt Handler Started - received prompt: I got 99 problems but ______ ain't one.
+[promptResponseHandler] 18:05:27 2025-01-12T18:05:27.601Z	49075ac2-2d87-4589-b89e-6f5797e3a5b0	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' a unicorn farting rainbows', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 18:05:27 END RequestId: 49075ac2-2d87-4589-b89e-6f5797e3a5b0
+[promptResponseHandler] 18:05:27 REPORT RequestId: 49075ac2-2d87-4589-b89e-6f5797e3a5b0	Duration: 327.93 ms	Billed Duration: 328 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 290.39 ms
+[promptResponseHandler] 18:05:27 START RequestId: 570d7eeb-57ab-43ef-9e9d-2c791ad17183 Version: $LATEST
+[promptResponseHandler] 18:05:27 2025-01-12T18:05:27.933Z	570d7eeb-57ab-43ef-9e9d-2c791ad17183	INFO	Text Prompt Handler Started - received prompt: I got 99 problems but ______ ain't one.
+[promptResponseHandler] 18:05:29 2025-01-12T18:05:29.686Z	570d7eeb-57ab-43ef-9e9d-2c791ad17183	INFO	Received answer response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 132,
+  results: [
+    {
+      tokenCount: 34,
+      outputText: '\n' +
+        'Although protons may exhibit different properties from those displayed by electrons, free protons remain utterly unaffected by these characteristics. Protons are absolutely impervious to such modifications. ',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 18:05:29 END RequestId: 570d7eeb-57ab-43ef-9e9d-2c791ad17183
+[promptResponseHandler] 18:05:29 REPORT RequestId: 570d7eeb-57ab-43ef-9e9d-2c791ad17183	Duration: 1754.71 ms	Billed Duration: 1755 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:05:30 START RequestId: f4ef89ef-8c35-4e7b-a288-29f89aa3b053 Version: $LATEST
+[promptResponseHandler] 18:05:30 2025-01-12T18:05:30.146Z	f4ef89ef-8c35-4e7b-a288-29f89aa3b053	INFO	Text Prompt Handler Started - received prompt: I got 99 problems but ______ ain't one.
+[promptResponseHandler] 18:05:30 2025-01-12T18:05:30.519Z	f4ef89ef-8c35-4e7b-a288-29f89aa3b053	INFO	Received answer response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01WpFL2vE6QJxthHxoE71e22',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: 'catnip' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 153, output_tokens: 6 }
+}
+[promptResponseHandler] 18:05:30 END RequestId: f4ef89ef-8c35-4e7b-a288-29f89aa3b053
+[promptResponseHandler] 18:05:30 REPORT RequestId: f4ef89ef-8c35-4e7b-a288-29f89aa3b053	Duration: 375.58 ms	Billed Duration: 376 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:06:26 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 18:06:26 START RequestId: 27365c56-cce1-470e-ac8d-94ff2dea904f Version: $LATEST
+[pickHumanReponseHandler] 18:06:26 2025-01-12T18:06:26.719Z	27365c56-cce1-470e-ac8d-94ff2dea904f	INFO	Pick Human Response Handler Started - for prompt I got 99 problems but ______ ain't one. receieved answers to choose from:
+        (1) a unicorn farting rainbows
+(2) catnip
+(3) problems
+[pickHumanReponseHandler] 18:06:27 2025-01-12T18:06:27.358Z	27365c56-cce1-470e-ac8d-94ff2dea904f	INFO	Received vote response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 143,
+  results: [ { tokenCount: 3, outputText: '\n1', completionReason: 'FINISH' } ]
+}
+[pickHumanReponseHandler] 18:06:27 END RequestId: 27365c56-cce1-470e-ac8d-94ff2dea904f
+[pickHumanReponseHandler] 18:06:27 REPORT RequestId: 27365c56-cce1-470e-ac8d-94ff2dea904f	Duration: 643.78 ms	Billed Duration: 644 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 277.18 ms
+[pickHumanReponseHandler] 18:06:27 2025-01-12T18:06:27.585Z	7dfa361f-5f8f-41b8-b4d2-c64e3816c185	INFO	Pick Human Response Handler Started - for prompt I got 99 problems but ______ ain't one. receieved answers to choose from:
+        (1) catnip
+(2) although protons may exhibit different properties from those displayed by electrons, free protons remain utterly unaffected by these characteristics. protons are absolutely impervious to such modifications
+(3) problems
+[pickHumanReponseHandler] 18:06:27 START RequestId: 7dfa361f-5f8f-41b8-b4d2-c64e3816c185 Version: $LATEST
+[pickHumanReponseHandler] 18:06:27 2025-01-12T18:06:27.746Z	7dfa361f-5f8f-41b8-b4d2-c64e3816c185	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 3', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 18:06:27 END RequestId: 7dfa361f-5f8f-41b8-b4d2-c64e3816c185
+[pickHumanReponseHandler] 18:06:27 REPORT RequestId: 7dfa361f-5f8f-41b8-b4d2-c64e3816c185	Duration: 163.31 ms	Billed Duration: 164 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[pickHumanReponseHandler] 18:06:27 2025-01-12T18:06:27.965Z	2edfc9e5-68cf-4346-a50b-6555c454e623	INFO	Pick Human Response Handler Started - for prompt I got 99 problems but ______ ain't one. receieved answers to choose from:
+        (1) a unicorn farting rainbows
+(2) although protons may exhibit different properties from those displayed by electrons, free protons remain utterly unaffected by these characteristics. protons are absolutely impervious to such modifications
+(3) problems
+[pickHumanReponseHandler] 18:06:27 START RequestId: 2edfc9e5-68cf-4346-a50b-6555c454e623 Version: $LATEST
+[pickHumanReponseHandler] 18:06:28 2025-01-12T18:06:28.264Z	2edfc9e5-68cf-4346-a50b-6555c454e623	INFO	Received vote response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01DYaZ2f2j2GVrC2tMZzR2Hw',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: '3' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 195, output_tokens: 5 }
+}
+[pickHumanReponseHandler] 18:06:28 END RequestId: 2edfc9e5-68cf-4346-a50b-6555c454e623
+[pickHumanReponseHandler] 18:06:28 REPORT RequestId: 2edfc9e5-68cf-4346-a50b-6555c454e623	Duration: 300.48 ms	Billed Duration: 301 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 18:08:45 START RequestId: 49601b69-e80d-49bf-a988-5cae8b12a779 Version: $LATEST
+[promptResponseHandler] 18:08:45 2025-01-12T18:08:45.887Z	49601b69-e80d-49bf-a988-5cae8b12a779	INFO	Text Prompt Handler Started - received prompt: After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: ______.
+[promptResponseHandler] 18:08:46 2025-01-12T18:08:46.072Z	49601b69-e80d-49bf-a988-5cae8b12a779	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' mud puddles and twig drums', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 18:08:46 END RequestId: 49601b69-e80d-49bf-a988-5cae8b12a779
+[promptResponseHandler] 18:08:46 REPORT RequestId: 49601b69-e80d-49bf-a988-5cae8b12a779	Duration: 191.27 ms	Billed Duration: 192 ms	Memory Size: 1024 MB	Max Memory Used: 79 MB
+[promptResponseHandler] 18:09:16 START RequestId: 88e37112-d09f-47df-99d6-901b0e7bbd13 Version: $LATEST
+[promptResponseHandler] 18:09:16 2025-01-12T18:09:16.301Z	88e37112-d09f-47df-99d6-901b0e7bbd13	INFO	Text Prompt Handler Started - received prompt: It's smart. It's luxurious. It's a marvel of German engineering. Let's give a big round of applause for _______!
+[promptResponseHandler] 18:09:16 2025-01-12T18:09:16.472Z	88e37112-d09f-47df-99d6-901b0e7bbd13	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Mercedes-Benz car', stop_reason: 'stop' } ] }
+[promptResponseHandler] 18:09:16 END RequestId: 88e37112-d09f-47df-99d6-901b0e7bbd13
+[promptResponseHandler] 18:09:16 REPORT RequestId: 88e37112-d09f-47df-99d6-901b0e7bbd13	Duration: 179.77 ms	Billed Duration: 180 ms	Memory Size: 1024 MB	Max Memory Used: 79 MB
+[promptResponseHandler] 18:19:07 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 18:19:07 START RequestId: 21867a59-c95a-49d9-8f71-76d631ff9fd1 Version: $LATEST
+[promptResponseHandler] 18:19:07 2025-01-12T18:19:07.671Z	21867a59-c95a-49d9-8f71-76d631ff9fd1	INFO	Text Prompt Handler Started - received prompt: They call me "Mr. ______."
+[promptResponseHandler] 18:19:08 2025-01-12T18:19:08.481Z	21867a59-c95a-49d9-8f71-76d631ff9fd1	INFO	Received answer response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 129,
+  results: [
+    {
+      tokenCount: 4,
+      outputText: '\nMagic.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 18:19:08 END RequestId: 21867a59-c95a-49d9-8f71-76d631ff9fd1
+[promptResponseHandler] 18:19:08 REPORT RequestId: 21867a59-c95a-49d9-8f71-76d631ff9fd1	Duration: 814.79 ms	Billed Duration: 815 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 279.54 ms
+[promptResponseHandler] 18:20:21 START RequestId: 88a3f421-c770-4dee-bb1e-3de12e77ca68 Version: $LATEST
+[promptResponseHandler] 18:20:21 2025-01-12T18:20:21.344Z	88a3f421-c770-4dee-bb1e-3de12e77ca68	INFO	Text Prompt Handler Started - received prompt: Penalty! ______: that's 5 minutes in the box!
+[promptResponseHandler] 18:20:21 2025-01-12T18:20:21.609Z	88a3f421-c770-4dee-bb1e-3de12e77ca68	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Cheese grater hand', stop_reason: 'stop' } ] }
+[promptResponseHandler] 18:20:21 END RequestId: 88a3f421-c770-4dee-bb1e-3de12e77ca68
+[promptResponseHandler] 18:20:21 REPORT RequestId: 88a3f421-c770-4dee-bb1e-3de12e77ca68	Duration: 272.84 ms	Billed Duration: 273 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:20:22 START RequestId: 33b6e5a1-391c-49c5-b5a9-c5bcc7fbad37 Version: $LATEST
+[promptResponseHandler] 18:20:22 2025-01-12T18:20:22.324Z	33b6e5a1-391c-49c5-b5a9-c5bcc7fbad37	INFO	Text Prompt Handler Started - received prompt: Penalty! ______: that's 5 minutes in the box!
+[promptResponseHandler] 18:20:22 2025-01-12T18:20:22.722Z	33b6e5a1-391c-49c5-b5a9-c5bcc7fbad37	INFO	Received answer response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 134,
+  results: [ { tokenCount: 1, outputText: '', completionReason: 'FINISH' } ]
+}
+[promptResponseHandler] 18:20:22 END RequestId: 33b6e5a1-391c-49c5-b5a9-c5bcc7fbad37
+[promptResponseHandler] 18:20:22 REPORT RequestId: 33b6e5a1-391c-49c5-b5a9-c5bcc7fbad37	Duration: 426.57 ms	Billed Duration: 427 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[pickHumanReponseHandler] 18:20:55 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 18:20:55 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[pickHumanReponseHandler] 18:20:56 START RequestId: 996ff3d4-171c-42a5-95b9-76454f4a564c Version: $LATEST
+[pickHumanReponseHandler] 18:20:56 2025-01-12T18:20:56.044Z	996ff3d4-171c-42a5-95b9-76454f4a564c	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) jurassic
+[pickHumanReponseHandler] 18:20:56 START RequestId: dcaa2af6-c749-4153-8e54-9643d61f53be Version: $LATEST
+[pickHumanReponseHandler] 18:20:56 2025-01-12T18:20:56.278Z	dcaa2af6-c749-4153-8e54-9643d61f53be	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) jurassic
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.059Z	996ff3d4-171c-42a5-95b9-76454f4a564c	INFO	Received vote response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 136,
+  results: [
+    {
+      tokenCount: 12,
+      outputText: ' park\n(1) jell-o wrestling champ',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: 996ff3d4-171c-42a5-95b9-76454f4a564c
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: 996ff3d4-171c-42a5-95b9-76454f4a564c	Duration: 1020.60 ms	Billed Duration: 1021 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 278.57 ms
+[pickHumanReponseHandler] 18:20:57 START RequestId: 972d87c4-972e-430f-8f43-541e044b8cfc Version: $LATEST
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.112Z	972d87c4-972e-430f-8f43-541e044b8cfc	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) well-endowed
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.387Z	972d87c4-972e-430f-8f43-541e044b8cfc	INFO	Received vote response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01CsfVEY3Exq1vs85K57Y5CR',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: '2' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 154, output_tokens: 5 }
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: 972d87c4-972e-430f-8f43-541e044b8cfc
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: 972d87c4-972e-430f-8f43-541e044b8cfc	Duration: 276.77 ms	Billed Duration: 277 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:20:50 2025-01-12T18:20:50.676Z	e6cbb05a-c99d-4aa2-9f48-5c2cc1f444dc	INFO	Text Prompt Handler Started - received prompt: Oh no. Mom’s new boyfriend is _____________.
+[promptResponseHandler] 18:20:50 START RequestId: e6cbb05a-c99d-4aa2-9f48-5c2cc1f444dc Version: $LATEST
+[promptResponseHandler] 18:20:50 2025-01-12T18:20:50.862Z	e6cbb05a-c99d-4aa2-9f48-5c2cc1f444dc	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: ' Jell-o wrestling champ', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 18:20:50 END RequestId: e6cbb05a-c99d-4aa2-9f48-5c2cc1f444dc
+[promptResponseHandler] 18:20:50 REPORT RequestId: e6cbb05a-c99d-4aa2-9f48-5c2cc1f444dc	Duration: 187.01 ms	Billed Duration: 188 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:20:51 START RequestId: ac1b3f40-1f25-4390-87c9-697f0f4caed5 Version: $LATEST
+[promptResponseHandler] 18:20:51 2025-01-12T18:20:51.074Z	ac1b3f40-1f25-4390-87c9-697f0f4caed5	INFO	Text Prompt Handler Started - received prompt: Oh no. Mom’s new boyfriend is _____________.
+[promptResponseHandler] 18:20:51 2025-01-12T18:20:51.796Z	ac1b3f40-1f25-4390-87c9-697f0f4caed5	INFO	Received answer response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 132,
+  results: [
+    {
+      tokenCount: 8,
+      outputText: '        \nwell-endowed.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 18:20:51 END RequestId: ac1b3f40-1f25-4390-87c9-697f0f4caed5
+[promptResponseHandler] 18:20:51 REPORT RequestId: ac1b3f40-1f25-4390-87c9-697f0f4caed5	Duration: 723.74 ms	Billed Duration: 724 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:20:52 START RequestId: b81a5020-0e99-4a13-9dc7-1c9a7078f738 Version: $LATEST
+[promptResponseHandler] 18:20:52 2025-01-12T18:20:52.097Z	b81a5020-0e99-4a13-9dc7-1c9a7078f738	INFO	Text Prompt Handler Started - received prompt: Oh no. Mom’s new boyfriend is _____________.
+[promptResponseHandler] 18:20:52 2025-01-12T18:20:52.432Z	b81a5020-0e99-4a13-9dc7-1c9a7078f738	INFO	Received answer response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01Mjf8D7PRDgYKHUC8Pui8v9',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: 'Jurassic.' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 150, output_tokens: 8 }
+}
+[promptResponseHandler] 18:20:52 END RequestId: b81a5020-0e99-4a13-9dc7-1c9a7078f738
+[promptResponseHandler] 18:20:52 REPORT RequestId: b81a5020-0e99-4a13-9dc7-1c9a7078f738	Duration: 336.68 ms	Billed Duration: 337 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.448Z	35e706ce-a996-424d-a6dc-1e16863472b0	INFO	Received vote response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_0179Dx8kKxGruFwtXrpypVqh',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: '2' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 154, output_tokens: 5 }
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: 35e706ce-a996-424d-a6dc-1e16863472b0
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: 35e706ce-a996-424d-a6dc-1e16863472b0	Duration: 274.34 ms	Billed Duration: 275 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.465Z	0a38839e-e4c5-46d7-b996-b89f50c7389b	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) well-endowed
+[pickHumanReponseHandler] 18:20:57 START RequestId: 0a38839e-e4c5-46d7-b996-b89f50c7389b Version: $LATEST
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.482Z	98672303-dcbc-4299-9ccb-b4036b02ff3c	INFO	Received vote response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 136,
+  results: [
+    {
+      tokenCount: 12,
+      outputText: ' park\n(1) jell-o wrestling champ',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: 98672303-dcbc-4299-9ccb-b4036b02ff3c
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: 98672303-dcbc-4299-9ccb-b4036b02ff3c	Duration: 1008.13 ms	Billed Duration: 1009 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 277.30 ms
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.497Z	af25a75f-f740-4aed-8f8b-b78003410b14	INFO	Received vote response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 136,
+  results: [
+    {
+      tokenCount: 12,
+      outputText: ' park\n(1) jell-o wrestling champ',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: af25a75f-f740-4aed-8f8b-b78003410b14
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: af25a75f-f740-4aed-8f8b-b78003410b14	Duration: 1094.04 ms	Billed Duration: 1095 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB	Init Duration: 282.06 ms
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.561Z	f00f60b6-fffc-4925-97e4-a1d0e7f5d7cb	INFO	Received vote response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01EWxFViJ9cUPbHdeGFTJaUP',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: '2' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 154, output_tokens: 5 }
+}
+[pickHumanReponseHandler] 18:20:57 END RequestId: f00f60b6-fffc-4925-97e4-a1d0e7f5d7cb
+[pickHumanReponseHandler] 18:20:57 REPORT RequestId: f00f60b6-fffc-4925-97e4-a1d0e7f5d7cb	Duration: 270.22 ms	Billed Duration: 271 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[pickHumanReponseHandler] 18:20:57 START RequestId: 3e28bb60-8430-4760-a08b-023bb8a91d39 Version: $LATEST
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.643Z	3e28bb60-8430-4760-a08b-023bb8a91d39	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) well-endowed
+[pickHumanReponseHandler] 18:20:57 START RequestId: e7142c83-dd5b-4f82-9a54-2f26155325d8 Version: $LATEST
+[pickHumanReponseHandler] 18:20:57 2025-01-12T18:20:57.645Z	e7142c83-dd5b-4f82-9a54-2f26155325d8	INFO	Pick Human Response Handler Started - for prompt Oh no. Mom’s new boyfriend is _____________. receieved answers to choose from:
+        (1) jell-o wrestling champ
+(2) well-endowed
+[pickHumanReponseHandler] 18:20:58 2025-01-12T18:20:58.076Z	0a38839e-e4c5-46d7-b996-b89f50c7389b	ERROR	Invoke Error 	{"errorType":"ThrottlingException","errorMessage":"Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","name":"ThrottlingException","$fault":"client","$metadata":{"httpStatusCode":429,"requestId":"9a3ce5f3-e958-4c3e-8b1a-4d12d2228817","attempts":3,"totalRetryDelay":500},"stack":["ThrottlingException: Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","    at de_ThrottlingExceptionRes (file:///var/task/index.mjs:53:60665)","    at de_CommandError (file:///var/task/index.mjs:53:57309)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async UX (file:///var/task/index.mjs:71:246)","    at async Runtime.Fce [as handler] (file:///var/task/index.mjs:54:466)"]}
+[pickHumanReponseHandler] 18:20:58 END RequestId: 0a38839e-e4c5-46d7-b996-b89f50c7389b
+[pickHumanReponseHandler] 18:20:58 REPORT RequestId: 0a38839e-e4c5-46d7-b996-b89f50c7389b	Duration: 613.73 ms	Billed Duration: 614 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:20:58 2025-01-12T18:20:58.554Z	3e28bb60-8430-4760-a08b-023bb8a91d39	ERROR	Invoke Error 	{"errorType":"ThrottlingException","errorMessage":"Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","name":"ThrottlingException","$fault":"client","$metadata":{"httpStatusCode":429,"requestId":"84d5f63c-dc09-47eb-9595-37cbf611c0fc","attempts":3,"totalRetryDelay":773},"stack":["ThrottlingException: Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","    at de_ThrottlingExceptionRes (file:///var/task/index.mjs:53:60665)","    at de_CommandError (file:///var/task/index.mjs:53:57309)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async UX (file:///var/task/index.mjs:71:246)","    at async Runtime.Fce [as handler] (file:///var/task/index.mjs:54:466)"]}
+[pickHumanReponseHandler] 18:20:58 END RequestId: 3e28bb60-8430-4760-a08b-023bb8a91d39
+[pickHumanReponseHandler] 18:20:58 REPORT RequestId: 3e28bb60-8430-4760-a08b-023bb8a91d39	Duration: 913.17 ms	Billed Duration: 914 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:20:58 2025-01-12T18:20:58.733Z	e7142c83-dd5b-4f82-9a54-2f26155325d8	ERROR	Invoke Error 	{"errorType":"ThrottlingException","errorMessage":"Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","name":"ThrottlingException","$fault":"client","$metadata":{"httpStatusCode":429,"requestId":"fe34616a-88c7-465e-a1f0-c1d696c6ea00","attempts":3,"totalRetryDelay":973},"stack":["ThrottlingException: Too many requests, please wait before trying again. You have sent too many requests.  Wait before trying again.","    at de_ThrottlingExceptionRes (file:///var/task/index.mjs:53:60665)","    at de_CommandError (file:///var/task/index.mjs:53:57309)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async file:///var/task/index.mjs:3:1121","    at async file:///var/task/index.mjs:4:1510","    at async file:///var/task/index.mjs:39:44773","    at async file:///var/task/index.mjs:2:7974","    at async UX (file:///var/task/index.mjs:71:246)","    at async Runtime.Fce [as handler] (file:///var/task/index.mjs:54:466)"]}
+[pickHumanReponseHandler] 18:20:58 END RequestId: e7142c83-dd5b-4f82-9a54-2f26155325d8
+[pickHumanReponseHandler] 18:20:58 REPORT RequestId: e7142c83-dd5b-4f82-9a54-2f26155325d8	Duration: 1090.67 ms	Billed Duration: 1091 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:26:09 INIT_START Runtime Version: nodejs:18.v57	Runtime Version ARN: arn:aws:lambda:eu-west-2::runtime:8865cfc6a1d3f2dfabf5c509eaa9fbd70aa12fa4bbe614047030158c21978bcc
+[promptResponseHandler] 18:26:09 START RequestId: 5ee6fe7e-5816-4cf6-b029-f9078d76d8fa Version: $LATEST
+[promptResponseHandler] 18:26:09 2025-01-12T18:26:09.901Z	5ee6fe7e-5816-4cf6-b029-f9078d76d8fa	INFO	Text Prompt Handler Started - received prompt: Here lies Stinky Dave. He died from _____________.
+[promptResponseHandler] 18:26:10 2025-01-12T18:26:10.185Z	5ee6fe7e-5816-4cf6-b029-f9078d76d8fa	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' Party farts', stop_reason: 'stop' } ] }
+[promptResponseHandler] 18:26:10 END RequestId: 5ee6fe7e-5816-4cf6-b029-f9078d76d8fa
+[promptResponseHandler] 18:26:10 REPORT RequestId: 5ee6fe7e-5816-4cf6-b029-f9078d76d8fa	Duration: 289.18 ms	Billed Duration: 290 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 289.08 ms
+[promptResponseHandler] 18:26:10 2025-01-12T18:26:10.543Z	6b18cfb7-219f-40e3-8f7c-32c5cffa5706	INFO	Text Prompt Handler Started - received prompt: Here lies Stinky Dave. He died from _____________.
+[promptResponseHandler] 18:26:10 START RequestId: 6b18cfb7-219f-40e3-8f7c-32c5cffa5706 Version: $LATEST
+[promptResponseHandler] 18:26:11 2025-01-12T18:26:11.673Z	6b18cfb7-219f-40e3-8f7c-32c5cffa5706	INFO	Received answer response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 132,
+  results: [
+    {
+      tokenCount: 17,
+      outputText: '\n\nHere lies Stinky Dave. He died from a stinky scheme.',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[promptResponseHandler] 18:26:11 END RequestId: 6b18cfb7-219f-40e3-8f7c-32c5cffa5706
+[promptResponseHandler] 18:26:11 REPORT RequestId: 6b18cfb7-219f-40e3-8f7c-32c5cffa5706	Duration: 1131.80 ms	Billed Duration: 1132 ms	Memory Size: 1024 MB	Max Memory Used: 77 MB
+[promptResponseHandler] 18:26:11 START RequestId: ea69cf30-923d-47e8-a770-7d20105f63bd Version: $LATEST
+[promptResponseHandler] 18:26:11 2025-01-12T18:26:11.953Z	ea69cf30-923d-47e8-a770-7d20105f63bd	INFO	Text Prompt Handler Started - received prompt: Here lies Stinky Dave. He died from _____________.
+[promptResponseHandler] 18:26:12 2025-01-12T18:26:12.181Z	ea69cf30-923d-47e8-a770-7d20105f63bd	INFO	Received answer response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01GaN8QYYpfjKwHCSTuHh4oa',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: 'pickles' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 153, output_tokens: 5 }
+}
+[promptResponseHandler] 18:26:12 END RequestId: ea69cf30-923d-47e8-a770-7d20105f63bd
+[promptResponseHandler] 18:26:12 REPORT RequestId: ea69cf30-923d-47e8-a770-7d20105f63bd	Duration: 230.35 ms	Billed Duration: 231 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:26:24 START RequestId: 259558c3-0c3e-4467-8036-0302bf290488 Version: $LATEST
+[pickHumanReponseHandler] 18:26:24 2025-01-12T18:26:24.201Z	259558c3-0c3e-4467-8036-0302bf290488	INFO	Pick Human Response Handler Started - for prompt Here lies Stinky Dave. He died from _____________. receieved answers to choose from:
+        (1) here lies stinky dave. he died from a stinky scheme
+(2) pickles
+(3) candle wax
+[pickHumanReponseHandler] 18:26:24 2025-01-12T18:26:24.370Z	259558c3-0c3e-4467-8036-0302bf290488	INFO	Received vote response from Bedrock model mistral.mistral-7b-instruct-v0:2 { outputs: [ { text: ' 1', stop_reason: 'stop' } ] }
+[pickHumanReponseHandler] 18:26:24 END RequestId: 259558c3-0c3e-4467-8036-0302bf290488
+[pickHumanReponseHandler] 18:26:24 REPORT RequestId: 259558c3-0c3e-4467-8036-0302bf290488	Duration: 188.24 ms	Billed Duration: 189 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:26:24 START RequestId: 8bf8df73-64ad-46eb-8565-4952d8019cde Version: $LATEST
+[pickHumanReponseHandler] 18:26:24 2025-01-12T18:26:24.520Z	8bf8df73-64ad-46eb-8565-4952d8019cde	INFO	Pick Human Response Handler Started - for prompt Here lies Stinky Dave. He died from _____________. receieved answers to choose from:
+        (1) pickles
+(2) party farts
+(3) candle wax
+[pickHumanReponseHandler] 18:26:25 2025-01-12T18:26:25.327Z	8bf8df73-64ad-46eb-8565-4952d8019cde	INFO	Received vote response from Bedrock model amazon.titan-text-express-v1 {
+  inputTextTokenCount: 139,
+  results: [
+    {
+      tokenCount: 7,
+      outputText: '\n(1) pickles',
+      completionReason: 'FINISH'
+    }
+  ]
+}
+[pickHumanReponseHandler] 18:26:25 END RequestId: 8bf8df73-64ad-46eb-8565-4952d8019cde
+[pickHumanReponseHandler] 18:26:25 REPORT RequestId: 8bf8df73-64ad-46eb-8565-4952d8019cde	Duration: 809.45 ms	Billed Duration: 810 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[pickHumanReponseHandler] 18:26:25 2025-01-12T18:26:25.490Z	bbe6cb1a-f795-4bd3-b708-ddcde901963c	INFO	Pick Human Response Handler Started - for prompt Here lies Stinky Dave. He died from _____________. receieved answers to choose from:
+        (1) here lies stinky dave. he died from a stinky scheme
+(2) party farts
+(3) candle wax
+[pickHumanReponseHandler] 18:26:25 START RequestId: bbe6cb1a-f795-4bd3-b708-ddcde901963c Version: $LATEST
+[pickHumanReponseHandler] 18:26:25 2025-01-12T18:26:25.728Z	bbe6cb1a-f795-4bd3-b708-ddcde901963c	INFO	Received vote response from Bedrock model anthropic.claude-3-haiku-20240307-v1:0 {
+  id: 'msg_bdrk_01GVXJUiRa853n6UJguGgJDz',
+  type: 'message',
+  role: 'assistant',
+  model: 'claude-3-haiku-20240307',
+  content: [ { type: 'text', text: '3' } ],
+  stop_reason: 'end_turn',
+  stop_sequence: null,
+  usage: { input_tokens: 172, output_tokens: 5 }
+}
+[pickHumanReponseHandler] 18:26:25 END RequestId: bbe6cb1a-f795-4bd3-b708-ddcde901963c
+[pickHumanReponseHandler] 18:26:25 REPORT RequestId: bbe6cb1a-f795-4bd3-b708-ddcde901963c	Duration: 239.55 ms	Billed Duration: 240 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB
+[promptResponseHandler] 18:27:26 START RequestId: 9144f7ee-c5e7-4b87-b231-d071cb0448f5 Version: $LATEST
+[promptResponseHandler] 18:27:26 2025-01-12T18:27:26.044Z	9144f7ee-c5e7-4b87-b231-d071cb0448f5	INFO	Text Prompt Handler Started - received prompt: I do not know with what weapons World War III will be fought, but World War IV will be fought with ______.
+[promptResponseHandler] 18:27:26 2025-01-12T18:27:26.293Z	9144f7ee-c5e7-4b87-b231-d071cb0448f5	INFO	Received answer response from Bedrock model mistral.mistral-7b-instruct-v0:2 {
+  outputs: [ { text: 'emoticons laserbeams sillystring', stop_reason: 'stop' } ]
+}
+[promptResponseHandler] 18:27:26 END RequestId: 9144f7ee-c5e7-4b87-b231-d071cb0448f5
+[promptResponseHandler] 18:27:26 REPORT RequestId: 9144f7ee-c5e7-4b87-b231-d071cb0448f5	Duration: 257.41 ms	Billed Duration: 258 ms	Memory Size: 1024 MB	Max Memory Used: 78 MB

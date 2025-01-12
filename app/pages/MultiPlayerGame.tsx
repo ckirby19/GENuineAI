@@ -28,7 +28,7 @@ interface Props {
     currentPrompt: Schema["Prompt"]["type"] | null;
     currentVotes: Schema["Vote"]["type"][];
     startGame: () => void;
-    createLobby: (numberOfAiModels: number) => void;
+    createLobby: (aiModels: string[]) => void;
     joinLobby: () => void;
     leaveLobby: () => void;
     transitionToRound: (round: number) => void;
