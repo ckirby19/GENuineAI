@@ -36,6 +36,7 @@ export default function App() {
       }).subscribe({
         next: (data) => {
           if (data.items.length > 0) {
+            console.log("Lobby updated:", data.items[0])
             setCurrentLobby(data.items[0]);
           }
         },
@@ -77,6 +78,7 @@ export default function App() {
         }).subscribe({
         next: async (data) => {
           if (data.items.length > 0) {
+            console.log("Round updated:", data.items[0])
             setCurrentRound(data.items[0]);
 
             // Also fetch and set the prompt when round updates
@@ -90,7 +92,7 @@ export default function App() {
       });
       return () => sub.unsubscribe();
     }
-  }, [currentLobby?.id, currentLobby?.currentRound]);
+  }, [currentLobby?.currentRound]);
 
   // Answers subscription
   useEffect(() => {
@@ -100,11 +102,14 @@ export default function App() {
       }).subscribe({
         next: (data) => {
           setCurrentAnswers([...data.items]);
+          console.log("Answers updated:", data.items);
           if (data.items.length >= participants.length && currentRound.status == ROUND_STATUSES.ANSWERING) {
             if (gameMode == GAME_TYPE.SINGLE_PLAYER) {
+              console.log("Transitioning to single player voting")
               transitionToSinglePlayerVoting(data.items);
             }
             if (gameMode == GAME_TYPE.MULTI_PLAYER) {
+              console.log("Transitioning to multi player voting")
               transitionToMultiPlayerVoting();
             }
           }
@@ -125,10 +130,11 @@ export default function App() {
       }).subscribe({
         next: (data) => {
           setCurrentVotes([...data.items]);
-
+          console.log("Votes updated:", data.items);
           if (data.items.length >= participants.filter(x => !x.isAiParticipant).length && ROUND_STATUSES.VOTING){
             // Single-player transition is done manually
             if (gameMode == GAME_TYPE.MULTI_PLAYER) {
+              console.log("Transitioning to multi player scoring")
               transitionToMultiPlayerScoring();
             }
           }
@@ -156,7 +162,8 @@ export default function App() {
     const lobby = await client.models.Lobby.create({
       code,
       hostId: username,
-      status: GAME_STATUSES.WAITING
+      status: GAME_STATUSES.WAITING,
+      gameType: gameMode
     });
     
     // Create host participant
@@ -169,7 +176,7 @@ export default function App() {
 
     setCurrentLobby(lobby.data); // This will start the lobby sub
 
-    var allPrompts = await getPrompts(numberOfRounds)
+    let allPrompts = await getPrompts(numberOfRounds)
     if (!allPrompts){
       console.error("Failed to create prompts");
       return;
@@ -197,6 +204,7 @@ export default function App() {
       aiParticipants.push(aiParticipant);
     }
 
+    const genericResponse = "no response from model";
     for (let i = 0; i < numberOfRounds; i++) {
       let promptText = allPrompts[i];
 
@@ -217,46 +225,53 @@ export default function App() {
         status: ROUND_STATUSES.ANSWERING
       });
 
+      if (!nextRound.data){
+        console.error("Failed to create next round");
+        return;
+      }
+
       // Create all rounds with these prompts
       for (let j = 0; j < numberOfAiModels; j++) {
         let aiParticipant = aiParticipants[j];
-        // Create AI answer for this round
         let aiModelName = aiModels[j];
-        console.log("Check model name", aiModelName);
+
+        if (!aiParticipant.data?.id){
+          console.error("Failed to create ai participant");
+          return;
+        }
 
         let { data, errors } = await client.queries.GenerateTextResponse({
           prompt: nextPrompt.data.text!,
           model: aiModelName
         });
 
-        if (!errors && data) {
-          if (!aiParticipant.data?.id){
-            console.error("Failed to create ai participant");
-            return;
-          }
-
-          if (!nextRound.data){
-            console.error("Failed to create next round");
-            return;
-          }
-
-          await client.models.Answer.create({
-            roundId: nextRound.data.id,
-            participantId: aiParticipant.data.id,
-            text: data,
-            isAiAnswer: true
-          });
-
-          await client.models.Round.update({
-            id: nextRound.data.id,
-          });
-          
-        } else {
-          console.log("Unable to generate AI answer to prompt:", aiModelName, errors);
-          return;
+        if (errors) {
+          console.log("Errors from model:", aiModelName, errors);
         }
+
+        let formattedAnswer;
+        if (!data){
+          console.log("Model returned badly formatted response", aiModelName);
+          formattedAnswer = genericResponse 
+        }
+        else{
+          let normalisedAnswer = NormaliseAnswer(data)
+          formattedAnswer = normalisedAnswer === '' ? genericResponse : normalisedAnswer;
+        }
+
+        await client.models.Answer.create({
+          roundId: nextRound.data.id,
+          participantId: aiParticipant.data.id,
+          text: formattedAnswer,
+          isAiAnswer: true
+        });
+
+        await client.models.Round.update({
+          id: nextRound.data.id,
+        });
       }
     }
+  
     
     // Trigger initial update to notify other subs
     await client.models.Lobby.update({
@@ -299,7 +314,7 @@ export default function App() {
         isHost: false
       });
 
-      setCurrentLobby(lobby); // This will start the lobby subscription
+      setCurrentLobby(lobby);
     
       // Trigger update to notify other clients
       await client.models.Lobby.update({
@@ -316,9 +331,22 @@ export default function App() {
           await client.models.Lobby.delete({ id: currentLobby.id });
         }
       }
-      setCurrentLobby(null);
-      setGameMode(null);
+      resetState();
     }
+  }
+
+  function resetState(){
+    setUsername('');
+    setLobbyCode('');
+    setUserAnswer('');
+    setGameMode(null);
+    setIsNameEntered(false);
+    setCurrentLobby(null);
+    setParticipants([]);
+    setCurrentRound(null);
+    setCurrentPrompt(null);
+    setCurrentVotes([]);
+    setCurrentAnswers([]);
   }
 
   async function transitionToRound(round: number){
@@ -352,16 +380,26 @@ export default function App() {
       return;
     }
 
+    if (!currentRound) {
+      console.log("Cannot transition to voting if not in a round")
+      return;
+    }
+
+    if (currentRound.status != ROUND_STATUSES.ANSWERING){
+      console.log("Cannot transition to voting if not answering")
+      return;
+    }
+
     // Update round status
     await client.models.Round.update({
-      id: currentRound?.id!,
+      id: currentRound.id,
       status: ROUND_STATUSES.VOTING
     })
 
     // Update lobby
-    await client.models.Lobby.update({
-      id: currentLobby.id,
-    })
+    // await client.models.Lobby.update({
+    //   id: currentLobby.id,
+    // })
   }
 
   async function transitionToSinglePlayerVoting(allAnswers: Schema["Answer"]["type"][]){
@@ -375,7 +413,7 @@ export default function App() {
       return;
     }
 
-    var prompt = (await currentRound.prompt()).data;
+    let prompt = (await currentRound.prompt()).data;
 
     if (!prompt?.text) {
       console.log("Cannot transition to voting if there is no prompt")
@@ -395,11 +433,12 @@ export default function App() {
 
     const aiParticipants = participants.filter(x => x.isAiParticipant);
     const stringsToFind = ["1", "2", "3"]
+
     for (let i=0; i<aiParticipants.length; i++){
       let aiParti = aiParticipants[i];
       let filteredAnswers = allAnswers.filter(x => x.text != null && x.participantId != aiParti.id);
 
-      const formattedAnswersPrompt = filteredAnswers
+      let formattedAnswersPrompt = filteredAnswers
         .map((answer, index) => `(${index + 1}) ${NormaliseAnswer(answer.text!)}`).join('\n');
       
       let { data, errors } = await client.queries.PickHumanResponse({
@@ -408,28 +447,27 @@ export default function App() {
         model: aiParti.userId!
       });
 
-      if (!errors && data) {
-        const found = stringsToFind.find(num => data.includes(num));
-    
-        // If found, convert to number, otherwise return null
-        var chosenAnswer = found ? parseInt(found) : null;
-
-        if (chosenAnswer == null){
-          console.log("AI voter did not response correctly", data)
-        }
-
-        // Create vote
-        await client.models.Vote.create({
-          roundId: currentRound?.id!,
-          participantId: aiParti.id,
-          answerId: filteredAnswers[(chosenAnswer ?? 1) - 1].id
-        });
-
-      } else {
-        console.log("Unable to generate AI vote for answer", errors);
-        return;
+      if (errors) {
+        console.log("Errors from model:", aiParti.username, errors);
       }
 
+      data = data == null ? "1" : data
+
+      let found = stringsToFind.find(num => data.includes(num));
+    
+      // If found, convert to number, otherwise return null
+      let chosenAnswer = found ? parseInt(found) : null;
+
+      if (chosenAnswer == null){
+        console.log("AI voter did not respond correctly", data)
+      }
+
+      // Create vote
+      await client.models.Vote.create({
+        roundId: currentRound?.id!,
+        participantId: aiParti.id,
+        answerId: filteredAnswers[(chosenAnswer ?? 1) - 1].id
+      });
     }
 
     await client.models.Round.update({
@@ -441,7 +479,6 @@ export default function App() {
     await client.models.Lobby.update({
       id: currentLobby.id,
     })
-
   }
 
   async function transitionToMultiPlayerScoring(){
@@ -453,6 +490,9 @@ export default function App() {
     if (currentRound == null){
       console.log("Cannot transition to scoring if not in a round")
       return;
+    }
+    if (currentRound.status != ROUND_STATUSES.VOTING){
+      console.log("Cannot transition to scoring if not in voting stage", currentRound.status)
     }
 
     const updatedParticipants = [...participants]; // Create a new array to track score updates
@@ -469,7 +509,7 @@ export default function App() {
       if (answerVotedFor){
         if (answerVotedFor.isAiAnswer){
           // Award voter
-          const voter = updatedParticipants.find(p => p.id === vote.participantId);
+          let voter = updatedParticipants.find(p => p.id === vote.participantId);
           if (voter){
             voter.score = (voter.score ?? 0) + scoreIncrementVoter
           }
@@ -487,7 +527,7 @@ export default function App() {
             }
 
             // Award Answer Creator
-            const answerCreator = updatedParticipants.find(p => p.id === answerVotedFor.participantId);
+            let answerCreator = updatedParticipants.find(p => p.id === answerVotedFor.participantId);
             if (answerCreator){
               answerCreator.score = (answerCreator.score ?? 0) + scoreIncrementAnswerCreator
             }
@@ -518,7 +558,6 @@ export default function App() {
     await client.models.Lobby.update({
       id: currentLobby.id,
     })
-
   }
 
   async function transitionToSinglePlayerScoring(){
@@ -542,11 +581,11 @@ export default function App() {
     }
 
     for (const vote of votes){
-      const answerVotedFor = (await vote.answer()).data;
+      let answerVotedFor = (await vote.answer()).data;
       if (answerVotedFor){
         if (!answerVotedFor.isAiAnswer){
           // Ai voted for human answer
-          const voter = updatedParticipants.find(p => p.id === vote.participantId);
+          let voter = updatedParticipants.find(p => p.id === vote.participantId);
           if (voter){
             voter.score = (voter.score ?? 0) + scoreIncrementVoter
           }
@@ -555,12 +594,21 @@ export default function App() {
           }
         }
         else{
-            // AI voted for AI answer, reward human
+            // AI voted for AI answer, reward human and answer creator
             if (humanParticipant){
               humanParticipant.score = (humanParticipant.score ?? 0) + (scoreIncrementAI)
             }
             else{
               console.log("No AI participant found")
+            }
+
+            // Award Answer Creator
+            let answerCreator = updatedParticipants.find(p => p.id === answerVotedFor.participantId);
+            if (answerCreator){
+              answerCreator.score = (answerCreator.score ?? 0) + scoreIncrementAnswerCreator
+            }
+            else{
+              console.log("No answer creator found for answer", answerVotedFor)
             }
         }
       }

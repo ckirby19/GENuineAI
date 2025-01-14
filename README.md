@@ -13,7 +13,7 @@ The game is built using React and AWS Amplify, providing a seamless and interact
 │   │  └── resource.ts
 │   ├── data/
 │   │  ├── pickHumanResponseHandler.tsx
-│   │  ├── promptReponseHandler.tsx
+│   │  ├── promptResponseHandler.tsx
 │   │  └── resource.ts
 │   ├── storage/
 │   │  └── resource.ts

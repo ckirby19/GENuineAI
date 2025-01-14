@@ -114,8 +114,8 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               <span>Votes: {voterUsernames.join(", ") || "No votes"}</span>
                               {revealStage >= 3 &&
                               VotersGetScore() && (
-                                <span className="ml-2 text-[hsl(var(--neon-green))]">
-                                  +{scoreIncrementVoter} points
+                                <span className="ml-2 text-sm text-[hsl(var(--neon-green))]">
+                                  +{scoreIncrementVoter}
                                 </span>
                               )}
                             </motion.div>
@@ -129,12 +129,12 @@ export const AnswerVoteRevealPage = (props: Props) => {
                               className="flex items-center space-x-2"
                             >
                               <User className="w-5 h-5 text-[hsl(var(--neon-green))]" />
-                              <span>Submitted by: {currentAnswerSubmitter?.username}</span>
+                              <span>Submitter: {currentAnswerSubmitter?.username}</span>
                               {currentAnswer.isAiAnswer && <Brain className="w-5 h-5 ml-2 text-[hsl(var(--neon-purple))]" />}
                               {revealStage >= 3 &&
                               AnswerCreatorGetsScore() && (
-                                <span className="ml-2 text-[hsl(var(--neon-green))]">
-                                  +{scoreIncrementAnswerCreator * voterUsernames.length} points
+                                <span className="ml-2 text-sm text-[hsl(var(--neon-green))]">
+                                  +{scoreIncrementAnswerCreator * voterUsernames.length}
                                 </span>
                               )}
                             </motion.div>

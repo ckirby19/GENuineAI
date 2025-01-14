@@ -36,13 +36,6 @@ export const AnswerEntryPage = (props: Props) => {
                 text: props.userAnswer
               });
 
-              await client.models.Round.update({
-                id: props.currentRound.id
-              });
-
-              await client.models.Lobby.update({
-                id: props.currentLobby.id
-              });
             }
           }        
         } catch (error) {

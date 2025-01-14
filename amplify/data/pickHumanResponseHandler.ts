@@ -1,4 +1,5 @@
 import { type Schema } from "./resource";
+import { rateLimitedBedrockCall } from "./rateLimiter";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -80,7 +81,7 @@ async function extractResponseFromMistralModel(
         modelId: model,
     });
 
-    const response = await client.send(command);
+    const response = await rateLimitedBedrockCall(() => client.send(command))
     
     const data = JSON.parse(Buffer.from(response.body).toString());
 
@@ -125,7 +126,7 @@ async function extractResponseFromAmazonModel(
         modelId: model,
     });
 
-    const response = await client.send(command);
+    const response = await rateLimitedBedrockCall(() => client.send(command))
     
     const data = JSON.parse(Buffer.from(response.body).toString());
 
@@ -177,7 +178,7 @@ async function extractResponseFromAnthropicModel(
 
     const command = new InvokeModelCommand(input);
 
-    const response = await client.send(command);
+    const response = await rateLimitedBedrockCall(() => client.send(command))
     
     const data = JSON.parse(Buffer.from(response.body).toString());
 

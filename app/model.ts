@@ -21,7 +21,7 @@ export const ROUND_STATUSES = {
   
 export type RoundStatus = typeof ROUND_STATUSES[keyof typeof ROUND_STATUSES];
 
-export const numberOfRounds = 5;
+export const numberOfRounds = 3;
 export const numberOfStoredPrompts = 402;
 
 export const scoreIncrementVoter = 100;

@@ -41,22 +41,6 @@ export const VotingPage = (props: Props) => {
                 console.error("Failed to create vote:", vote.errors);
                 return;
               }
-
-              await client.models.Round.update({
-                id: props.currentRound.id
-              })
-              
-              await client.models.Participant.update({
-                id: currentParticipant.id
-              })
-
-              await client.models.Answer.update({
-                id: answer.id
-              })
-
-              await client.models.Lobby.update({
-                id: props.currentLobby.id
-              })
             }
         }
       }
