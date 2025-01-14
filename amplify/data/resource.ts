@@ -12,7 +12,7 @@ export const generatePromptResponse = defineFunction({
 });
 
 export const pickHumanResponse = defineFunction({
-  entry: "./pickHumanReponseHandler.ts",
+  entry: "./pickHumanResponseHandler.ts",
   timeoutSeconds: 30,
   memoryMB: 1024
 });
